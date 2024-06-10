@@ -71,6 +71,7 @@ jobs:
           script: |
             sudo docker stop frontend || true
             sudo docker rm frontend || true
+            sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/ggumtle-frontend
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ggumtle-frontend
             sudo docker run --name frontend -d \
             -p 5173:5173 \
@@ -92,6 +93,7 @@ jobs:
           script: |
             sudo docker stop backend || true
             sudo docker rm backend || true
+            sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/ggumtle-backend
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ggumtle-backend
             sudo docker run --name backend -d \
             -p 8081:8081 \
