@@ -41,8 +41,8 @@ jobs:
 
       - name: Create application.properties
         run: |
-          echo "${{ secrets.APP_PROPERTIES_PROD }}" >> src/main/resources/application-prod.properties
-          echo "${{ secrets.APP_PROPERTIES }}" >> src/main/resources/application.properties
+          echo "${{ secrets.APP_PROPERTIES_PROD }}" >> backend/src/main/resources/application-prod.properties
+          echo "${{ secrets.APP_PROPERTIES }}" >> backend/src/main/resources/application.properties
 
           
       - name: Log in to Docker Hub
