@@ -102,7 +102,7 @@ function App() {
 		<ThemeProvider theme={theme}>
 			<ToastContainer position="top-center" />
 			<RouterProvider router={router} />
-			{/* <ReactQueryDevtools /> */}
+			<ReactQueryDevtools />
 		</ThemeProvider>
 	)
 }
