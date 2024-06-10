@@ -69,15 +69,15 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker stop frontend || true
-            docker rm frontend || true
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ggumtle-frontend
-            docker run --name frontend -d \
+            sudo docker stop frontend || true
+            sudo docker rm frontend || true
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ggumtle-frontend
+            sudo docker run --name frontend -d \
             -p 5173:5173 \
             --network=bridge \
             --restart unless-stopped \
             ${{ secrets.DOCKERHUB_USERNAME }}/ggumtle-frontend
-            docker container prune -f
+            sudo docker container prune -f
 
   deploy-backend:
     needs: build-and-push-backend
@@ -90,12 +90,12 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker stop backend || true
-            docker rm backend || true
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ggumtle-backend
-            docker run --name backend -d \
+            sudo docker stop backend || true
+            sudo docker rm backend || true
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ggumtle-backend
+            sudo docker run --name backend -d \
             -p 8081:8081 \
             --network=bridge \
             --restart unless-stopped \
             ${{ secrets.DOCKERHUB_USERNAME }}/ggumtle-backend
-            docker container prune -f
+            sudo docker container prune -f
