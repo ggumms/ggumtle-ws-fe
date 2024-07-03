@@ -1,4 +1,4 @@
-import ProfileBucket from '../../../../components/ProfileBucket'
+import ProfileBucket from '../../../../component/ProfileBucket'
 import { ColorType } from '../../../../interfaces'
 import BucketInfoSkeleton from './Skeleton/BucketInfoSkeleton'
 

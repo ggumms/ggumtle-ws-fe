@@ -1,8 +1,8 @@
-import { useBucketStore } from '../store/bucketStore'
-import { isCategoryType } from '../utils/typeFilter'
+import { useBucketStore } from '../stores/bucketStore'
+import { isCategoryType } from '../utilities/utils/typeFilter'
 import { CategoryDataType, CategoryType } from '../interfaces'
 
-import { bgColorClass, textColorClass, borderColorClass } from '../constants/dynamicClass'
+import { bgColorClass, textColorClass, borderColorClass } from '../utilities/constants/dynamicClass'
 import { HiPlusSm } from 'react-icons/hi'
 import { FaCheck } from 'react-icons/fa6'
 

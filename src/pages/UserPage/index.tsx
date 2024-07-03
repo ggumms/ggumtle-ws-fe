@@ -1,6 +1,6 @@
-import Header from '../../components/Header'
+import Header from '../../component/Header'
 import { IMenu, IMenuFunc } from '../../interfaces'
-import { icons } from '../../constants/header-icons'
+import { icons } from '../../utilities/constants/header-icons'
 import { To, useNavigate } from 'react-router-dom'
 import ProfileSection from './components/ProfileSection'
 import FeedSection from './components/FeedSection'
@@ -21,7 +21,7 @@ const UserPage = ({ userId, isForRadar }: UserPageProp) => {
 	}
 
 	const func: IMenuFunc = {
-		left_func: () => navigate(-1 as To, {replace: true}),
+		left_func: () => navigate(-1 as To, { replace: true }),
 		right_func: undefined,
 	}
 

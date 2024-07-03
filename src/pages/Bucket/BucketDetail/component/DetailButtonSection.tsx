@@ -1,4 +1,4 @@
-import ShareButton from '../../../../components/ShareButton'
+import ShareButton from '../../../../component/ShareButton'
 import AchieveDreamButton from './AcheiveDreamButton'
 import ShowReviewButton from './ShowReviewButton'
 import WriteReviewButton from './WriteReviewButton'

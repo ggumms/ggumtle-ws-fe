@@ -1,7 +1,7 @@
 import { categoryData } from './category'
-import { CategoryType, ColorType, IMyUserInfo, IOtherUserInfo, PeriodType } from '../interfaces'
-import { IProfileUserInfo } from './../interfaces'
-import { ReactionType } from '../types/bucket'
+import { CategoryType, ColorType, IMyUserInfo, IOtherUserInfo, PeriodType } from '../../interfaces'
+import { IProfileUserInfo } from '../../interfaces'
+import { ReactionType } from '../../types/bucket'
 
 // :: User
 export const isCommentUserType = (

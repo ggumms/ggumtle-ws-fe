@@ -3,7 +3,7 @@ import { BucketInfoProps } from '../interfaces'
 import { IoCheckbox } from 'react-icons/io5'
 import { Skeleton } from '@mui/material'
 import Ggumtle from './Ggumtle'
-import { textColorClass } from '../constants/dynamicClass'
+import { textColorClass } from '../utilities/constants/dynamicClass'
 
 export interface IProfileBucketStyle {
 	titleText: string

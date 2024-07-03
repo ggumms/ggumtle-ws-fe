@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
-import MultiPageLayout from '../../../components/layout/MutiPageLayout/MultiPageLayout'
+import MultiPageLayout from '../../../component/layout/MutiPageLayout/MultiPageLayout'
 import { addBucketHeaderList } from '../../../router'
-import { useBucketStore } from '../../../store/bucketStore'
-import { icons } from './../../../constants/header-icons'
+import { useBucketStore } from '../../../stores/bucketStore'
+import { icons } from '../../../utilities/constants/header-icons'
 import { IMenu, IMenuFunc } from '../../../interfaces'
 import { useRouter } from '../../../hooks/useRouter'
-import WithHeaderLayout from '../../../components/layout/WithHeaderLayout'
+import WithHeaderLayout from '../../../component/layout/WithHeaderLayout'
 
 const AddBucket = () => {
 	const { resetCategory, resetBucketColor } = useBucketStore()

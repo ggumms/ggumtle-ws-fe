@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useSearchUserStore } from '../../store/searchUserStore'
+import { useSearchUserStore } from '../../stores/searchUserStore'
 import SearchUserItem from './components/SearchUserItem'
 import LoadingUser from './components/skeleton/LoadingUser'
 import SearchBar from './components/SearchBar'
@@ -38,11 +38,11 @@ const UserSearch = () => {
 		<div className="w-full pt-24">
 			<SearchBar input={input} setInput={setInput} onClickHandler={handleInputChange} />
 			<section className="flex flex-col px-4">
-				{searching ? (
-					userList.map(() => <LoadingUser /> )
-				) : userList.length ? (
-					userList.map((user) => <SearchUserItem user={user} key={user.userId} />)
-				) : null}
+				{searching
+					? userList.map(() => <LoadingUser />)
+					: userList.length
+						? userList.map((user) => <SearchUserItem user={user} key={user.userId} />)
+						: null}
 			</section>
 		</div>
 	)

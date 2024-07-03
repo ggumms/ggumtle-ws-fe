@@ -1,11 +1,11 @@
 import { Link, useParams } from 'react-router-dom'
-import ShareButton from '../../components/ShareButton'
+import ShareButton from '../../component/ShareButton'
 import WriteReviewButton from './BucketDetail/component/WriteReviewButton'
 import { useRouter } from '../../hooks/useRouter'
 import { Congratulation } from '../../assets/svgs'
 import useFetchBucket from '../../hooks/useFetchBucket'
-import { halfBgColorClass, textColorClass } from '../../constants/dynamicClass'
-import { useCurrentUserStore } from '../../store/currentUserStore'
+import { halfBgColorClass, textColorClass } from '../../utilities/constants/dynamicClass'
+import { useCurrentUserStore } from '../../stores/currentUserStore'
 
 const CongratulateBucket = () => {
 	const { userInfo } = useCurrentUserStore()

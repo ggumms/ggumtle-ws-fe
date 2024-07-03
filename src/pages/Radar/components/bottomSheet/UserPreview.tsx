@@ -1,8 +1,8 @@
-import InterestTag from '../../../../components/InterestTag'
-import ProfileBucket from '../../../../components/ProfileBucket'
+import InterestTag from '../../../../component/InterestTag'
+import ProfileBucket from '../../../../component/ProfileBucket'
 import { Skeleton } from '@mui/material'
 import { useUserInfoQuery } from '../../../../hooks/useUserInfo'
-import { randomProfile } from '../../../../constants/randomProfile'
+import { randomProfile } from '../../../../utilities/constants/randomProfile'
 
 const UserPreview = ({ userId }: { userId: number }) => {
 	const { isLoading, userInfo } = useUserInfoQuery(userId)

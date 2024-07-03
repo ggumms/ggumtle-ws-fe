@@ -1,9 +1,9 @@
 import { IoCheckbox } from 'react-icons/io5'
-import { textColorClass } from '../../../constants/dynamicClass'
+import { textColorClass } from '../../../utilities/constants/dynamicClass'
 import FeedShare from '../../UserPage/utils/FeedShare'
 import TotalReaction from '../../UserPage/components/FeedSection/TotalReaction'
 import TotalComment from '../../UserPage/components/FeedSection/TotalComment'
-import { IReviewSearch } from '../../../store/searchReviewStore'
+import { IReviewSearch } from '../../../stores/searchReviewStore'
 import { Link } from 'react-router-dom'
 
 const SearchReviewItem = ({ review }: { review: IReviewSearch }) => {

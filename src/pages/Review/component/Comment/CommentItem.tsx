@@ -3,10 +3,10 @@ import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react'
 import CommentMoreButton from './CommentMoreButton'
 import LikeButton from './LikeButton'
 import { ICommentItem, TimeUnitType } from '../../../../interfaces'
-import { useCurrentUserStore } from '../../../../store/currentUserStore'
-import { useDetailPageTypeStore, useDetailReviewStore } from '../../../../store/detailStore'
+import { useCurrentUserStore } from '../../../../stores/currentUserStore'
+import { useDetailPageTypeStore, useDetailReviewStore } from '../../../../stores/detailStore'
 import { putReviewComment } from '../../api'
-import UserProfile from '../../../../components/UserProfile/UserProfile'
+import UserProfile from '../../../../component/UserProfile/UserProfile'
 
 const getTime = (time: number, timeUnit: TimeUnitType): string => {
 	switch (timeUnit) {

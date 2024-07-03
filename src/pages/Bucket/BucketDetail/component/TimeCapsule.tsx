@@ -1,4 +1,4 @@
-import { halfBgColorClass } from '../../../../constants/dynamicClass'
+import { halfBgColorClass } from '../../../../utilities/constants/dynamicClass'
 import { IBucketInfo } from '../../../../interfaces'
 interface ITimecapsuleProps {
 	bucketInfo: IBucketInfo

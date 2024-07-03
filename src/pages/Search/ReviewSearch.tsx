@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useSearchReviewStore } from '../../store/searchReviewStore'
+import { useSearchReviewStore } from '../../stores/searchReviewStore'
 import SearchReviewItem from './components/SearchReviewItem'
 import { useSearchReview } from '../../hooks/searchHooks'
 import SearchBar from './components/SearchBar'
@@ -41,11 +41,11 @@ const ReviewSearch = () => {
 		<div className="w-full pt-24">
 			<SearchBar input={input} setInput={setInput} onClickHandler={handleInputChange} />
 			<section className="bg-lightGray flex flex-col gap-2">
-				{searching ? (
-					reviewList.map(() => <LoadingReview />)
-				) : reviewList.length ? (
-					reviewList.map((review) => <SearchReviewItem review={review} key={review.reviewId} />)
-				) : null}
+				{searching
+					? reviewList.map(() => <LoadingReview />)
+					: reviewList.length
+						? reviewList.map((review) => <SearchReviewItem review={review} key={review.reviewId} />)
+						: null}
 			</section>
 		</div>
 	)

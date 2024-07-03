@@ -1,8 +1,8 @@
 import { ChangeEvent, KeyboardEvent, useRef } from 'react'
-import { useCommentStore } from '../../../../../store/detailStore'
+import { useCommentStore } from '../../../../../stores/detailStore'
 import { postBucketComment } from '../../api'
 import { useQueryClient } from '@tanstack/react-query'
-import { useCurrentUserStore } from '../../../../../store/currentUserStore'
+import { useCurrentUserStore } from '../../../../../stores/currentUserStore'
 import { Skeleton } from '@mui/material'
 
 interface ICommentInput {

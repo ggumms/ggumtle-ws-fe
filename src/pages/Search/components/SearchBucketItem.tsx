@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import InterestTag from '../../../components/InterestTag'
-import ProfileBucket from '../../../components/ProfileBucket'
-import { IBucketSearch } from '../../../store/searchBucketStore'
+import InterestTag from '../../../component/InterestTag'
+import ProfileBucket from '../../../component/ProfileBucket'
+import { IBucketSearch } from '../../../stores/searchBucketStore'
 import TotalComment from '../../UserPage/components/FeedSection/TotalComment'
 import TotalReaction from '../../UserPage/components/FeedSection/TotalReaction'
 import FeedShare from '../../UserPage/utils/FeedShare'
 
-const SearchBucketItem = ({bucket}: {bucket: IBucketSearch}) => {
+const SearchBucketItem = ({ bucket }: { bucket: IBucketSearch }) => {
 	return (
 		<Link to={`/bucket/${bucket.bucketId}`} className="bg-white px-5 py-2 flex flex-col gap-1">
 			<ProfileBucket /* 버킷 정보 */

@@ -1,6 +1,6 @@
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
-import Header from '../../components/Header'
-import { icons } from '../../constants/header-icons'
+import Header from '../../component/Header'
+import { icons } from '../../utilities/constants/header-icons'
 import { IMenu, IMenuFunc } from '../../interfaces'
 import FollowNavHeader from './components/FollowNavHeader'
 import { followHeaderList } from '../../router'
@@ -18,7 +18,7 @@ const FollowDetail = () => {
 	}
 
 	const func: IMenuFunc = {
-		left_func: () => navigate(`/mypage`, {replace: true}),
+		left_func: () => navigate(`/mypage`, { replace: true }),
 		right_func: undefined,
 	}
 	return (

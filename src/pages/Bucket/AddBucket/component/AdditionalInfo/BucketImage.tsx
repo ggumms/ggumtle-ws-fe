@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { checkFileIsValidImage, checkFileSizeIsValid } from '../../../../../utils/image'
+import { checkFileIsValidImage, checkFileSizeIsValid } from '../../../../../utilities/utils/image'
 import { Picture } from '../../../../../assets/svgs'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { IoCloseSharp } from 'react-icons/io5'
-import { useBucketStore } from '../../../../../store/bucketStore'
+import { useBucketStore } from '../../../../../stores/bucketStore'
 
 // image는 나중에 submit할 때 Post하기
 const BucketImage = () => {

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { bgColorClass } from '../constants/dynamicClass'
+import { bgColorClass } from '../utilities/constants/dynamicClass'
 import { useRouter } from '../hooks/useRouter'
 
 interface NavigateButtonProps {

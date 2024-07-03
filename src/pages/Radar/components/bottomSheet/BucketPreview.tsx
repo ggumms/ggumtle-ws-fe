@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import InterestTag from '../../../../components/InterestTag'
-import ProfileBucket from '../../../../components/ProfileBucket'
+import InterestTag from '../../../../component/InterestTag'
+import ProfileBucket from '../../../../component/ProfileBucket'
 import { CategoryType, ColorType } from '../../../../interfaces'
 import { getBucketPreview } from '../../api'
 import { Skeleton } from '@mui/material'
@@ -38,11 +38,7 @@ const BucketPreview = ({ bucketId }: { bucketId: number }) => {
 				) : (
 					bucketInfo && (
 						<div className="w-16 h-16 rounded-2xl overflow-hidden">
-							<img
-								src={bucketInfo.bucketPicture}
-								alt=""
-								className="w-full h-full object-cover"
-							/>
+							<img src={bucketInfo.bucketPicture} alt="" className="w-full h-full object-cover" />
 						</div>
 					)
 				)}

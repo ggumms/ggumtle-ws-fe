@@ -1,6 +1,6 @@
 import { GoCheckCircleFill } from 'react-icons/go'
 import { GoCheckCircle } from 'react-icons/go'
-import { useBucketStore } from '../../../../../store/bucketStore'
+import { useBucketStore } from '../../../../../stores/bucketStore'
 
 const Private = () => {
 	const { isPrivate, changeIsPrivate } = useBucketStore()

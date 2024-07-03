@@ -1,4 +1,4 @@
-import PageDescription from '../../../../../components/PageDescription'
+import PageDescription from '../../../../../component/PageDescription'
 import BucketImage from './BucketImage'
 import StartDate from './StartDate'
 import RemindPeriod from './RemindPeriod'

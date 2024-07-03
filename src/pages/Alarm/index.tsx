@@ -1,8 +1,8 @@
 // @TODO: 페이지 전환 애니메이션 추가하기
 
 import { useNavigate } from 'react-router-dom'
-import Header from '../../components/Header'
-import { icons } from '../../constants/header-icons'
+import Header from '../../component/Header'
+import { icons } from '../../utilities/constants/header-icons'
 import { IMenu, IMenuFunc } from '../../interfaces'
 import Button from '@mui/material/Button'
 import AlarmItem from './AlarmItem'
@@ -25,22 +25,21 @@ const AlarmPage = () => {
 	}
 
 	const func: IMenuFunc = {
-		left_func: () => navigate("/"),
+		left_func: () => navigate('/'),
 		right_func: undefined,
 	}
 
-	const deleteAllAlarms = async() => {
+	const deleteAllAlarms = async () => {
 		await mutation.mutate(undefined, {
 			onSuccess: () => {
 				console.log('success')
-					setReadAll(prev => !prev);
-				
-			}
-	});
+				setReadAll((prev) => !prev)
+			},
+		})
 	}
 
 	useEffect(() => {
-		console.log("다 읽음", readAll)
+		console.log('다 읽음', readAll)
 	}, [readAll])
 
 	return (

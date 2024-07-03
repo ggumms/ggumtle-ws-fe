@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { UserInfoType } from '../../interfaces'
 
-import { fillColorClass, textColorClass } from '../../constants/dynamicClass'
+import { fillColorClass, textColorClass } from '../../utilities/constants/dynamicClass'
 import {
 	DummyUser1,
 	DummyUser2,

@@ -1,6 +1,6 @@
 import { DummyUser1 } from '../../../../assets/svgs'
-import InterestTag from '../../../../components/InterestTag'
-import ProfileBucket from '../../../../components/ProfileBucket'
+import InterestTag from '../../../../component/InterestTag'
+import ProfileBucket from '../../../../component/ProfileBucket'
 import { CategoryType, UserInfoType } from '../../../../interfaces'
 import FollowButtons from '../ProfileSection/FollowButtons'
 import NumInfo from '../ProfileSection/NumInfo'

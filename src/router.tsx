@@ -18,7 +18,7 @@ import CategoryInfo from './pages/Bucket/AddBucket/component/CategoryInfo/Catego
 import AdditionalInfo from './pages/Bucket/AddBucket/component/AdditionalInfo'
 import { MultiPageHeaderInfo } from './types/router'
 import NotFoundPage from './pages/NotfoundPage'
-import ValidateTokenLayout from './components/layout/ValidateTokenLayout'
+import ValidateTokenLayout from './component/layout/ValidateTokenLayout'
 import WriteReview from './pages/Review/WriteReview'
 import FollowDetail from './pages/follow'
 import FollowerDetail from './pages/follow/FollowerDetail'

@@ -5,7 +5,7 @@ import {
 	DummyUser4,
 	DummyUser5,
 	DummyUser6,
-} from '../assets/svgs'
+} from '../../assets/svgs'
 
 export const randomProfile = [
 	<DummyUser1 className="w-16 h-16" />,

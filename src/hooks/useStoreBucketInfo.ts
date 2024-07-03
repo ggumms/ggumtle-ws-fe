@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useDetailBucketStore } from '../store/detailStore'
+import { useDetailBucketStore } from '../stores/detailStore'
 import { IBucketInfo } from '../interfaces'
 
 const useStoreBucketInfo = (bucketInfo: IBucketInfo | undefined) => {

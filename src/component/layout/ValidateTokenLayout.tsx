@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from 'react'
 import { getMyInfo } from '../../api'
-import { useCurrentUserStore } from '../../store/currentUserStore'
+import { useCurrentUserStore } from '../../stores/currentUserStore'
 import { useRouter } from '../../hooks/useRouter'
 
 interface IValidateTokenLayoutProps {

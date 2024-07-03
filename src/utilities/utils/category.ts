@@ -1,4 +1,4 @@
-import { CategoryDataType, CategoryType, selectedInfoType } from '../interfaces'
+import { CategoryDataType, CategoryType, selectedInfoType } from '../../interfaces'
 import { isCategoryType } from './typeFilter'
 
 // Todo : Enum으로 수정해서 적용해보기

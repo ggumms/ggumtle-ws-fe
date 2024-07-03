@@ -1,7 +1,7 @@
-import { categoryData } from '../../../utils/category'
-import { isCategoryType } from '../../../utils/typeFilter'
-import { useRadarCategoryStore } from '../../../store/radarCategoryStore'
-import { bgColorClass, borderColorClass } from '../../../constants/dynamicClass'
+import { categoryData } from '../../../utilities/utils/category'
+import { isCategoryType } from '../../../utilities/utils/typeFilter'
+import { useRadarCategoryStore } from '../../../stores/radarCategoryStore'
+import { bgColorClass, borderColorClass } from '../../../utilities/constants/dynamicClass'
 import { CategoryType } from '../../../interfaces'
 
 const RadarCategoryItems = () => {

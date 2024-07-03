@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom'
 import { IMenu, IMenuFunc } from '../../interfaces'
-import { icons } from '../../constants/header-icons'
-import Header from '../../components/Header'
+import { icons } from '../../utilities/constants/header-icons'
+import Header from '../../component/Header'
 import { searchHeaderList } from '../../router'
 import SearchNavHeader from './components/SearchNavHeader'
 
@@ -15,7 +15,7 @@ const SearchPage = () => {
 	}
 
 	const func: IMenuFunc = {
-		left_func: () => navigate("/"),
+		left_func: () => navigate('/'),
 		right_func: undefined,
 	}
 

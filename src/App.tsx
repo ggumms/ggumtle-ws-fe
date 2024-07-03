@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify'
 import Toast from './pages/Alarm/Toast'
 import 'react-toastify/dist/ReactToastify.css'
 import Desc from './pages/Alarm/Desc'
-import { AlarmMainMSG } from './constants/alarmMessage'
+import { AlarmMainMSG } from './utilities/constants/alarmMessage'
 import { IAlarm, TimeUnitType } from './pages/Alarm/alarm'
 
 function App() {

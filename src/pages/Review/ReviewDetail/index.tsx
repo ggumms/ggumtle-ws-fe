@@ -3,9 +3,9 @@ import { useParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 
 import ReviewMoreButton from '../component/ReviewMoreButton'
-import WithHeaderLayout from '../../../components/layout/WithHeaderLayout'
+import WithHeaderLayout from '../../../component/layout/WithHeaderLayout'
 import ReviewBucket from '../component/ReviewBucket'
-import UserProfile from '../../../components/UserProfile/UserProfile'
+import UserProfile from '../../../component/UserProfile/UserProfile'
 import ShareButton from '../component/ShareButton'
 import Reaction from '../component/Reaction'
 import CommentList from '../component/Comment/CommentList'
@@ -13,14 +13,14 @@ import CommentInput from '../component/Comment/CommentInput'
 import InterestTag from '../component/InterestTag'
 
 import { useRouter } from '../../../hooks/useRouter'
-import { useDetailReviewStore } from '../../../store/detailStore'
+import { useDetailReviewStore } from '../../../stores/detailStore'
 import { getReviewDetailQuery } from '../api'
 
 import { IReviewDetail } from '../../../types/bucket'
 import { IMenu, IMenuFunc } from '../../../interfaces'
-import { icons } from '../../../constants/header-icons'
+import { icons } from '../../../utilities/constants/header-icons'
 import EditorViewer from '../component/TextEditor/EditorViewer'
-import { useCurrentUserStore } from './../../../store/currentUserStore'
+import { useCurrentUserStore } from '../../../stores/currentUserStore'
 
 const ReviewDetail = () => {
 	const { setDetailReview, resetDetailReview } = useDetailReviewStore()

@@ -11,18 +11,18 @@ const SearchNavHeader = ({ headerData }: { headerData: MultiPageHeaderInfo[] }) 
 	useEffect(() => {
 		// bucket/write/{children}으로 안들어왔을 경우
 		if (selectedIndex === undefined) {
-				setSelectedIndex(0)
-				return
+			setSelectedIndex(0)
+			return
 		}
 	}, [selectedIndex])
 
 	useEffect(() => {
-			headerData.forEach((item, index) => {
-					if (currentPath.includes(item.path)) {
-							console.log(currentPath + ' ' + item.path)
-							setSelectedIndex(index)
-					}
-			})
+		headerData.forEach((item, index) => {
+			if (currentPath.includes(item.path)) {
+				console.log(currentPath + ' ' + item.path)
+				setSelectedIndex(index)
+			}
+		})
 	}, [currentPath])
 
 	return (

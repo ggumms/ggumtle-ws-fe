@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import './Ggumtle.css'
-import { bgColorClass } from '../constants/dynamicClass'
+import { bgColorClass } from '../utilities/constants/dynamicClass'
 
 const DEFAULT_COLOR = 'green'
 const DEFAULT_WIDTH = 14

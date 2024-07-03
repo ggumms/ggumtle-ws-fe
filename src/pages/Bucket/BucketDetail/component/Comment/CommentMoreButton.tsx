@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 import { Menu, Transition } from '@headlessui/react'
 import { AiOutlineMore } from 'react-icons/ai'
 
-import { useDetailPageTypeStore } from '../../../../../store/detailStore'
+import { useDetailPageTypeStore } from '../../../../../stores/detailStore'
 import { deleteBucketComment } from '../../api'
 
 interface ICommentMoreButtonProps {

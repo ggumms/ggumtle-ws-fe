@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useCurrentUserStore } from '../store/currentUserStore'
+import { useCurrentUserStore } from '../stores/currentUserStore'
 import { IBucketInfo } from '../interfaces'
 
 const useIsMyBucket = (bucketInfo: IBucketInfo) => {

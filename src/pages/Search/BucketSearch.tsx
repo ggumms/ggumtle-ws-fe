@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useSearchBucketStore } from '../../store/searchBucketStore'
+import { useSearchBucketStore } from '../../stores/searchBucketStore'
 import SearchBucketItem from './components/SearchBucketItem'
 import { useSearchBucket } from '../../hooks/searchHooks'
 import SearchBar from './components/SearchBar'
@@ -40,11 +40,11 @@ const BucketSearch = () => {
 		<div className="w-full pt-24">
 			<SearchBar input={input} setInput={setInput} onClickHandler={handleInputChange} />
 			<section className="bg-lightGray flex flex-col gap-2">
-				{searching ? (
-					bucketList.map(() => <LoadingBucket /> )
-				) : bucketList.length ? (
-					bucketList.map((bucket) => <SearchBucketItem bucket={bucket} key={bucket.bucketId} />)
-				) : null}
+				{searching
+					? bucketList.map(() => <LoadingBucket />)
+					: bucketList.length
+						? bucketList.map((bucket) => <SearchBucketItem bucket={bucket} key={bucket.bucketId} />)
+						: null}
 			</section>
 		</div>
 	)

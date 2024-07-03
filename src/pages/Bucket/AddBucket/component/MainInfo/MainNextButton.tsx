@@ -1,5 +1,5 @@
-import { useBucketStore } from '../../../../../store/bucketStore'
-import NavigateButton from '../../../../../components/NavigateButton'
+import { useBucketStore } from '../../../../../stores/bucketStore'
+import NavigateButton from '../../../../../component/NavigateButton'
 
 const MainNextButton = () => {
 	const { bucketColor, bucketTitle, timeCapsule } = useBucketStore()

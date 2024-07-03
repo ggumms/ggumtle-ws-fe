@@ -1,7 +1,7 @@
 import { create, SlicePattern, StateCreator } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { ColorType, IBucketInfo, PeriodType } from '../interfaces'
-import { defaultCategories } from '../utils/category'
+import { defaultCategories } from '../utilities/utils/category'
 import { immer } from 'zustand/middleware/immer'
 import { startOfToday } from 'date-fns'
 import {

@@ -1,6 +1,6 @@
-import { bgColorClass } from '../../../../constants/dynamicClass'
+import { bgColorClass } from '../../../../utilities/constants/dynamicClass'
 import { CategoryType } from '../../../../interfaces'
-import { categoryData } from '../../../../utils/category'
+import { categoryData } from '../../../../utilities/utils/category'
 
 const InterestTag = ({ tag }: { tag: CategoryType }) => {
 	const color = categoryData[tag]

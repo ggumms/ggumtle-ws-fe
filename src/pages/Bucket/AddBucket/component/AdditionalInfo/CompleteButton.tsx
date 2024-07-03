@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { IBaseBucketInfo } from '../../../../../interfaces'
-import { useBucketStore } from '../../../../../store/bucketStore'
+import { useBucketStore } from '../../../../../stores/bucketStore'
 import { postBucket, postBucketImage } from '../../api'
-import { formatDate } from './../../../../../utils/date'
-import { getCurrentCategories } from '../../../../../utils/category'
+import { formatDate } from '../../../../../utilities/utils/date'
+import { getCurrentCategories } from '../../../../../utilities/utils/category'
 import { useRouter } from '../../../../../hooks/useRouter'
 import { deleteBucket } from '../../../BucketDetail/api'
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import UserProfile from '../../../components/UserProfile/UserProfile'
+import UserProfile from '../../../component/UserProfile/UserProfile'
 import { UserInfoType } from '../../../interfaces'
 import { updateFollow } from '../../UserPage/api'
 import { useMutation } from '@tanstack/react-query'

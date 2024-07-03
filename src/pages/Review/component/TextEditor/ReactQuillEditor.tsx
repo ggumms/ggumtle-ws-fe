@@ -3,7 +3,7 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './ReactQuill.css'
 import { postReviewImage } from '../../api'
-import { checkFileIsValidImage, checkFileSizeIsValid } from '../../../../utils/image'
+import { checkFileIsValidImage, checkFileSizeIsValid } from '../../../../utilities/utils/image'
 
 interface ReactQuillProps {
 	value: string

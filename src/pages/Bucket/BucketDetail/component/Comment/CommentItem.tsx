@@ -1,13 +1,13 @@
 import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react'
 
-import UserProfile from '../../../../../components/UserProfile/UserProfile'
+import UserProfile from '../../../../../component/UserProfile/UserProfile'
 import CommentMoreButton from './CommentMoreButton'
 import LikeButton from './LikeButton'
 
-import { useDetailBucketStore, useDetailPageTypeStore } from '../../../../../store/detailStore'
+import { useDetailBucketStore, useDetailPageTypeStore } from '../../../../../stores/detailStore'
 import { putBucketComment } from '../../api'
 import { ICommentItem, TimeUnitType } from '../../../../../interfaces'
-import { useCurrentUserStore } from '../../../../../store/currentUserStore'
+import { useCurrentUserStore } from '../../../../../stores/currentUserStore'
 import { useUserInfoQuery } from '../../../../../hooks/useUserInfo'
 
 const getTime = (time: number, timeUnit: TimeUnitType): string => {

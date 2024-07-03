@@ -8,7 +8,7 @@ import { getRadarBuckets, getRadarInitBuckets } from './api'
 import ButtonArea from './components/ButtonArea'
 import BucketBottomSheet from './components/bottomSheet/BucketBottomSheet'
 import useBucketBottomSheet from '../../hooks/useBucketBottomSheet'
-import { useRadarCategoryStore } from '../../store/radarCategoryStore'
+import { useRadarCategoryStore } from '../../stores/radarCategoryStore'
 import BackDots from './components/radar/BackDots'
 import { circle1Pos, circle2Pos, circle3Pos } from './utils/pos'
 import { useMyInfoQuery } from '../../hooks/useMyInfo'
@@ -57,20 +57,29 @@ const AllTab = () => {
 		closePreview()
 	}
 
-	const { isLoading, data: radarBucket, refetch } = useQuery<IRadarBucketList>({
+	const {
+		isLoading,
+		data: radarBucket,
+		refetch,
+	} = useQuery<IRadarBucketList>({
 		queryKey: ['radarBuckets', categories],
 		queryFn: getRadarBuckets,
 	})
 
-	const { isLoading: isMyInfoLoading, data: myInfo} = useMyInfoQuery()
-	
-	const { isLoading: isInitLoading, data: radarInitBucket, refetch: refetchInit, isRefetching: isRefetchingInit } = useQuery<IRadarBucketList>({
+	const { isLoading: isMyInfoLoading, data: myInfo } = useMyInfoQuery()
+
+	const {
+		isLoading: isInitLoading,
+		data: radarInitBucket,
+		refetch: refetchInit,
+		isRefetching: isRefetchingInit,
+	} = useQuery<IRadarBucketList>({
 		queryKey: ['initBuckets'],
 		queryFn: getRadarInitBuckets,
 	})
 
 	const refreshRadar = () => {
-		if(!categories) {
+		if (!categories) {
 			refetchInit()
 		}
 		setBuckets1st([])
@@ -89,66 +98,57 @@ const AllTab = () => {
 		!isInitLoading &&
 			radarInitBucket?.circle1 &&
 			radarInitBucket.circle1.forEach((bucket, index) => {
-				setTimeout(
-					() => {
-						setBuckets1st((prev) => {
-							if(prev.length >= 3) return prev
-							
-							const isUserExist = prev.some((e) => e.bucketId === bucket.bucketId)
+				setTimeout(() => {
+					setBuckets1st((prev) => {
+						if (prev.length >= 3) return prev
 
-							// // 존재하지 않으면 추가
-							if (!isUserExist) {
-								return [...prev, { ...bucket, pos: circle1Pos[idx][index]}]
-							}
-							return prev
-						})
-					},
-					200
-				)
+						const isUserExist = prev.some((e) => e.bucketId === bucket.bucketId)
+
+						// // 존재하지 않으면 추가
+						if (!isUserExist) {
+							return [...prev, { ...bucket, pos: circle1Pos[idx][index] }]
+						}
+						return prev
+					})
+				}, 200)
 			})
 
 		const idx2 = Math.floor(Math.random() * circle2Pos.length)
 		!isInitLoading &&
 			radarInitBucket?.circle2 &&
 			radarInitBucket.circle2.forEach((bucket, index) => {
-				setTimeout(
-					() => {
-						setBuckets2nd((prev) => {
-							if(prev.length >= 4) return prev
-							
-							const isUserExist = prev.some((e) => e.bucketId === bucket.bucketId)
+				setTimeout(() => {
+					setBuckets2nd((prev) => {
+						if (prev.length >= 4) return prev
 
-							// // 존재하지 않으면 추가
-							if (!isUserExist) {
-								return [...prev, { ...bucket, pos: circle2Pos[idx2][index]}]
-							}
-							return prev
-						})
-					},
-					500
-				)
+						const isUserExist = prev.some((e) => e.bucketId === bucket.bucketId)
+
+						// // 존재하지 않으면 추가
+						if (!isUserExist) {
+							return [...prev, { ...bucket, pos: circle2Pos[idx2][index] }]
+						}
+						return prev
+					})
+				}, 500)
 			})
 
 		const idx3 = Math.floor(Math.random() * circle3Pos.length)
 		!isInitLoading &&
 			radarInitBucket?.circle3 &&
 			radarInitBucket.circle3.forEach((bucket, index) => {
-				setTimeout(
-					() => {
-						setBuckets3rd((prev) => {
-							if(prev.length >= 5) return prev
-							
-							const isUserExist = prev.some((e) => e.bucketId === bucket.bucketId)
+				setTimeout(() => {
+					setBuckets3rd((prev) => {
+						if (prev.length >= 5) return prev
 
-							// // 존재하지 않으면 추가
-							if (!isUserExist) {
-								return [...prev, { ...bucket, pos: circle3Pos[idx3][index]}]
-							}
-							return prev
-						})
-					},
-					800
-				)
+						const isUserExist = prev.some((e) => e.bucketId === bucket.bucketId)
+
+						// // 존재하지 않으면 추가
+						if (!isUserExist) {
+							return [...prev, { ...bucket, pos: circle3Pos[idx3][index] }]
+						}
+						return prev
+					})
+				}, 800)
 			})
 	}, [isInitLoading, isRefetchingInit])
 
@@ -159,66 +159,57 @@ const AllTab = () => {
 		!isLoading &&
 			radarBucket?.circle1 &&
 			radarBucket.circle1.forEach((bucket, index) => {
-				setTimeout(
-					() => {
-						setBuckets1st((prev) => {
-							if(prev.length >= 3) return prev
-							
-							const isUserExist = prev.some((e) => e.bucketId === bucket.bucketId)
+				setTimeout(() => {
+					setBuckets1st((prev) => {
+						if (prev.length >= 3) return prev
 
-							// // 존재하지 않으면 추가
-							if (!isUserExist) {
-								return [...prev, { ...bucket, pos: circle1Pos[idx][index]}]
-							}
-							return prev
-						})
-					},
-					200
-				)
+						const isUserExist = prev.some((e) => e.bucketId === bucket.bucketId)
+
+						// // 존재하지 않으면 추가
+						if (!isUserExist) {
+							return [...prev, { ...bucket, pos: circle1Pos[idx][index] }]
+						}
+						return prev
+					})
+				}, 200)
 			})
 
 		const idx2 = Math.floor(Math.random() * circle2Pos.length)
 		!isLoading &&
 			radarBucket?.circle2 &&
 			radarBucket.circle2.forEach((bucket, index) => {
-				setTimeout(
-					() => {
-						setBuckets2nd((prev) => {
-							if(prev.length >= 4) return prev
-							
-							const isUserExist = prev.some((e) => e.bucketId === bucket.bucketId)
+				setTimeout(() => {
+					setBuckets2nd((prev) => {
+						if (prev.length >= 4) return prev
 
-							// // 존재하지 않으면 추가
-							if (!isUserExist) {
-								return [...prev, { ...bucket, pos: circle2Pos[idx2][index]}]
-							}
-							return prev
-						})
-					},
-					500
-				)
+						const isUserExist = prev.some((e) => e.bucketId === bucket.bucketId)
+
+						// // 존재하지 않으면 추가
+						if (!isUserExist) {
+							return [...prev, { ...bucket, pos: circle2Pos[idx2][index] }]
+						}
+						return prev
+					})
+				}, 500)
 			})
 
 		const idx3 = Math.floor(Math.random() * circle3Pos.length)
 		!isLoading &&
 			radarBucket?.circle3 &&
 			radarBucket.circle3.forEach((bucket, index) => {
-				setTimeout(
-					() => {
-						setBuckets3rd((prev) => {
-							if(prev.length >= 5) return prev
-							
-							const isUserExist = prev.some((e) => e.bucketId === bucket.bucketId)
+				setTimeout(() => {
+					setBuckets3rd((prev) => {
+						if (prev.length >= 5) return prev
 
-							// // 존재하지 않으면 추가
-							if (!isUserExist) {
-								return [...prev, { ...bucket, pos: circle3Pos[idx3][index]}]
-							}
-							return prev
-						})
-					},
-					800
-				)
+						const isUserExist = prev.some((e) => e.bucketId === bucket.bucketId)
+
+						// // 존재하지 않으면 추가
+						if (!isUserExist) {
+							return [...prev, { ...bucket, pos: circle3Pos[idx3][index] }]
+						}
+						return prev
+					})
+				}, 800)
 			})
 	}, [isLoading, radarBucket])
 
@@ -228,13 +219,14 @@ const AllTab = () => {
 			<div className="w-full h-[calc(100vh-5rem)] flex justify-center items-center overflow-hidden">
 				<Radar>
 					<Link to="/mypage" className="z-30">
-							{
-							!isMyInfoLoading && myInfo ? 
-								<div className={`w-16 h-16 rounded-full overflow-hidden`} >
-									<img src={myInfo.userProfileImage} alt="" className="w-full h-full object-cover" />
-								</div>
-							: <ProfileAvatar className="h-14 w-14" /> }
-						</Link>
+						{!isMyInfoLoading && myInfo ? (
+							<div className={`w-16 h-16 rounded-full overflow-hidden`}>
+								<img src={myInfo.userProfileImage} alt="" className="w-full h-full object-cover" />
+							</div>
+						) : (
+							<ProfileAvatar className="h-14 w-14" />
+						)}
+					</Link>
 				</Radar>
 				<div className="absolute top-[calc(50%-5px)] left-1/2 w-[110%] aspect-square transform translate-x-[-50%] translate-y-[-50%]">
 					{buckets1st.map((bucket) => (

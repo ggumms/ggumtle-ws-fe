@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Skeleton } from '@mui/material'
 import { useInView } from 'react-intersection-observer'
 import useInfiniteCommentList from '../../../../hooks/useInfiniteCommentList'
-import { useCommentStore, useDetailPageTypeStore } from '../../../../store/detailStore'
+import { useCommentStore, useDetailPageTypeStore } from '../../../../stores/detailStore'
 import CommentItem from './CommentItem'
 
 interface ICommentListProps {

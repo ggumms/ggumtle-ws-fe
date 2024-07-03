@@ -1,5 +1,5 @@
-import NavigateButton from '../../../../../components/NavigateButton'
-import { useBucketStore } from '../../../../../store/bucketStore'
+import NavigateButton from '../../../../../component/NavigateButton'
+import { useBucketStore } from '../../../../../stores/bucketStore'
 
 const CategoryNextButton = () => {
 	const { selectedInfo } = useBucketStore()

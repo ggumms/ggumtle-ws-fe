@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { IMyUserInfo } from './../interfaces'
+import { IMyUserInfo } from '../interfaces'
 
 interface IUserStore {
 	userInfo: IMyUserInfo | null

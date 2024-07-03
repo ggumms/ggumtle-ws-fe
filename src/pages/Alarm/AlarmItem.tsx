@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import { AlarmMainMSG, AlarmSubMSG } from '../../constants/alarmMessage'
-import { randomProfile } from '../../constants/randomProfile'
+import { AlarmMainMSG, AlarmSubMSG } from '../../utilities/constants/alarmMessage'
+import { randomProfile } from '../../utilities/constants/randomProfile'
 import Desc from './Desc'
 import { IAlarm, TimeUnitType } from './alarm'
 import { postReadOneAlarm } from './api'
@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useMyInfoQuery } from '../../hooks/useMyInfo'
 
 export const AlarmMSG = (alarm: IAlarm) => {
-	const {data: myinfo} = useMyInfoQuery()
+	const { data: myinfo } = useMyInfoQuery()
 	const date =
 		alarm.timeUnit === 'min' && alarm.time === 0
 			? '방금'
@@ -44,7 +44,12 @@ export const AlarmMSG = (alarm: IAlarm) => {
 			)
 		case 'join':
 			return (
-				<Desc main1={myinfo?.userNickname} main2={AlarmMainMSG.JOIN} sub={AlarmSubMSG.JOIN} date={date} />
+				<Desc
+					main1={myinfo?.userNickname}
+					main2={AlarmMainMSG.JOIN}
+					sub={AlarmSubMSG.JOIN}
+					date={date}
+				/>
 			)
 		case 'remind':
 			return (
@@ -122,41 +127,40 @@ export const AlarmMSG = (alarm: IAlarm) => {
 	}
 }
 
-const AlarmItem = ({ alarm, readAll }: { alarm: IAlarm, readAll: boolean }) => {
-
+const AlarmItem = ({ alarm, readAll }: { alarm: IAlarm; readAll: boolean }) => {
 	const navigate = useNavigate()
 	const mutation = useMutation({ mutationFn: postReadOneAlarm })
 	const handleClickAlarm = () => {
-		mutation.mutate({alarmId: alarm.alarmId})
-		if(mutation.isSuccess) {
-			console.log(mutation.data, "success")
-		} else console.log("else")
+		mutation.mutate({ alarmId: alarm.alarmId })
+		if (mutation.isSuccess) {
+			console.log(mutation.data, 'success')
+		} else console.log('else')
 
-		console.log("handle", readAll)
-		switch(alarm.type) {
+		console.log('handle', readAll)
+		switch (alarm.type) {
 			case 'follow':
-					navigate(`/user/${alarm.dataId}`);
-					break;
+				navigate(`/user/${alarm.dataId}`)
+				break
 			case 'join':
-					navigate(`/mypage`);
-					break;
+				navigate(`/mypage`)
+				break
 			case 'bucketReaction':
 			case 'remind':
 			case 'followBucket':
 			case 'followBucketAchieve':
 			case 'commentBucket':
 			case 'likeCommentBucket':
-					navigate(`/bucket/${alarm.dataId}`);
-					break;
+				navigate(`/bucket/${alarm.dataId}`)
+				break
 			case 'reviewReaction':
 			case 'followReview':
 			case 'commentReview':
 			case 'likeCommentReview':
-					navigate(`/review/${alarm.dataId}`);
-					break;
+				navigate(`/review/${alarm.dataId}`)
+				break
 			default:
-					break;
-	}
+				break
+		}
 	}
 	return (
 		<div
@@ -182,7 +186,7 @@ const AlarmItem = ({ alarm, readAll }: { alarm: IAlarm, readAll: boolean }) => {
 // 	| 'follow' => user/usreId
 // 	| 'bucketReaction' => bucket/bucketId
 // 	| 'reviewReaction' => review/reviewId
-// 	| 'join' => mypage 
+// 	| 'join' => mypage
 // 	| 'remind' => bucket/bucketId
 // 	| 'followBucket' => bucket/bucketId
 // 	| 'followBucketAchieve' => bucket/bucketId

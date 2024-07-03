@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 
-import WithHeaderLayout from '../../../components/layout/WithHeaderLayout'
+import WithHeaderLayout from '../../../component/layout/WithHeaderLayout'
 import ReviewTitle from '../component/ReviewTitle'
 import TextEditor from '../component/TextEditor'
 import QuickSaveButton from '../component/QuickSaveButton'
@@ -10,10 +10,10 @@ import ModifyButton from '../component/ModifyButton'
 
 import { useRouter } from '../../../hooks/useRouter'
 import useFetchBucket from '../../../hooks/useFetchBucket'
-import { useCurrentUserStore } from '../../../store/currentUserStore'
+import { useCurrentUserStore } from '../../../stores/currentUserStore'
 import { getReviewBrief } from '../api'
 import { IMenu, IMenuFunc } from '../../../interfaces'
-import { icons } from '../../../constants/header-icons'
+import { icons } from '../../../utilities/constants/header-icons'
 
 const WriteReview = () => {
 	const { userInfo } = useCurrentUserStore()
