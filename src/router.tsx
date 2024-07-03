@@ -42,9 +42,14 @@ type RouterElement = IRouterBase
 // 라우터와 관련된 모든 데이터를 관리하는 배열
 const routerData: RouterElement[] = [
 	{
-		path: '/auth',
+		path: '/auth/login',
 		element: <LoginPage />,
-		label: '',
+		label: 'loginPage',
+	},
+	{
+		path: '/auth/login/:loginType',
+		element: <LoginPage />,
+		label: 'oauthLogin',
 	},
 	{
 		path: '/',

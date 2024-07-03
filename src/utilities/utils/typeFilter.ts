@@ -2,6 +2,7 @@ import { categoryData } from './category'
 import { CategoryType, ColorType, IMyUserInfo, IOtherUserInfo, PeriodType } from '../../interfaces'
 import { IProfileUserInfo } from '../../interfaces'
 import { ReactionType } from '../../types/bucket'
+import { LoginTokenType } from '../../types/auth'
 
 // :: User
 export const isCommentUserType = (
@@ -62,4 +63,11 @@ export const isPeriodType = (period: string | null): period is PeriodType => {
 		period === 'oneMonth' ||
 		period === 'oneYear'
 	)
+}
+
+export const isLoginTokenType = (loginType: string): loginType is LoginTokenType => {
+	if (loginType === 'google' || loginType === 'kakao') {
+		return true
+	}
+	return false
 }
