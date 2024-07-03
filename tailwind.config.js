@@ -1,5 +1,5 @@
 import typography from '@tailwindcss/typography'
-import colorPalette from './src/constants/colorPallet'
+import colorPalette from './src/utilities/constants/colorPallet'
 
 /** @type {import('tailwindcss').Config} */
 
