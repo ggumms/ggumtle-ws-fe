@@ -2,12 +2,10 @@
 # type, body, footer는 각각 공백 줄로 한칸씩 띄워작성합니다.
 # 1. Type
 # [Skill] type #이슈번호: Subject (공백 작성 시 주의)
-# Ex)[FE] Feat #22: 회원정보 수정 기능 추가
-# Ex)[BE] Feat #22: 회원정보 수정 기능 추가
+# Feat #22: 회원정보 수정 기능 추가
 
 ################
 # 1-1. Subject Type
-#   - Api: 서버 API 통신 이슈
 #   - Deploy: 배포와 관련된 커밋 
 #   - Docs: readme.md, json 파일 등 수정, 라이브러리 설치 (문서 관련)
 #   - Feat: 새로운 기능 구현
