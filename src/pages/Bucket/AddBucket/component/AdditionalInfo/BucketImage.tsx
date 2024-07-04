@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { checkFileIsValidImage, checkFileSizeIsValid } from '../../../../../utilities/utils/image'
+import { isValidImageFile } from '../../../../../utilities/utils/image'
 import { Picture } from '../../../../../assets/svgs'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { IoCloseSharp } from 'react-icons/io5'
@@ -27,22 +27,7 @@ const BucketImage = () => {
 		const target = event.currentTarget
 		const selectedFile = (target.files as FileList)[0]
 
-		// 파일이 비었는지 검사
-		if (selectedFile === undefined) {
-			return
-		}
-
-		// 파일의 확장자가 유효한지 검사
-		if (!checkFileIsValidImage(selectedFile.name)) {
-			target.value = ''
-			alert('유효한 파일이 입력되지 않았습니다.')
-			return
-		}
-
-		// 파일의 사이즈가 유효한지 검사
-		if (!checkFileSizeIsValid(selectedFile.size)) {
-			target.value = ''
-			alert('파일의 용량이 너무 큽니다.')
+		if (!isValidImageFile(selectedFile)) {
 			return
 		}
 
