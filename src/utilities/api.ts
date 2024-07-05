@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { IBucketInfo, IMyUserInfo } from './interfaces'
+import { IBucketInfo, IMyUserInfo } from '../interfaces'
 import { QueryFunctionContext } from '@tanstack/query-core'
 
 export const instance = axios.create({

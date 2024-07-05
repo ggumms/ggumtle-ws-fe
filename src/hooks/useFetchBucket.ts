@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { IBucketInfo } from '../interfaces'
-import { getBucketInfo } from '../api'
+import { getBucketInfo } from '../utilities/api'
 
 const useFetchBucket = (bucketId: string | undefined) => {
 	const { isLoading, data: bucketInfo } = useQuery<IBucketInfo>({

@@ -1,7 +1,29 @@
 const ALLOW_EXTENSION_LIST = ['jpg', 'jpeg', 'png', 'gif']
 const FILE_SIZE_MAX_LIMIT = 1 * 1024 * 1024 // 1MB
 
-export const checkFileIsValidImage = (fileName: string): boolean => {
+export const isValidImageFile = (imageFile: File): boolean => {
+	// 파일이 비었는지 검사
+	if (imageFile === undefined) {
+		alert('선택된 파일이 없습니다.')
+		return false
+	}
+
+	// 파일의 확장자가 유효한지 검사
+	if (!checkFileHasValidExtension(imageFile.name)) {
+		alert('유효한 파일이 입력되지 않았습니다.')
+		return false
+	}
+
+	// 파일의 사이즈가 유효한지 검사
+	if (!checkFileSizeIsValid(imageFile.size)) {
+		alert('파일의 용량이 너무 큽니다.')
+		return false
+	}
+
+	return true
+}
+
+export const checkFileHasValidExtension = (fileName: string): boolean => {
 	const extension = getFileExtension(fileName)
 
 	if (ALLOW_EXTENSION_LIST.indexOf(extension) >= 0) return true
