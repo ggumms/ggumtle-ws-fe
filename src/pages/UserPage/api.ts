@@ -1,5 +1,5 @@
 import { QueryFunctionContext } from '@tanstack/react-query'
-import { instance } from '../../api'
+import { instance } from '../../utilities/api'
 import { ITimelineInfo } from '../../interfaces'
 
 export const getUserStats = async ({ queryKey }: QueryFunctionContext) => {

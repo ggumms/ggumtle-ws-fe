@@ -3,7 +3,7 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './ReactQuill.css'
 import { postReviewImage } from '../../api'
-import { checkFileIsValidImage, checkFileSizeIsValid } from '../../../../utilities/utils/image'
+import { isValidImageFile } from '../../../../utilities/utils/image'
 
 interface ReactQuillProps {
 	value: string
@@ -19,25 +19,11 @@ const ReactQuillEditor = ({ value, setValue }: ReactQuillProps) => {
 	const [, setImageUrlList] = useState<ImageUrlType[]>([])
 
 	const handleFileValidation = async (selectedFile: File, input: HTMLInputElement) => {
-		// 파일이 비었는지 검사
-		if (selectedFile === undefined) {
-			return
-		}
-		// console.log(selectedFile)
-
-		// 파일의 확장자가 유효한지 검사
-		if (!checkFileIsValidImage(selectedFile.name)) {
+		if (!isValidImageFile(selectedFile)) {
 			input.value = ''
-			alert('유효한 파일이 입력되지 않았습니다.')
 			return
 		}
 
-		// 파일의 사이즈가 유효한지 검사
-		if (!checkFileSizeIsValid(selectedFile.size)) {
-			input.value = ''
-			alert('파일의 용량이 너무 큽니다.')
-			return
-		}
 		const imageFormData = new FormData()
 		imageFormData.append('image', selectedFile)
 

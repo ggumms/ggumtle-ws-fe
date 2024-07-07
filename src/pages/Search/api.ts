@@ -1,5 +1,5 @@
 import { QueryFunctionContext } from '@tanstack/react-query'
-import { instance } from '../../api'
+import { instance } from '../../utilities/api'
 
 export const getUserSearch = async ({ queryKey }: QueryFunctionContext) => {
 	const [, word, page, size] = queryKey

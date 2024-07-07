@@ -2,6 +2,8 @@ import { categoryData } from './category'
 import { CategoryType, ColorType, IMyUserInfo, IOtherUserInfo, PeriodType } from '../../interfaces'
 import { IProfileUserInfo } from '../../interfaces'
 import { ReactionType } from '../../types/bucket'
+import { LoginTokenType } from '../../types/auth'
+import { NicknameMsgType } from '../../types/user'
 
 // :: User
 export const isCommentUserType = (
@@ -29,6 +31,18 @@ export const isOtherUserType = (
 		'category' in userInfo &&
 		userInfo.owner === false &&
 		typeof userInfo.isFollowing === 'boolean'
+	)
+}
+
+export const isNicknameMsgType = (status: string): status is NicknameMsgType => {
+	return (
+		status === 'empty' ||
+		status === 'tooLong' ||
+		status === 'invalidChar' ||
+		status === 'duplicate' ||
+		status === 'loading' ||
+		status === 'valid' ||
+		status === 'initial'
 	)
 }
 
@@ -62,4 +76,11 @@ export const isPeriodType = (period: string | null): period is PeriodType => {
 		period === 'oneMonth' ||
 		period === 'oneYear'
 	)
+}
+
+export const isLoginTokenType = (loginType: string): loginType is LoginTokenType => {
+	if (loginType === 'google' || loginType === 'kakao') {
+		return true
+	}
+	return false
 }
