@@ -20,3 +20,5 @@ export { ReactComponent as Cool } from './cool.svg'
 
 // comment
 export { ReactComponent as EmptyLike } from './heart.svg'
+
+export { ReactComponent as DefaultProfile } from './defaultProfile.svg'

@@ -26,6 +26,7 @@ import ReviewDetail from './pages/Review/ReviewDetail'
 import AchieveBucket from './pages/Bucket/AchieveBucket'
 import CongratulateBucket from './pages/Bucket/CongratulateBucket'
 import LoginPage from './pages/Login'
+import JoinPage from './pages/Join'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -41,6 +42,11 @@ type RouterElement = IRouterBase
 
 // 라우터와 관련된 모든 데이터를 관리하는 배열
 const routerData: RouterElement[] = [
+	{
+		path: '/join',
+		element: <JoinPage />,
+		label: '회원가입',
+	},
 	{
 		path: '/auth/login',
 		element: <LoginPage />,

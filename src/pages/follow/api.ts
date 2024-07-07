@@ -1,5 +1,5 @@
-import { QueryFunctionContext } from "@tanstack/react-query"
-import { instance } from "../../api"
+import { QueryFunctionContext } from '@tanstack/react-query'
+import { instance } from '../../utilities/api'
 
 export const getFollower = async ({ queryKey }: QueryFunctionContext) => {
 	const [, userId, page, size] = queryKey

@@ -1,6 +1,8 @@
 import { useLocation, useParams } from 'react-router-dom'
 import KakaoLoginBtn from './components/KakaoLoginBtn'
 import { useDoLogin } from './hook'
+import GgumtleLogo from './components/GgumtleLogo'
+import DefaultLayout from '../../component/layout/DefaultLayout'
 
 const LoginPage = () => {
 	const { loginType } = useParams()
@@ -9,9 +11,10 @@ const LoginPage = () => {
 	useDoLogin(loginType, code)
 
 	return (
-		<section>
+		<DefaultLayout>
+			<GgumtleLogo />
 			<KakaoLoginBtn />
-		</section>
+		</DefaultLayout>
 	)
 }
 

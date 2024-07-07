@@ -3,6 +3,7 @@ import { CategoryType, ColorType, IMyUserInfo, IOtherUserInfo, PeriodType } from
 import { IProfileUserInfo } from '../../interfaces'
 import { ReactionType } from '../../types/bucket'
 import { LoginTokenType } from '../../types/auth'
+import { NicknameMsgType } from '../../types/user'
 
 // :: User
 export const isCommentUserType = (
@@ -30,6 +31,18 @@ export const isOtherUserType = (
 		'category' in userInfo &&
 		userInfo.owner === false &&
 		typeof userInfo.isFollowing === 'boolean'
+	)
+}
+
+export const isNicknameMsgType = (status: string): status is NicknameMsgType => {
+	return (
+		status === 'empty' ||
+		status === 'tooLong' ||
+		status === 'invalidChar' ||
+		status === 'duplicate' ||
+		status === 'loading' ||
+		status === 'valid' ||
+		status === 'initial'
 	)
 }
 
