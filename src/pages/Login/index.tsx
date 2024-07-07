@@ -12,8 +12,11 @@ const LoginPage = () => {
 
 	return (
 		<DefaultLayout>
-			<GgumtleLogo />
-			<KakaoLoginBtn />
+			<div className="flex flex-col justify-start h-screen">
+				{/* <div className="flex flex-col justify-center h-screen"> */}
+				<GgumtleLogo />
+				<KakaoLoginBtn />
+			</div>
 		</DefaultLayout>
 	)
 }

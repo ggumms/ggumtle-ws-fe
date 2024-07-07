@@ -10,7 +10,7 @@ const colorPalette = {
 
 	// Main Colors
 	green: '#52A88C',
-	lightGreen: '#8DC788',
+	lightGreen: '#A5DBA1',
 	red: '#FA5853',
 	yellow: '#FFDF85',
 	pink: '#FF98B7',
