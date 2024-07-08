@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 
+const defaultProfileUrl = '/src/assets/svgs/defaultProfile.svg'
+
 export const useFileToUrl = (imageFile: File | null) => {
-	const [imageUrl, setImageUrl] = useState<string | null>(null)
+	const [imageUrl, setImageUrl] = useState<string>(defaultProfileUrl)
 
 	// File 객체를 URL.createObjectURL()을 사용하여 URL로 변환
 	// 서버로 데이터를 전송하기 전에 이미지 파일을 미리보기로 보여주기 위해 사용
@@ -15,7 +17,7 @@ export const useFileToUrl = (imageFile: File | null) => {
 			}
 		}
 
-		imageFile instanceof File && reader && reader.readAsDataURL(imageFile)
+		if (imageFile instanceof File && reader) reader.readAsDataURL(imageFile)
 	}, [imageFile])
 
 	return imageUrl
