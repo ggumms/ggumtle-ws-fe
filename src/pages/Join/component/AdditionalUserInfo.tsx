@@ -1,9 +1,9 @@
 import { FormEvent, useState } from 'react'
-import { postUserProfile } from '../api'
 import { NicknameMsgType } from '../../../types/user'
 import JoinSubmitButton from './JoinSubmitButton'
 import WriteProfileName from '../../../component/UserProfile/WriteProfileInfo/WriteProfileName'
 import WriteProfileImage from '../../../component/UserProfile/WriteProfileInfo/WriteProfileImage'
+import { useJoinContentStore } from '../../../stores/clientState/joinStore'
 
 // 1. 회원가입
 // -> 카카오를 통해서 닉네임을 받아오고 이걸 사용
@@ -14,18 +14,20 @@ const AdditionalUserInfo = () => {
 	const [nickNameMsgStatus, setNickNameMsgStatus] = useState<NicknameMsgType>(
 		'initial' as NicknameMsgType
 	)
-	// const [profileImage, setProfileImage] = useState(profileInfo.image ?? null)
+	const { setContent } = useJoinContentStore()
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 
-		const profileFormData = new FormData(event.currentTarget)
-		const profileApiRes = await postUserProfile(profileFormData)
+		// const profileFormData = new FormData(event.currentTarget)
+		// const profileApiRes = await postUserProfile(profileFormData)
+		const profileApiRes = 'success'
 
 		if (profileApiRes === 'success') {
 			// 관신사 설문 컴포넌트로 변경
+			setContent('survey')
 		} else {
-			alert('프로필 정보 수정 실패')
+			alert('프로필 정보 전송 실패')
 		}
 	}
 

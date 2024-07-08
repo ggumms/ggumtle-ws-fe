@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+// import { useMemo } from 'react'
 import { NicknameMsgType } from '../../../types/user'
 import { bgColorClass } from '../../../utilities/constants/dynamicClass'
 
@@ -7,7 +7,9 @@ interface EditProfileSubmitProps {
 }
 
 const JoinSubmitButton = ({ nickNameStatus }: EditProfileSubmitProps) => {
-	const isDisabled = useMemo(() => nickNameStatus !== 'valid', [nickNameStatus])
+	// const isDisabled = useMemo(() => nickNameStatus !== 'valid', [nickNameStatus])
+	console.log(nickNameStatus)
+	const isDisabled = false
 
 	return (
 		<button

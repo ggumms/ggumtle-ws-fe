@@ -18,6 +18,9 @@ const WriteProfileName = ({ nicknameMsgStatus, setNickNameMsgStatus }: WriteProf
 	const nameRef = useRef<string>(nickname) // 비동기 중복 검사로 인해 nameStatus 값이 덮어씌워지는 것을 방지하기 위한 ref
 
 	const changeNickNameStatus = debounce(async (currentName) => {
+		setNickNameMsgStatus('valid')
+		return
+
 		console.log('checking...')
 		let currentStatus
 
