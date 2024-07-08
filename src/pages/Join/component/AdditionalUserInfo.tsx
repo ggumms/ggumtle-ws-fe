@@ -1,9 +1,9 @@
 import { FormEvent, useState } from 'react'
 import { NicknameMsgType } from '../../../types/user'
-import JoinSubmitButton from './AdditionalSubmitButton'
 import WriteProfileName from '../../../component/UserProfile/WriteProfileInfo/WriteProfileName'
 import WriteProfileImage from '../../../component/UserProfile/WriteProfileInfo/WriteProfileImage'
 import { useJoinContentStore } from '../../../stores/clientState/joinStore'
+import JoinSubmitButton from './AdditionalSubmitButton'
 
 // 1. 회원가입
 // -> 카카오를 통해서 닉네임을 받아오고 이걸 사용

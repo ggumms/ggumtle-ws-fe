@@ -1,5 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
+import { CategoryType, selectedInfoType } from '../../interfaces'
+import { defaultCategories } from '../../utilities/utils/category'
 
 interface IJoinContentStore {
 	content: 'additionalInfo' | 'survey'
@@ -12,20 +14,32 @@ export const useJoinContentStore = create<IJoinContentStore>()(
 	}))
 )
 
-// Todo: 선호도 설문조사 관련 상태 추가
 interface IJoinInfoStore {
 	nickname: string
 	setNickname: (nickname: string) => void
 	image: string | null
 	setImage: (image: string | null) => void
+	surveyResult: selectedInfoType
+	addSurvey: (survey: CategoryType) => void
+	removeSurvey: (survey: CategoryType) => void
 }
 
-// Todo: 선호도 설문조사 관련 상태 추가
 export const useJoinInfoStore = create<IJoinInfoStore>()(
 	devtools((set) => ({
+		// About Additional Info
 		nickname: '',
 		setNickname: (nickname: string) => set(() => ({ nickname })),
 		image: null,
 		setImage: (image: string | null) => set(() => ({ image })),
+		// About Survey
+		surveyResult: { ...defaultCategories },
+		addSurvey: (survey) =>
+			set((state) => ({
+				surveyResult: { ...state.surveyResult, [survey]: true },
+			})),
+		removeSurvey: (survey) =>
+			set((state) => ({
+				surveyResult: { ...state.surveyResult, [survey]: false },
+			})),
 	}))
 )
