@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react'
 import { NicknameMsgType } from '../../../types/user'
-import JoinSubmitButton from './JoinSubmitButton'
+import JoinSubmitButton from './AdditionalSubmitButton'
 import WriteProfileName from '../../../component/UserProfile/WriteProfileInfo/WriteProfileName'
 import WriteProfileImage from '../../../component/UserProfile/WriteProfileInfo/WriteProfileImage'
 import { useJoinContentStore } from '../../../stores/clientState/joinStore'

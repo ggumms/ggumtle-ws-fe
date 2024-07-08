@@ -1,7 +1,20 @@
-import React from 'react'
+import CategorySelect from '../../../component/CategorySelect'
+import { categoryData } from '../../../utilities/utils/category'
+import PageDescription from '../../../component/PageDescription'
+import SurveySubmitButton from './SurveySubmitButton'
 
 const Survey = () => {
-	return <div>설문조사 컴포넌트</div>
+	return (
+		<form className="relative grow">
+			<section>
+				<PageDescription type={'categoryJoin'} />
+			</section>
+			<section className="pt-12 grow">
+				<CategorySelect categoryData={categoryData} />
+			</section>
+			<SurveySubmitButton />
+		</form>
+	)
 }
 
 export default Survey

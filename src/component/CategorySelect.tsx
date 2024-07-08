@@ -10,6 +10,7 @@ interface CategorySelectProps {
 	categoryData: CategoryDataType
 }
 
+// Todo : 라디오 버튼으로 해당 컴포넌트를 변경 필요
 const CategorySelect = ({ categoryData }: CategorySelectProps) => {
 	const { selectedInfo, addCategory, removeCategory } = useBucketStore()
 
