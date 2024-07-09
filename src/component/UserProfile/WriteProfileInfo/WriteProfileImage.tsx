@@ -3,31 +3,23 @@ import { isValidImageFile } from '../../../utilities/utils/image'
 import { useFileToUrl } from '../../../hooks/useFileToUrl'
 
 const defaultProfileUrl = '/src/assets/svgs/defaultProfile.svg'
-const convertUrlToFile = async (url: string) => {
-	const response = await fetch(url)
-	const blob = await response.blob()
-	const file = new File([blob], 'profileImage', { type: blob.type })
-	return file
-}
 
 interface IWriteProfileImageProps {
-	previousImageUrl: string | null
+	previousImage: File | null
 }
 // 이미지 파일이 기존에 받아온 정보가 있다면 그 정보를 File로 만들어서 input의 값으로 넣어줘야한다.
-const WriteProfileImage = ({ previousImageUrl }: IWriteProfileImageProps) => {
-	const [imageFile, setImageFile] = useState<File | null>(null) // 서버 전송용 이미지_imageFile(File type)
+const WriteProfileImage = ({ previousImage }: IWriteProfileImageProps) => {
+	const [imageFile, setImageFile] = useState<File | null>(previousImage ?? null) // 서버 전송용 이미지_imageFile(File type)
 	const [imageUrl, setImageUrl] = useState<string>(defaultProfileUrl) // 클라이언트 표시용 이미지_profileUrl(String type)
 
 	const currentImageUrl = useFileToUrl(imageFile)
 
 	const setImageWithPreviousImage = async () => {
-		if (previousImageUrl) {
-			const file = await convertUrlToFile(previousImageUrl)
-			setImageFile(file)
+		if (previousImage) {
+			setImageFile(previousImage)
 		}
 	}
 
-	// Todo: api 테스트 진행하면서 마이 페이지 수정할 때 기존 이미지 정보를 File로 잘 변환하는지 확인 필요
 	useEffect(() => {
 		setImageWithPreviousImage()
 	}, [])

@@ -53,3 +53,10 @@ export const checkFileSizeIsValid = (fileSize: number): boolean => {
 
 	return true
 }
+
+export const convertUrlToFile = async (url: string) => {
+	const response = await fetch(url)
+	const blob = await response.blob()
+	const file = new File([blob], 'profileImage', { type: blob.type })
+	return file
+}

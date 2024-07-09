@@ -2,7 +2,6 @@ import Survey from './component/Survey'
 import { IMenu, IMenuFunc } from '../../interfaces'
 import { useNavigate } from 'react-router-dom'
 import { icons } from '../../utilities/constants/header-icons'
-// import Header from '../../component/Header'
 import WithHeaderLayout from '../../component/layout/WithHeaderLayout'
 import AdditionalUserInfo from './component/AdditionalUserInfo'
 import { useJoinContentStore } from '../../stores/clientState/joinStore'
@@ -33,7 +32,6 @@ const JoinPage = () => {
 
 	return (
 		<WithHeaderLayout headerMenu={menu} headerFunc={func}>
-			{/* <Header menu={menu} func={func} /> */}
 			<nav>
 				<ul>
 					<li className="">

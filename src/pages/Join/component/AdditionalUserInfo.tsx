@@ -34,7 +34,7 @@ const AdditionalUserInfo = () => {
 	return (
 		<section className="flex flex-col justify-between grow">
 			<form className="flex flex-col grow gap-8 relative" onSubmit={handleSubmit}>
-				<WriteProfileImage />
+				<WriteProfileImage previousImage={null} />
 				<WriteProfileName
 					nicknameMsgStatus={nickNameMsgStatus}
 					setNickNameMsgStatus={setNickNameMsgStatus}

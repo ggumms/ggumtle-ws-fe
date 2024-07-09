@@ -36,6 +36,7 @@ export const useJoinInfoStore = create<IJoinInfoStore>()(
 			set(() => ({ isInitialNicknameDuplicate })),
 		image: null,
 		setImage: (image: string | null) => set(() => ({ image })),
+
 		// About Survey
 		surveyResult: { ...defaultCategories },
 		addSurvey: (survey) =>
