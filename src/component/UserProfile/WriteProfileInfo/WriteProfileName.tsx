@@ -5,16 +5,21 @@ import { validateNickNameChar } from '../../../utilities/utils/user'
 import { getNameIsDuplicated } from '../../../pages/Join/api'
 import { isNicknameMsgType } from '../../../utilities/utils/typeFilter'
 import { IoIosCloseCircle } from 'react-icons/io'
-import { useJoinInfoStore } from '../../../stores/clientState/joinStore'
 import AlertMessages from './AlertMessage'
 
 interface WriteProfileNameProps {
+	nickname: string
+	setNickname: (nickname: string) => void
 	nicknameMsgStatus: NicknameMsgType
 	setNickNameMsgStatus: React.Dispatch<React.SetStateAction<NicknameMsgType>>
 }
 
-const WriteProfileName = ({ nicknameMsgStatus, setNickNameMsgStatus }: WriteProfileNameProps) => {
-	const { nickname, setNickname } = useJoinInfoStore()
+const WriteProfileName = ({
+	nickname,
+	setNickname,
+	nicknameMsgStatus,
+	setNickNameMsgStatus,
+}: WriteProfileNameProps) => {
 	const nameRef = useRef<string>(nickname) // 비동기 중복 검사로 인해 nameStatus 값이 덮어씌워지는 것을 방지하기 위한 ref
 
 	const changeNickNameStatus = debounce(async (currentName) => {
