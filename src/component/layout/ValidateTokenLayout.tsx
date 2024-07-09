@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react'
-import { getMyInfo } from '../../api'
+import { getMyInfo } from '../../utilities/api'
 import { useCurrentUserStore } from '../../stores/currentUserStore'
 import { useRouter } from '../../hooks/useRouter'
 

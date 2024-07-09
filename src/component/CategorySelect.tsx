@@ -1,6 +1,6 @@
-import { useBucketStore } from '../stores/bucketStore'
+// import { useBucketStore } from '../stores/bucketStore'
 import { isCategoryType } from '../utilities/utils/typeFilter'
-import { CategoryDataType, CategoryType } from '../interfaces'
+import { CategoryDataType, CategoryType, selectedInfoType } from '../interfaces'
 
 import { bgColorClass, textColorClass, borderColorClass } from '../utilities/constants/dynamicClass'
 import { HiPlusSm } from 'react-icons/hi'
@@ -8,11 +8,18 @@ import { FaCheck } from 'react-icons/fa6'
 
 interface CategorySelectProps {
 	categoryData: CategoryDataType
+	selectedInfo: selectedInfoType
+	addCategory: (selectedItem: CategoryType) => void
+	removeCategory: (selectedItem: CategoryType) => void
 }
 
-const CategorySelect = ({ categoryData }: CategorySelectProps) => {
-	const { selectedInfo, addCategory, removeCategory } = useBucketStore()
-
+// Todo : 라디오 버튼으로 해당 컴포넌트를 변경 필요
+const CategorySelect = ({
+	categoryData,
+	selectedInfo,
+	addCategory,
+	removeCategory,
+}: CategorySelectProps) => {
 	// event handlers
 	const handleCategorySelect = (event: React.MouseEvent<HTMLLIElement>) => {
 		const selectedName = event.currentTarget.dataset.name as CategoryType

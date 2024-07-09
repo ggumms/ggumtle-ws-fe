@@ -1,5 +1,5 @@
 import { QueryFunctionContext } from '@tanstack/react-query'
-import { instance } from '../../api';
+import { instance } from '../../utilities/api'
 
 export const getRadarUsers = async () => {
 	return await instance
@@ -50,4 +50,3 @@ export const getMy = async () => {
 		.then((response) => response.data.selfInfo)
 		.catch((e) => console.log(e))
 }
-
