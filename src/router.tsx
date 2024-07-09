@@ -1,6 +1,5 @@
 import { Router as RemixRouter } from '@remix-run/router/dist/router'
 import { createBrowserRouter, useParams } from 'react-router-dom'
-import LoginPage from './pages/auth/LoginPage'
 import FollowingTab from './pages/Radar/FollowingTab'
 import AllTab from './pages/Radar/AllTab'
 import Radar from './pages/Radar'
@@ -18,7 +17,7 @@ import CategoryInfo from './pages/Bucket/AddBucket/component/CategoryInfo/Catego
 import AdditionalInfo from './pages/Bucket/AddBucket/component/AdditionalInfo'
 import { MultiPageHeaderInfo } from './types/router'
 import NotFoundPage from './pages/NotfoundPage'
-import ValidateTokenLayout from './component/layout/ValidateTokenLayout'
+// import ValidateTokenLayout from './component/layout/ValidateTokenLayout'
 import WriteReview from './pages/Review/WriteReview'
 import FollowDetail from './pages/follow'
 import FollowerDetail from './pages/follow/FollowerDetail'
@@ -26,6 +25,7 @@ import FollowingDetail from './pages/follow/FollowingDetail'
 import ReviewDetail from './pages/Review/ReviewDetail'
 import AchieveBucket from './pages/Bucket/AchieveBucket'
 import CongratulateBucket from './pages/Bucket/CongratulateBucket'
+import LoginPage from './pages/Login'
 import JoinPage from './pages/Join'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
@@ -48,9 +48,14 @@ const routerData: RouterElement[] = [
 		label: '회원가입',
 	},
 	{
-		path: 'auth',
+		path: '/auth/login',
 		element: <LoginPage />,
-		label: '',
+		label: 'loginPage',
+	},
+	{
+		path: '/auth/login/:loginType',
+		element: <LoginPage />,
+		label: 'oauthLogin',
 	},
 	{
 		path: '/',
@@ -74,6 +79,7 @@ const routerData: RouterElement[] = [
 			},
 		],
 	},
+
 	{
 		path: '/alarm',
 		element: <AlarmPage />,
@@ -195,7 +201,8 @@ const router: RemixRouter = createBrowserRouter(
 	routerData.map((router) => {
 		return {
 			path: router.path,
-			element: <ValidateTokenLayout>{router.element}</ValidateTokenLayout>,
+			// element: <ValidateTokenLayout>{router.element}</ValidateTokenLayout>,
+			element: router.element,
 			children: router.children ?? router.children,
 		}
 	})

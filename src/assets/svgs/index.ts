@@ -10,6 +10,8 @@ export { ReactComponent as Picture } from './pictureImage.svg'
 export { ReactComponent as Calendar } from './calendarImage.svg'
 export { ReactComponent as Clock } from './clockImage.svg'
 export { ReactComponent as Congratulation } from './congratulation.svg'
+// auth
+export { ReactComponent as KakaoButtonIcon } from './auth/kakaoButton.svg'
 
 // reaction
 export { ReactComponent as WantToDo } from './wantTodo.svg'
