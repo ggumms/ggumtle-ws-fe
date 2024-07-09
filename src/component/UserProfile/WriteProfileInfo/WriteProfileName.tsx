@@ -63,7 +63,7 @@ const WriteProfileName = ({
 
 	return (
 		<fieldset>
-			<label htmlFor="profileName" className="text-lg font-bold">
+			<label htmlFor="nickname" className="text-lg font-bold">
 				닉네임
 			</label>
 			<div className="relative mt-2">
@@ -71,8 +71,8 @@ const WriteProfileName = ({
 					type="text"
 					value={nickname}
 					placeholder="닉네임을 입력해주세요."
-					name="profileName"
-					id="profileName"
+					name="nickname"
+					id="nickname"
 					onChange={handleChangeName}
 					className="w-full px-1 text-base text-black border-b-2 px- border-lightGray2 focus:outline-none self-center"
 				/>

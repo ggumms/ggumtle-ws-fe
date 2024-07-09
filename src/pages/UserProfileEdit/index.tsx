@@ -8,6 +8,7 @@ import { NicknameMsgType } from '../../types/user'
 import { useCallback, useMemo, useState } from 'react'
 import EditProfileSubmit from './component/EditProfileSubmit'
 import { useCurrentUserStore } from '../../stores/currentUserStore'
+import { putUserProfile } from './api'
 
 // 유저 이름 변경하는 기능
 // - 유저 이미지 url을 기반으로 File로 만들어서 관리하는 기능
@@ -40,9 +41,22 @@ const UserProfileEdit = () => {
 		right_func: undefined,
 	}
 
+	const handleEditUserProfile = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
+
+		const formData = new FormData(event.currentTarget)
+		const editProfileRes = await putUserProfile(formData)
+
+		if (editProfileRes) {
+			routeTo('/mypage')
+		} else {
+			alert('프로필 정보 수정 실패')
+		}
+	}
+
 	return (
 		<WithHeaderLayout headerMenu={menu} headerFunc={func}>
-			<form className="flex flex-col gap-8 relative grow">
+			<form className="flex flex-col gap-8 relative grow" onSubmit={handleEditUserProfile}>
 				<WriteProfileImage previousImage={null} />
 				<WriteProfileName
 					nickname={nickname}
