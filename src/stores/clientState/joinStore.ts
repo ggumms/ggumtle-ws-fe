@@ -17,6 +17,8 @@ export const useJoinContentStore = create<IJoinContentStore>()(
 interface IJoinInfoStore {
 	nickname: string
 	setNickname: (nickname: string) => void
+	isInitialNicknameDuplicate: boolean
+	setIsInitialNicknameDuplicate: (isInitialNicknameDuplicate: boolean) => void
 	image: string | null
 	setImage: (image: string | null) => void
 	surveyResult: selectedInfoType
@@ -29,6 +31,9 @@ export const useJoinInfoStore = create<IJoinInfoStore>()(
 		// About Additional Info
 		nickname: '',
 		setNickname: (nickname: string) => set(() => ({ nickname })),
+		isInitialNicknameDuplicate: false,
+		setIsInitialNicknameDuplicate: (isInitialNicknameDuplicate: boolean) =>
+			set(() => ({ isInitialNicknameDuplicate })),
 		image: null,
 		setImage: (image: string | null) => set(() => ({ image })),
 		// About Survey

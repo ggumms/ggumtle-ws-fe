@@ -1,10 +1,10 @@
 import { getKakaoLogin } from './api'
-import { LoginTokenType } from '../../types/auth'
+import { IKakaoLoginRes, LoginTokenType } from '../../types/auth'
 
 export const getToken = async (
 	loginType: LoginTokenType,
 	code: string
-): Promise<'success' | 'fail'> => {
+): Promise<IKakaoLoginRes> => {
 	switch (loginType) {
 		case 'kakao':
 			return await getKakaoLogin(code)

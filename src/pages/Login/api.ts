@@ -1,9 +1,10 @@
 import { instance } from '../../axios'
+import { IKakaoLoginRes } from '../../types/auth'
 
-export const getKakaoLogin = async (code: string): Promise<'success' | 'fail'> => {
+export const getKakaoLogin = async (code: string): Promise<IKakaoLoginRes> => {
 	try {
 		const kakaoRes = await instance.get(`auth/kakao?code=${code}`)
-		return kakaoRes.status === 200 ? 'success' : 'fail'
+		return kakaoRes.data
 	} catch (error) {
 		console.error(error)
 		throw error
