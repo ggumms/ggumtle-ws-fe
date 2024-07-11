@@ -1,12 +1,10 @@
-import { useEffect } from 'react'
 import { useRouter } from '../../hooks/useRouter'
-import { isLoginTokenType } from '../../utilities/utils/typeFilter'
 import { getToken } from './service'
 import { useJoinInfoStore } from '../../stores/clientState/joinStore'
 
 export type LoginTokenType = 'kakao'
 
-export const useDoLogin = async (loginType: string | undefined, code: string | null) => {
+export const useDoLogin = () => {
 	const { setNickname, setIsInitialNicknameDuplicate } = useJoinInfoStore()
 	const { routeTo } = useRouter()
 
@@ -29,9 +27,5 @@ export const useDoLogin = async (loginType: string | undefined, code: string | n
 		routeTo('/join')
 	}
 
-	useEffect(() => {
-		if (loginType && code && isLoginTokenType(loginType)) {
-			doLogin(loginType, code)
-		}
-	}, [loginType])
+	return { doLogin }
 }

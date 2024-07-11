@@ -10,13 +10,3 @@ export const getKakaoLogin = async (code: string): Promise<IKakaoLoginRes> => {
 		throw error
 	}
 }
-
-export const logout = async () => {
-	try {
-		const logoutRes = await instance.get('/auth/logout')
-		return logoutRes
-	} catch (error) {
-		console.error(error)
-		throw error
-	}
-}
