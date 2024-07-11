@@ -17,25 +17,21 @@ const tokenMultipartInstance = axios.create(baseConfig)
 // - 요청이 전달되기 전에 작업 수행
 const requestPrev = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'application/json'
-	config.baseURL = import.meta.env.VITE_DEPLOY_BASE_URL
 	return config
 }
 const tokenReqPrev = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'application/json'
-	config.baseURL = import.meta.env.VITE_DEPLOY_BASE_URL
 	config.withCredentials = true
 
 	return config
 }
 const multipartReqPrev = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'multipart/form-data'
-	config.baseURL = import.meta.env.VITE_DEPLOY_BASE_URL
 
 	return config
 }
 const tokenMultipartReqPrev = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'multipart/form-data'
-	config.baseURL = import.meta.env.VITE_DEPLOY_BASE_URL
 	config.withCredentials = true
 
 	return config
