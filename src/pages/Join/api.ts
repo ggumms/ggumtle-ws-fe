@@ -1,5 +1,6 @@
 import { instance, multipartInstance } from '../../axios'
 import { CategoryType } from '../../interfaces'
+import { LoginTokenType } from '../Login/hook'
 
 // create User Profile
 export const postUserProfile = async (profileFormData: FormData): Promise<'success' | 'fail'> => {
@@ -13,6 +14,8 @@ export const getNameIsDuplicated = async (name: string): Promise<boolean> => {
 }
 
 export const postJoin = async (joinInfo: {
+	joinType: LoginTokenType
+	code: string
 	nickname: string
 	image: string | null
 	surveyResult: CategoryType[]
