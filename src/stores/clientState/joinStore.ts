@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { CategoryType, selectedInfoType } from '../../interfaces'
 import { defaultCategories } from '../../utilities/utils/category'
+import { LoginTokenType } from '../../types/auth'
 
 interface IJoinContentStore {
 	content: 'additionalInfo' | 'survey'
@@ -15,6 +16,10 @@ export const useJoinContentStore = create<IJoinContentStore>()(
 )
 
 interface IJoinInfoStore {
+	joinType: LoginTokenType
+	setJoinType: (joinType: LoginTokenType) => void
+	code: string
+	setCode: (code: string) => void
 	nickname: string
 	setNickname: (nickname: string) => void
 	isInitialNicknameDuplicate: boolean
@@ -28,6 +33,12 @@ interface IJoinInfoStore {
 
 export const useJoinInfoStore = create<IJoinInfoStore>()(
 	devtools((set) => ({
+		// joinType info
+		joinType: 'kakao',
+		setJoinType: (joinType: LoginTokenType) => set(() => ({ joinType })),
+		code: '',
+		setCode: (code: string) => set(() => ({ code })),
+
 		// About Additional Info
 		nickname: '',
 		setNickname: (nickname: string) => set(() => ({ nickname })),

@@ -5,7 +5,7 @@ import { useJoinInfoStore } from '../../stores/clientState/joinStore'
 export type LoginTokenType = 'kakao'
 
 export const useDoLogin = () => {
-	const { setNickname, setIsInitialNicknameDuplicate } = useJoinInfoStore()
+	const { setJoinType, setCode, setNickname, setIsInitialNicknameDuplicate } = useJoinInfoStore()
 	const { routeTo } = useRouter()
 
 	const doLogin = async (loginType: LoginTokenType, code: string) => {
@@ -22,8 +22,11 @@ export const useDoLogin = () => {
 			routeTo('/')
 		}
 
+		setJoinType(loginType)
+		setCode(code)
 		setNickname(loginRes.nickname)
 		setIsInitialNicknameDuplicate(loginRes.nicknameDuplicate)
+
 		routeTo('/join')
 	}
 
