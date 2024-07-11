@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'ax
 
 // :: create Instance
 const baseConfig = {
-	baseURL: import.meta.env.VITE_BASE_URL,
+	baseURL: import.meta.env.VITE_TOKEN_SERVER_URL,
 	timeout: 10 * 1000,
 }
 

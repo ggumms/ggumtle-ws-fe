@@ -1,4 +1,4 @@
-import { tokenInstance, tokenMultipartInstance } from '../../utilities/apis/axios'
+import { tokenInstance, tokenMultipartInstance } from '../../utilities/apis/tokenAxios'
 
 export const putUserProfile = async (profileFormData: FormData): Promise<boolean> => {
 	const editRes = await tokenMultipartInstance.put('/user/self-info', profileFormData)
