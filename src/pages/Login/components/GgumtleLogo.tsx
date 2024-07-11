@@ -1,4 +1,3 @@
-import React from 'react'
 import Ggumtle from '../../../component/Ggumtle'
 
 const GgumtleLogo = () => {

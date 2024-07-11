@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from 'react'
-import { getMyInfo } from '../../api'
 import { useCurrentUserStore } from '../../stores/currentUserStore'
 import { useRouter } from '../../hooks/useRouter'
+import { getMyInfo } from '../../utilities/api'
 
 interface IValidateTokenLayoutProps {
 	children: ReactNode
