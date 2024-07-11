@@ -12,7 +12,7 @@ const EditProfileSubmit = ({ nickNameStatus }: EditProfileSubmitProps) => {
 	return (
 		<button
 			type="submit"
-			className={`absolute bottom-10 w-full text-white text-lg font-bold border-[1px] py-4 rounded-[5px] ${isDisabled ? bgColorClass['unActive'] : bgColorClass['point1']} transition-colors`}
+			className={`mt-10 w-full text-white text-lg font-bold border-[1px] py-4 rounded-[5px] ${isDisabled ? bgColorClass['unActive'] : bgColorClass['point1']} transition-colors`}
 			disabled={isDisabled}
 		>
 			수정

@@ -9,6 +9,8 @@ import { useCallback, useMemo, useState } from 'react'
 import EditProfileSubmit from './component/EditProfileSubmit'
 import { useCurrentUserStore } from '../../stores/currentUserStore'
 import { putUserProfile } from './api'
+import LogoutButton from './component/LogoutButton'
+import ResignButton from './component/ResignButton'
 
 // 유저 이름 변경하는 기능
 // - 유저 이미지 url을 기반으로 File로 만들어서 관리하는 기능
@@ -66,6 +68,10 @@ const UserProfileEdit = () => {
 				/>
 				<EditProfileSubmit nickNameStatus={nickNameMsgStatus} />
 			</form>
+			<section className="flex justify-around w-full  items-center pb-14 text-gray">
+				<LogoutButton />
+				<ResignButton />
+			</section>
 		</WithHeaderLayout>
 	)
 }
