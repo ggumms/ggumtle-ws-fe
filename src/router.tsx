@@ -27,6 +27,7 @@ import AchieveBucket from './pages/Bucket/AchieveBucket'
 import CongratulateBucket from './pages/Bucket/CongratulateBucket'
 import LoginPage from './pages/Login'
 import JoinPage from './pages/Join'
+import UserProfileEdit from './pages/UserProfileEdit'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -57,6 +58,7 @@ const routerData: RouterElement[] = [
 		element: <LoginPage />,
 		label: 'oauthLogin',
 	},
+
 	{
 		path: '/',
 		element: <Radar />,
@@ -118,6 +120,11 @@ const routerData: RouterElement[] = [
 		// @TODO: 추후 본인 userId 삽입
 		element: <UserPage isForRadar={false} userId={6} />,
 		label: '',
+	},
+	{
+		path: '/mypage/edit',
+		element: <UserProfileEdit />,
+		label: 'editProfile',
 	},
 	{
 		path: '/user/:userId',
