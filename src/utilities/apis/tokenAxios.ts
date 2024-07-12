@@ -4,7 +4,7 @@ import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'ax
 // :: create Instance
 const baseConfig = {
 	baseURL: import.meta.env.VITE_TOKEN_SERVER_URL,
-	timeout: 10 * 1000,
+	timeout: 100 * 1000, // 100초
 }
 
 const instance = axios.create(baseConfig)
