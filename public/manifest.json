@@ -1,41 +1,32 @@
 {
-	"name": "꿈:틀",
+	"name": "꿈:틀 리뉴얼",
 	"short_name": "ggummtle",
 	"start_url": "/",
 	"display": "standalone",
 	"background_color": "#ffffff",
 	"theme_color": "#ffffff",
-	"description": "꿈의 틀을 그리다",
+	"description": "꿈을 닮는 틀",
+
 	"icons": [
 		{
-			"src": "icons/icon-50.png",
-			"sizes": "50x50",
-			"type": "image/png",
-			"purpose": "any"
+			"src": "icons/favicon-16x16.png",
+			"sizes": "16x16",
+			"type": "image/png"
 		},
 		{
-			"src": "icons/icon-100.png",
-			"sizes": "100x100",
-			"type": "image/png",
-			"purpose": "any"
+			"src": "icons/favicon-32x32.png",
+			"sizes": "32x32",
+			"type": "image/png"
 		},
 		{
-			"src": "icons/icon-145.png",
-			"sizes": "145x145",
-			"type": "image/png",
-			"purpose": "any"
+			"src": "icons/android-chrome-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png"
 		},
 		{
-			"src": "icons/icon-200.png",
-			"sizes": "200x200",
-			"type": "image/png",
-			"purpose": "maskable"
-		},
-		{
-			"src": "icons/icon-520.png",
-			"sizes": "520x520",
-			"type": "image/png",
-			"purpose": "maskable"
+			"src": "icons/android-chrome-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
 		}
 	]
 }
