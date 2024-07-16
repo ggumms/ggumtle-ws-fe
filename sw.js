@@ -1,5 +1,5 @@
 const CACHE_NAME = 'pwa-test-v1'
-const urlsToCache = ['/index.html', '/src/index.css', '/src/main.tsx']
+const urlsToCache = ['/index.html']
 
 self.addEventListener('install', (event) => {
 	event
@@ -11,12 +11,17 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('fetch', (event) => {
 	event.respondWith(
-		caches.match(event.request).then((response) => {
-			if (response) {
-				return response
-			}
-			return fetch(event.request)
-		})
+		caches
+			.match(event.request)
+			.then((response) => {
+				if (response) {
+					return response
+				}
+				return fetch(event.request)
+			})
+			.catch((error) => {
+				console.error('Failed to fetch', error)
+			})
 	)
 })
 
