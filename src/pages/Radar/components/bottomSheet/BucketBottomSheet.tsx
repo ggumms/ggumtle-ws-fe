@@ -4,7 +4,7 @@ import { IMenu, IMenuFunc } from '../../../../interfaces'
 import { icons } from '../../../../utilities/constants/header-icons'
 import BucketPreview from './BucketPreview'
 import RadarCategoryItems from '../RadarCategory'
-import BucketDetail from '../../../Bucket/BucketDetail'
+import BucketDetail from '../../../BucketDetail'
 import { Link } from 'react-router-dom'
 
 /*

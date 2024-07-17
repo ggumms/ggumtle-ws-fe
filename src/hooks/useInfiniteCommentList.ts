@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
-import { getBucketCommentList } from '../pages/Bucket/BucketDetail/api'
+import { getBucketCommentList } from '../pages/BucketDetail/api'
 import { ICommentItem } from '../interfaces'
 import { getReviewCommentList } from '../pages/Review/api'
 
