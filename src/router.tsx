@@ -13,7 +13,6 @@ import BucketDetail from './pages/BucketDetail'
 import AddBucket from './pages/BucketAdd'
 import MainInfo from './pages/BucketAdd/component/MainInfo/MainInfo'
 import CategoryInfo from './pages/BucketAdd/component/CategoryInfo/CategoryInfo'
-// import PlaceInfo from './pages/Bucket/AddBucket/PlaceInfo'
 import AdditionalInfo from './pages/BucketAdd/component/AdditionalInfo'
 import { MultiPageHeaderInfo } from './types/router'
 import NotFoundPage from './pages/NotfoundPage'
@@ -28,6 +27,7 @@ import CongratulateBucket from './pages/BucketCongratulation'
 import LoginPage from './pages/Login'
 import JoinPage from './pages/Join'
 import UserProfileEdit from './pages/UserProfileEdit'
+import LocationInfo from './pages/BucketAdd/component/LocationInfo/LocationInfo'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -172,7 +172,7 @@ const routerData: RouterElement[] = [
 				label: '카테고리',
 			},
 			{ path: 'main', element: <MainInfo />, label: '꿈내용' },
-			// { path: 'place', element: <PlaceInfo />, label: '장소' },
+			{ path: 'location', element: <LocationInfo />, label: '장소' },
 			{ path: 'additional', element: <AdditionalInfo />, label: '추가정보' },
 		],
 	},
@@ -192,7 +192,7 @@ const routerData: RouterElement[] = [
 				label: '카테고리',
 			},
 			{ path: 'main', element: <MainInfo />, label: '꿈내용' },
-			// { path: 'place', element: <PlaceInfo />, label: '장소' },
+			{ path: 'location', element: <LocationInfo />, label: '장소' },
 			{ path: 'additional', element: <AdditionalInfo />, label: '추가정보' },
 		],
 	},
@@ -249,7 +249,6 @@ export const addBucketHeaderList: MultiPageHeaderInfo[] = routerData.reduce((pre
 	}
 	return [...prev]
 }, [] as MultiPageHeaderInfo[])
-// export const addBucketHeaderList: MultiPageHeaderInfo[] = routerData
 
 export const mainHeaderList: MultiPageHeaderInfo[] = routerData.reduce((prev, router) => {
 	let headerData
