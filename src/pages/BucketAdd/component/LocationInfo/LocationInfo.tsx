@@ -1,4 +1,5 @@
 import PageDescription from '../../../../component/PageDescription'
+import KakaoMap from './KakaoMap'
 import LocationNextButton from './LocationNextButton'
 
 const LocationInfo = () => {
@@ -7,7 +8,10 @@ const LocationInfo = () => {
 			<section className="mt-10 mb-7">
 				<PageDescription type={'locationWrite'} />
 			</section>
-			<div className="flex grow">위치 선택 컴포넌트</div>
+			<div className="flex flex-col grow">
+				<p>위치 선택 컴포넌트</p>
+				<KakaoMap/>
+			</div>
 			<LocationNextButton />
 		</section>
 	)
