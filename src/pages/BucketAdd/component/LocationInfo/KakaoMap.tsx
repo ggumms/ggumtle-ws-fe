@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useGetCurrentPosition } from '../../hook'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { kakao }: any = window
@@ -6,14 +7,15 @@ const { kakao }: any = window
 // 컴포넌트 마운트 시 지도 객체 생성
 const KakaoMap = () => {
 	const mapContainerRef = useRef<HTMLDivElement>(null)
+	const { longitude, latitude } = useGetCurrentPosition()
 
 	useEffect(() => {
 		const container = mapContainerRef.current
-		if (container) {
-
+		console.log(latitude, longitude, container)
+		if (container && latitude && longitude) {
 			// 지도 생성에 필요한 기본 옵션
 			const options = {
-				center: new kakao.maps.LatLng(33.450701, 126.570667),
+				center: new kakao.maps.LatLng(latitude, longitude),
 				level: 3,
 			}
 
@@ -21,15 +23,16 @@ const KakaoMap = () => {
 			const mapInstance = new kakao.maps.Map(container, options)
 			console.log(mapInstance)
 		}
-	}, [])
+	}, [longitude, latitude])
 
 	return (
-		<div id="map" ref={mapContainerRef} 
-    className='w-full h-full grow mb-10'
-    // style={{ width: '500px', height: '400px' }}
-    >
-			지도 표시 영역
-		</div>
+		<>
+			{longitude && latitude ? (
+				<div id="map" ref={mapContainerRef} className="w-full h-full grow mb-10" />
+			) : (
+				<p>지도 로딩 중...</p>
+			)}
+		</>
 	)
 }
 
