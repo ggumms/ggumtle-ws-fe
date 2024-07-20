@@ -8,8 +8,7 @@ import { postJoin } from '../api'
 import { CategoryType } from '../../../interfaces'
 
 const Survey = () => {
-	const { joinType, code, nickname, image, surveyResult, addSurvey, removeSurvey } =
-		useJoinInfoStore()
+	const { nickname, image, surveyResult, addSurvey, removeSurvey } = useJoinInfoStore()
 	const { routeTo } = useRouter()
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -22,16 +21,12 @@ const Survey = () => {
 			})
 			.filter((value) => value !== null) as CategoryType[]
 
-		console.log(surveyResultList)
+		const formData = new FormData()
+		formData.append('nickname', nickname)
+		formData.append('image', image ?? '')
+		formData.append('surveyResult', JSON.stringify(surveyResultList))
 
-		const joinApiRes = await postJoin({
-			joinType,
-			code,
-			nickname,
-			image,
-			surveyResult: surveyResultList,
-		})
-		// const joinApiRes = 'success'
+		const joinApiRes = await postJoin(formData)
 		if (joinApiRes === 'success') {
 			alert('꿈:틀 가입을 축하드립니다!')
 			routeTo('/')

@@ -4,7 +4,6 @@ import WriteProfileName from '../../../component/UserProfile/WriteProfileInfo/Wr
 import WriteProfileImage from '../../../component/UserProfile/WriteProfileInfo/WriteProfileImage'
 import { useJoinContentStore, useJoinInfoStore } from '../../../stores/clientState/joinStore'
 import JoinSubmitButton from './AdditionalSubmitButton'
-import { postUserProfile } from '../api'
 
 const AdditionalUserInfo = () => {
 	const [nickNameMsgStatus, setNickNameMsgStatus] = useState<NicknameMsgType>(
@@ -16,16 +15,7 @@ const AdditionalUserInfo = () => {
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 
-		const profileFormData = new FormData(event.currentTarget)
-		const profileApiRes = await postUserProfile(profileFormData)
-		// const profileApiRes = 'success'
-
-		if (profileApiRes === 'success') {
-			// 관신사 설문 컴포넌트로 변경
-			setContent('survey')
-		} else {
-			alert('프로필 정보 전송 실패')
-		}
+		setContent('survey')
 	}
 
 	return (

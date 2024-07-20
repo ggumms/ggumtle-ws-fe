@@ -5,7 +5,7 @@ import { useJoinInfoStore } from '../../stores/clientState/joinStore'
 export type LoginTokenType = 'kakao'
 
 export const useDoLogin = () => {
-	const { setJoinType, setCode, setNickname, setIsInitialNicknameDuplicate } = useJoinInfoStore()
+	const { setNickname, setIsInitialNicknameDuplicate } = useJoinInfoStore()
 	const { routeTo } = useRouter()
 
 	const doLogin = async (loginType: LoginTokenType, code: string) => {
@@ -24,8 +24,6 @@ export const useDoLogin = () => {
 		}
 
 		// 회원가입이 필요한 유저라면 카카오 닉네임을 joinInfoStore에 저장하고 가입 페이지로 이동한다.
-		setJoinType(loginType)
-		setCode(code)
 		setNickname(loginRes.nickname)
 		setIsInitialNicknameDuplicate(loginRes.nicknameDuplicate)
 		routeTo('/join')
