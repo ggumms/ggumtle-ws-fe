@@ -2,58 +2,84 @@ import { useEffect, useRef } from 'react'
 import { useGetCurrentPosition } from '../../hook'
 import './map.css'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const { kakao }: any = window
+// declare global {
+// 	interface Window {
+// 		kakao: typeof kakao
+// 	}
+// }
 
-// 컴포넌트 마운트 시 지도 객체 생성
 const KakaoMap = () => {
 	const mapContainerRef = useRef<HTMLDivElement>(null)
 	const { longitude, latitude } = useGetCurrentPosition()
 
-	// Note: 지도 초기 셋팅
 	useEffect(() => {
+		if (!window.kakao || !mapContainerRef.current || longitude === null || latitude === null) return
+
+		const { kakao } = window
 		const container = mapContainerRef.current
-		console.log(latitude, longitude, container)
-		if (container && latitude && longitude) {
-			// 지도 생성에 필요한 기본 옵션
-			const options = {
-				center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심 좌표
-				level: 3, // 지도 확대 레벨
-			}
-
-			// 지도 태그의 ref와 option을 이용해 화면에 지도 생성 및 객체 리턴
-			const mapInstance = new kakao.maps.Map(container, options)
-
-			// 지도 타입, 줌 레벨 변경 컨트롤러 생성
-			// - 지도 타입 컨트롤러
-			const mapTypeControl = new kakao.maps.MapTypeControl()
-			mapInstance.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT)
-			// - 줌 컨트롤러
-			const zoomControl = new kakao.maps.ZoomControl()
-			mapInstance.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
-
-			// 마커 생성
-			const initialPosition = new kakao.maps.LatLng(latitude, longitude)
-			const initialMarker = new kakao.maps.Marker({
-				position: initialPosition,
-			})
-			initialMarker.setMap(mapInstance)
-
-			// 마커 위에 표시할 인포윈도우 생성
-			const initialInfoContent = '<div style="padding:5px;">현재 위치</div>' // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-
-			const initialInfoWindow = new kakao.maps.InfoWindow({
-				position: initialPosition,
-				content: initialInfoContent,
-			})
-
-			initialInfoWindow.open(mapInstance, initialMarker)
+		const options: kakao.maps.MapOptions = {
+			center: new kakao.maps.LatLng(latitude, longitude),
+			level: 3,
 		}
+
+		const map = new kakao.maps.Map(container, options)
+
+		const mapTypeControl = new kakao.maps.MapTypeControl()
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT)
+
+		const zoomControl = new kakao.maps.ZoomControl()
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
+
+		const initialPosition = new kakao.maps.LatLng(latitude, longitude)
+		const initialMarker = new kakao.maps.Marker({
+			position: initialPosition,
+		})
+		initialMarker.setMap(map)
+
+		const initialInfoContent = '<div style="padding:5px;">현재 위치</div>'
+		const initialInfoWindow = new kakao.maps.InfoWindow({
+			position: initialPosition,
+			content: initialInfoContent,
+		})
+		initialInfoWindow.open(map, initialMarker)
+
+		const marker = new kakao.maps.Marker()
+		const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 })
+
+		kakao.maps.event.addListener(map, 'click', (mouseEvent: kakao.maps.MouseEvent) => {
+			const geocoder = new kakao.maps.services.Geocoder()
+			geocoder.coord2Address(
+				mouseEvent.latLng.getLng(),
+				mouseEvent.latLng.getLat(),
+				(result, status) => {
+					if (status === kakao.maps.services.Status.OK) {
+						const detailAddr = result[0].road_address
+							? `<div>도로명주소 : ${result[0].road_address.address_name}</div>`
+							: ''
+						const addressName = `<div>지번 주소 : ${result[0].address.address_name}</div>`
+
+						const content = `
+            <div class="bAddr">
+              <span class="title">법정동 주소정보</span>
+              ${detailAddr}
+              ${addressName}
+            </div>
+          `
+
+						marker.setPosition(mouseEvent.latLng)
+						marker.setMap(map)
+
+						infowindow.setContent(content)
+						infowindow.open(map, marker)
+					}
+				}
+			)
+		})
 	}, [longitude, latitude])
 
 	return (
 		<>
-			{longitude && latitude ? (
+			{longitude !== null && latitude !== null ? (
 				<div id="map" ref={mapContainerRef} className="w-full h-full grow mb-10" />
 			) : (
 				<p>지도 로딩 중...</p>
