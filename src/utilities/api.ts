@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { IBucketInfo, IMyUserInfo } from '../interfaces'
 import { QueryFunctionContext } from '@tanstack/query-core'
+import { tokenInstance as userServerTokenInstance } from './apis/userAxios'
 
 export const instance = axios.create({
 	baseURL: import.meta.env.VITE_BASE_URL,
@@ -27,7 +28,7 @@ interface IGetUserInfoRes {
 }
 
 export const getMyInfo = async (): Promise<IMyUserInfo> => {
-	const userRes = await instance.get<IGetUserInfoRes>(`/private/user`)
+	const userRes = await userServerTokenInstance.get<IGetUserInfoRes>(`/private/user`)
 	return userRes.data.selfInfo
 }
 
