@@ -6,9 +6,11 @@ import { useJoinContentStore, useJoinInfoStore } from '../../../stores/clientSta
 import JoinSubmitButton from './AdditionalSubmitButton'
 
 const AdditionalUserInfo = () => {
+	const { isInitialNicknameDuplicated } = useJoinInfoStore()
 	const [nickNameMsgStatus, setNickNameMsgStatus] = useState<NicknameMsgType>(
-		'initial' as NicknameMsgType
+		isInitialNicknameDuplicated ? 'duplicate' : 'initial'
 	)
+
 	const { setContent } = useJoinContentStore()
 	const { nickname, setNickname } = useJoinInfoStore()
 
