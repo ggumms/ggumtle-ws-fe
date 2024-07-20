@@ -12,16 +12,16 @@ export const isCommentUserType = (
 	return !('owner' in userInfo && 'category' in userInfo)
 }
 
-export const isMyUserType = (
-	userInfo: IMyUserInfo | IOtherUserInfo | IProfileUserInfo
-): userInfo is IMyUserInfo => {
-	return (
-		'owner' in userInfo &&
-		'category' in userInfo &&
-		userInfo.owner === true &&
-		userInfo.isFollowing === null
-	)
-}
+// export const isMyUserType = (
+// 	userInfo: IMyUserInfo | IOtherUserInfo | IProfileUserInfo
+// ): userInfo is IMyUserInfo => {
+// 	return (
+// 		'owner' in userInfo &&
+// 		'category' in userInfo &&
+// 		userInfo.owner === true &&
+// 		userInfo.isFollowing === null
+// 	)
+// }
 
 export const isOtherUserType = (
 	userInfo: IMyUserInfo | IOtherUserInfo | IProfileUserInfo

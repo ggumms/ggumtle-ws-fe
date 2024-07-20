@@ -5,7 +5,7 @@ import { postBucket, postBucketImage } from '../../api'
 import { formatDate } from '../../../../../utilities/utils/date'
 import { getCurrentCategories } from '../../../../../utilities/utils/category'
 import { useRouter } from '../../../../../hooks/useRouter'
-import { deleteBucket } from '../../../BucketDetail/api'
+// import { deleteBucket } from '../../../BucketDetail/api'
 
 // Todo: 추후에는 이전 페이지 기록 기능을 추가해서 이전 페이지로 이동하게 만들기
 const CompleteButton = () => {
@@ -65,7 +65,7 @@ const CompleteButton = () => {
 			const imageUrl = await postBucketImage(imageFormData, bucketId) // use for post image to server
 			if (imageUrl) routeTo('/myPage')
 			else {
-				await deleteBucket(bucketId + '')
+				// await deleteBucket(bucketId + '')
 			}
 		} else {
 			alert('네트워크에 문제가 발생했습니다. 다시 시도해주세요.')

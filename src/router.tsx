@@ -1,30 +1,13 @@
 import { Router as RemixRouter } from '@remix-run/router/dist/router'
-import { createBrowserRouter, useParams } from 'react-router-dom'
-import FollowingTab from './pages/Radar/FollowingTab'
-import AllTab from './pages/Radar/AllTab'
-import Radar from './pages/Radar'
-import AlarmPage from './pages/Alarm'
-import SearchPage from './pages/Search'
-import UserSearch from './pages/Search/UserSearch'
-import BucketSearch from './pages/Search/BucketSearch'
-import ReviewSearch from './pages/Search/ReviewSearch'
-import UserPage from './pages/UserPage'
-import BucketDetail from './pages/Bucket/BucketDetail'
+import { createBrowserRouter } from 'react-router-dom'
+
 import AddBucket from './pages/Bucket/AddBucket'
 import MainInfo from './pages/Bucket/AddBucket/component/MainInfo/MainInfo'
 import CategoryInfo from './pages/Bucket/AddBucket/component/CategoryInfo/CategoryInfo'
-// import PlaceInfo from './pages/Bucket/AddBucket/PlaceInfo'
 import AdditionalInfo from './pages/Bucket/AddBucket/component/AdditionalInfo'
 import { MultiPageHeaderInfo } from './types/router'
 import NotFoundPage from './pages/NotfoundPage'
-// import ValidateTokenLayout from './component/layout/ValidateTokenLayout'
-import WriteReview from './pages/Review/WriteReview'
-import FollowDetail from './pages/follow'
-import FollowerDetail from './pages/follow/FollowerDetail'
-import FollowingDetail from './pages/follow/FollowingDetail'
-import ReviewDetail from './pages/Review/ReviewDetail'
-import AchieveBucket from './pages/Bucket/AchieveBucket'
-import CongratulateBucket from './pages/Bucket/CongratulateBucket'
+
 import LoginPage from './pages/Login'
 import JoinPage from './pages/Join'
 import UserProfileEdit from './pages/UserProfileEdit'
@@ -60,102 +43,11 @@ const routerData: RouterElement[] = [
 	},
 
 	{
-		path: '/',
-		element: <Radar />,
-		label: '메인페이지',
-		children: [
-			{
-				path: '',
-				element: <FollowingTab />,
-				label: '팔로잉',
-			},
-			{
-				path: 'follow',
-				element: <FollowingTab />,
-				label: '팔로잉',
-			},
-			{
-				path: 'all',
-				element: <AllTab />,
-				label: '전체',
-			},
-		],
-	},
-
-	{
-		path: '/alarm',
-		element: <AlarmPage />,
-		label: '',
-	},
-	{
-		path: '/search',
-		element: <SearchPage />,
-		label: '검색페이지',
-		children: [
-			{
-				path: '',
-				element: <UserSearch />,
-				label: '사용자',
-			},
-			{
-				path: 'user',
-				element: <UserSearch />,
-				label: '사용자',
-			},
-			{
-				path: 'bucket',
-				element: <BucketSearch />,
-				label: '꿈:틀',
-			},
-			{
-				path: 'review',
-				element: <ReviewSearch />,
-				label: '후기',
-			},
-		],
-	},
-
-	{
-		path: '/mypage',
-		// @TODO: 추후 본인 userId 삽입
-		element: <UserPage isForRadar={false} userId={6} />,
-		label: '',
-	},
-	{
 		path: '/mypage/edit',
 		element: <UserProfileEdit />,
 		label: 'editProfile',
 	},
-	{
-		path: '/user/:userId',
-		// @TODO: 추후 본인 userId 삽입
-		element: <UserPageWrapper />,
-		label: '',
-	},
 
-	{
-		path: '/follow/:userId',
-		element: <FollowDetail />,
-		label: '팔로우상세',
-		children: [
-			{
-				path: '',
-				element: <FollowerDetail />,
-				label: '팔로워',
-			},
-			{
-				path: 'follower',
-				element: <FollowerDetail />,
-				label: '팔로워',
-			},
-			{
-				path: 'following',
-				element: <FollowingDetail />,
-				label: '팔로잉',
-			},
-		],
-	},
-	{ path: '/bucket/:bucketId', element: <BucketDetail />, label: '' },
 	{
 		path: '/bucket/write',
 		element: <AddBucket />,
@@ -196,11 +88,6 @@ const routerData: RouterElement[] = [
 			{ path: 'additional', element: <AdditionalInfo />, label: '추가정보' },
 		],
 	},
-	{ path: '/bucket/achieve/:bucketId', element: <AchieveBucket />, label: '리뷰달성' },
-	{ path: '/review/write/:bucketId', element: <WriteReview />, label: '리뷰작성' },
-	{ path: '/review/modify/:bucketId', element: <WriteReview />, label: '리뷰수정' },
-	{ path: '/review/:reviewId', element: <ReviewDetail />, label: '리뷰상세' },
-	{ path: '/bucket/congratulation/:bucketId', element: <CongratulateBucket />, label: '리뷰축하' },
 	{ path: '*', element: <NotFoundPage />, label: '' },
 ]
 
@@ -229,12 +116,6 @@ const router: RemixRouter = createBrowserRouter(
 // export const addBucketHeaderList = routerData.map((router) => {
 // 	return { name: router.label, path: router.path }
 // })
-
-function UserPageWrapper() {
-	const { userId } = useParams()
-
-	return userId && <UserPage isForRadar={false} userId={parseInt(userId)} />
-}
 
 export const addBucketHeaderList: MultiPageHeaderInfo[] = routerData.reduce((prev, router) => {
 	let headerData

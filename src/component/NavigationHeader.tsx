@@ -3,14 +3,13 @@ import { NavLink } from 'react-router-dom'
 import { MultiPageHeaderInfo } from '../types/router'
 import { motion } from 'framer-motion'
 import { useRouter } from '../hooks/useRouter'
-import AlarmIcon from './AlarmIcon'
 
 interface NavigationHeaderProps {
 	headerData: MultiPageHeaderInfo[]
 	hasIcon: boolean
 }
 
-const NavigationHeader = ({ headerData, hasIcon }: NavigationHeaderProps) => {
+const NavigationHeader = ({ headerData }: NavigationHeaderProps) => {
 	const [selectedIndex, setSelectedIndex] = useState<number>()
 	const { currentPath } = useRouter()
 
@@ -56,7 +55,6 @@ const NavigationHeader = ({ headerData, hasIcon }: NavigationHeaderProps) => {
 					)
 				})}
 			</ul>
-			{hasIcon && <AlarmIcon />}
 		</div>
 	)
 }
