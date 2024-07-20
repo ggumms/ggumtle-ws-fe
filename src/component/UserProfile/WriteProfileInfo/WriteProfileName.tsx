@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { NicknameMsgType } from '../../../types/user'
 import { debounce } from 'lodash'
 import { validateNickNameChar } from '../../../utilities/utils/user'
@@ -21,6 +21,15 @@ const WriteProfileName = ({
 	setNickNameMsgStatus,
 }: WriteProfileNameProps) => {
 	const nameRef = useRef<string>(nickname) // 비동기 중복 검사로 인해 nameStatus 값이 덮어씌워지는 것을 방지하기 위한 ref
+
+	const checkInitialNickname = async () => {
+		await changeNickNameStatus(nickname)
+	}
+	useEffect(() => {
+		if (nickname.length > 0) {
+			checkInitialNickname()
+		}
+	}, [])
 
 	const changeNickNameStatus = debounce(async (currentName) => {
 		setNickNameMsgStatus('valid')
