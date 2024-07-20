@@ -11,7 +11,6 @@ const Survey = () => {
 	const { joinType, code, nickname, image, surveyResult, addSurvey, removeSurvey } =
 		useJoinInfoStore()
 	const { routeTo } = useRouter()
-	console.log(nickname, image)
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()

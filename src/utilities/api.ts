@@ -27,7 +27,7 @@ interface IGetUserInfoRes {
 }
 
 export const getMyInfo = async (): Promise<IMyUserInfo> => {
-	const userRes = await instance.get<IGetUserInfoRes>(`/user/self-info`)
+	const userRes = await instance.get<IGetUserInfoRes>(`/private/user`)
 	return userRes.data.selfInfo
 }
 

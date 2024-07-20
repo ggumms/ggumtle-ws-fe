@@ -13,7 +13,7 @@ export const postUserProfile = async (profileFormData: FormData): Promise<'succe
 }
 
 export const getNameIsDuplicated = async (name: string): Promise<boolean> => {
-	const duplicateRes = await userInstance.post('/user/duplicate', { name })
+	const duplicateRes = await userInstance.post('/public/duplicate-nickname', { name })
 	return duplicateRes.data
 }
 
@@ -24,6 +24,6 @@ export const postJoin = async (joinInfo: {
 	image: string | null
 	surveyResult: CategoryType[]
 }): Promise<'success' | 'fail'> => {
-	const joinRes = await tokenInstance.post('/user/join', joinInfo)
+	const joinRes = await tokenInstance.post('/join', joinInfo)
 	return joinRes.data ? 'success' : 'fail'
 }
