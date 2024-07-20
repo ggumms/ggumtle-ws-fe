@@ -18,11 +18,11 @@ import ResignButton from './component/ResignButton'
 const UserProfileEdit = () => {
 	const { userInfo, setUserInfo } = useCurrentUserStore()
 	const nickname = useMemo(() => {
-		return userInfo?.userNickname || ''
+		return userInfo?.nickname || ''
 	}, [userInfo])
 	const setNickname = useCallback(
 		(nickname: string) => {
-			setUserInfo({ ...userInfo, userNickname: nickname } as IMyUserInfo)
+			setUserInfo({ ...userInfo, nickname } as IMyUserInfo)
 		},
 		[userInfo]
 	)

@@ -81,9 +81,14 @@ export interface ITitleBucket {
 	dayCount?: number
 }
 
-export interface IMyUserInfo extends IBaseUserInfo, ITitleBucket {
-	category: CategoryType[]
-	owner: true
+// export interface IMyUserInfo extends IBaseUserInfo, ITitleBucket {
+// 	category: CategoryType[]
+// 	owner: true
+// }
+export interface IMyUserInfo {
+	nickname: string
+	profileImage: string
+	titleBucketId: number | null
 }
 
 export interface IOtherUserInfo extends IBaseUserInfo, ITitleBucket {

@@ -23,13 +23,17 @@ instance.interceptors.request.use(
 // :: User
 // - Get current user request
 interface IGetUserInfoRes {
-	result: string
-	selfInfo: IMyUserInfo
+	nickname: string
+	profilePicture: string
+	myBucketId: number | null
 }
-
 export const getMyInfo = async (): Promise<IMyUserInfo> => {
 	const userRes = await userServerTokenInstance.get<IGetUserInfoRes>(`/private/user`)
-	return userRes.data.selfInfo
+	return {
+		nickname: userRes.data.nickname,
+		profileImage: userRes.data.profilePicture,
+		titleBucketId: userRes.data.myBucketId,
+	}
 }
 
 // :: Bucket
