@@ -24,14 +24,15 @@ instance.interceptors.request.use(
 // - Get current user request
 interface IGetUserInfoRes {
 	nickname: string
-	profilePicture: string
+	profilePicture: string | null
 	myBucketId: number | null
 }
 export const getMyInfo = async (): Promise<IMyUserInfo> => {
 	const userRes = await userServerTokenInstance.get<IGetUserInfoRes>(`/private/user`)
+
 	return {
 		nickname: userRes.data.nickname,
-		profileImage: userRes.data.profilePicture,
+		profileImageUrl: userRes.data.profilePicture,
 		titleBucketId: userRes.data.myBucketId,
 	}
 }

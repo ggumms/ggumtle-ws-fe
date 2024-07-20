@@ -87,7 +87,7 @@ export interface ITitleBucket {
 // }
 export interface IMyUserInfo {
 	nickname: string
-	profileImage: string
+	profileImageUrl: string | null
 	titleBucketId: number | null
 }
 

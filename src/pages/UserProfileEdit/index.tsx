@@ -5,31 +5,47 @@ import { useRouter } from '../../hooks/useRouter'
 import WriteProfileImage from '../../component/UserProfile/WriteProfileInfo/WriteProfileImage'
 import WriteProfileName from '../../component/UserProfile/WriteProfileInfo/WriteProfileName'
 import { NicknameMsgType } from '../../types/user'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import EditProfileSubmit from './component/EditProfileSubmit'
 import { useCurrentUserStore } from '../../stores/currentUserStore'
 import { putUserProfile } from './api'
 import LogoutButton from './component/LogoutButton'
 import ResignButton from './component/ResignButton'
+import { convertUrlToFile } from '../../utilities/utils/image'
 
 // 유저 이름 변경하는 기능
 // - 유저 이미지 url을 기반으로 File로 만들어서 관리하는 기능
-
 const UserProfileEdit = () => {
 	const { userInfo, setUserInfo } = useCurrentUserStore()
-	const nickname = useMemo(() => {
-		return userInfo?.nickname || ''
-	}, [userInfo])
+	const [currentNickname, setCurrentNickname] = useState<string>(userInfo?.nickname || '')
+	const [nickNameMsgStatus, setNickNameMsgStatus] = useState<NicknameMsgType>(
+		'initial' as NicknameMsgType
+	)
+	const [currentProfileImage, setCurrentProfileImage] = useState<File | null>(null)
+
+	const setProfileImageWithUserInfoUrl = async () =>
+		setCurrentProfileImage(
+			userInfo?.profileImageUrl
+				? await convertUrlToFile(userInfo.profileImageUrl, 'profileImage')
+				: null
+		)
+
+	useEffect(() => {
+		setProfileImageWithUserInfoUrl()
+	}, [])
+
 	const setNickname = useCallback(
 		(nickname: string) => {
 			setUserInfo({ ...userInfo, nickname } as IMyUserInfo)
 		},
 		[userInfo]
 	)
-	const [nickNameMsgStatus, setNickNameMsgStatus] = useState<NicknameMsgType>(
-		'initial' as NicknameMsgType
+	const setProfileImage = useCallback(
+		(profileImage: File | null) => {
+			setUserInfo({ ...userInfo, profileImage } as IMyUserInfo)
+		},
+		[userInfo]
 	)
-
 	const { routeTo } = useRouter()
 
 	const menu: IMenu = {
@@ -46,10 +62,30 @@ const UserProfileEdit = () => {
 	const handleEditUserProfile = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 
-		const formData = new FormData(event.currentTarget)
-		const editProfileRes = await putUserProfile(formData)
+		const submittedFormData = new FormData(event.currentTarget)
+		const submittedNickname = submittedFormData.get('nickname') as string
+		const submittedProfileImage = submittedFormData.get('profileImage') as File
+
+		// 서버에 보낼 formdata 생성
+		const formDataToPut = new FormData()
+		const editProfileReqDto = {
+			nickname: submittedNickname,
+			nicknameChange: submittedNickname !== userInfo?.nickname,
+			profileImageChange: submittedProfileImage !== currentProfileImage,
+		}
+		formDataToPut.append(
+			'data',
+			new Blob([JSON.stringify(editProfileReqDto)], {
+				type: 'application/json',
+			})
+		)
+		formDataToPut.append('profileImage', submittedProfileImage)
+
+		const editProfileRes = await putUserProfile(formDataToPut)
 
 		if (editProfileRes) {
+			setNickname(submittedNickname)
+			setProfileImage(submittedProfileImage)
 			routeTo('/mypage')
 		} else {
 			alert('프로필 정보 수정 실패')
@@ -59,10 +95,10 @@ const UserProfileEdit = () => {
 	return (
 		<WithHeaderLayout headerMenu={menu} headerFunc={func}>
 			<form className="flex flex-col gap-8 relative grow" onSubmit={handleEditUserProfile}>
-				<WriteProfileImage previousImage={null} />
+				<WriteProfileImage previousImage={currentProfileImage ?? null} />
 				<WriteProfileName
-					nickname={nickname}
-					setNickname={setNickname}
+					nickname={currentNickname}
+					setNickname={setCurrentNickname}
 					nicknameMsgStatus={nickNameMsgStatus}
 					setNickNameMsgStatus={setNickNameMsgStatus}
 				/>
