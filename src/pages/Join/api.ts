@@ -2,8 +2,13 @@ import { tokenMultipartInstance as tokenServerTokenMultipartInstance } from '../
 import { instance as userServerInstance } from '../../utilities/apis/userAxios'
 
 export const getNameIsDuplicated = async (name: string): Promise<boolean> => {
-	const duplicateRes = await userServerInstance.get(`/public/duplicate-nickname?nickname=${name}`)
-	return duplicateRes.data
+	try {
+		await userServerInstance.get(`/public/duplicate-nickname?nickname=${name}`)
+		return false
+	} catch (error) {
+		console.error(error) // 중복이면 409 에러
+		return true
+	}
 }
 
 export const postJoin = async (joinFormData: FormData): Promise<'success' | 'fail'> => {

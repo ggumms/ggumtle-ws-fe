@@ -24,7 +24,6 @@ const WriteProfileName = ({
 
 	const changeNickNameStatus = debounce(async (currentName) => {
 		setNickNameMsgStatus('valid')
-		return
 
 		console.log('checking...')
 		let currentStatus
