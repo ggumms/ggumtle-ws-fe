@@ -9,6 +9,7 @@ declare namespace kakao.maps {
 		constructor(container: HTMLElement, options: MapOptions)
 		setCenter(latlng: LatLng): void
 		addControl(control: MapTypeControl | ZoomControl, position: ControlPosition): void
+		destroy(): void
 	}
 
 	class MapTypeControl {}
@@ -25,10 +26,16 @@ declare namespace kakao.maps {
 		constructor(options?: InfoWindowOptions)
 		open(map: Map, marker: Marker): void
 		setContent(content: string): void
+		close(): void
 	}
 
 	namespace event {
 		function addListener(target: Map, type: string, handler: (mouseEvent: MouseEvent) => void): void
+		function removeListener(
+			target: Map,
+			type: string,
+			handler: (mouseEvent: MouseEvent) => void
+		): void
 	}
 
 	namespace services {
