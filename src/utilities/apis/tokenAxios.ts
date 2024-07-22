@@ -17,6 +17,7 @@ const tokenMultipartInstance = axios.create(baseConfig)
 // - 요청이 전달되기 전에 작업 수행
 const requestPrev = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'application/json'
+	config.headers['ngrok-skip-browser-warning'] = true
 	return config
 }
 const tokenReqPrev = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
