@@ -1,0 +1,57 @@
+name: deploy for test server
+
+on:
+  push:
+    branches:
+      - deploy-test
+
+jobs:
+  build-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: .env setting
+        run: |
+          echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env
+          echo "VITE_USER_SERVER_URL=${{ secrets.VITE_USER_SERVER_URL }}" >> .env
+          echo "VITE_TOKEN_SERVER_URL=${{ secrets.VITE_TOKEN_SERVER_URL }}" >> .env
+          echo "VITE_KAKAO_REST_API_KEY=${{ secrets.VITE_KAKAO_REST_API_KEY }}" >> .env
+          echo "VITE_KAKAO_REDIRECT_URI=${{ secrets.VITE_KAKAO_REDIRECT_URI }}" >> .env
+
+      - name: Push Docker image latest
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/browser
+
+  deploy-frontend:
+    needs: build-docker-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to lightsail instance
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.TEST_SERVER_HOST }}
+          username: ${{ secrets.TEST_SERVER_USER }}
+          key: ${{ secrets.TEST_SSH_PRIVATE_KEY }}
+          script: |
+            sudo docker stop frontend || true
+            sudo docker rm frontend || true
+            sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/browser
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/browser
+            sudo docker run --name browser -d \
+            -p 5173:5173 \
+            --network=bridge \
+            --restart unless-stopped \
+            ${{ secrets.DOCKERHUB_USERNAME }}/browser
+            sudo docker container prune -f
