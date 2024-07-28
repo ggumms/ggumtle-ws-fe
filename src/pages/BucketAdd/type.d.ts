@@ -5,11 +5,28 @@ declare namespace kakao.maps {
 		getLng(): number
 	}
 
+	class LatLngBounds {
+		constructor(sw?: LatLng, ne?: LatLng)
+		extend(latlng: LatLng): this
+		getSouthWest(): LatLng
+		getNorthEast(): LatLng
+		isEmpty(): boolean
+		equals(latlngBounds: LatLngBounds): boolean
+		contain(latlng: LatLng): boolean
+	}
+
 	class Map {
 		constructor(container: HTMLElement, options: MapOptions)
 		setCenter(latlng: LatLng): void
 		addControl(control: MapTypeControl | ZoomControl, position: ControlPosition): void
+		setBounds(bounds: LatLngBounds, padding?: number | Padding): void
 		destroy(): void
+	}
+	interface Padding {
+		top: number
+		right: number
+		bottom: number
+		left: number
 	}
 
 	class MapTypeControl {}
@@ -44,6 +61,13 @@ declare namespace kakao.maps {
 				longitude: number,
 				latitude: number,
 				callback: (result: AddressResult[], status: Status) => void
+			): void
+		}
+
+		class Places {
+			keywordSearch(
+				keyword: string,
+				callback: (result: PlaceResult[], status: Status) => void
 			): void
 		}
 
@@ -92,7 +116,8 @@ declare namespace kakao.maps {
 	}
 }
 
-interface IMarkerAndInfo {
-	marker: kakao.maps.Marker
-	infoWindow: kakao.maps.InfoWindow
+interface IMarkerAndWindowInfo {
+	markerPosition: LatLng
+	windowContent: string
+	isWindowOpen: boolean
 }
