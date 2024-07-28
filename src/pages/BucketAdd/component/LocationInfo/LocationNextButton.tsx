@@ -1,5 +1,5 @@
 import NavigateButton from '../../../../component/NavigateButton'
-import { useBucketStore } from '../../../../stores/bucketStore'
+import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
 
 const LocationNextButton = () => {
 	const { selectedInfo } = useBucketStore()

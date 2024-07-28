@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import { useBucketStore } from '../../../../stores/bucketStore'
+import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
 import { isValidatePeriod } from '../../../../utilities/utils/typeFilter'
 import { MouseEvent } from 'react'
 import { PeriodType } from '../../../../interfaces'

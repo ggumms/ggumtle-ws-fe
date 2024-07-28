@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { IBaseBucketInfo } from '../../../../interfaces'
-import { useBucketStore } from '../../../../stores/bucketStore'
+import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
 import { postBucket, postBucketImage } from '../../api'
 import { formatDate } from '../../../../utilities/utils/date'
 import { getCurrentCategories } from '../../../../utilities/utils/category'

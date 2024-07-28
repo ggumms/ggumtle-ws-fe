@@ -91,3 +91,8 @@ declare namespace kakao.maps {
 		latLng: LatLng
 	}
 }
+
+interface IMarkerAndInfo {
+	marker: kakao.maps.Marker
+	infoWindow: kakao.maps.InfoWindow
+}

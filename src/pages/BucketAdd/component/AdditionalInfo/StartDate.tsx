@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import DatePicker from './DatePicker'
 import { Dialog, Transition } from '@headlessui/react'
-import { useBucketStore } from '../../../../stores/bucketStore'
+import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
 import { formatDate } from '../../../../utilities/utils/date'
 
 // createdDate로 이름 변경 필요

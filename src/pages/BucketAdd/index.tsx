@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import MultiPageLayout from '../../component/layout/MutiPageLayout/MultiPageLayout'
 import { addBucketHeaderList } from '../../router'
-import { useBucketStore } from '../../stores/bucketStore'
+import { useBucketStore } from '../../stores/clientState/bucketAddStore'
 import { icons } from '../../utilities/constants/header-icons'
 import { IMenu, IMenuFunc } from '../../interfaces'
 import { useRouter } from '../../hooks/useRouter'

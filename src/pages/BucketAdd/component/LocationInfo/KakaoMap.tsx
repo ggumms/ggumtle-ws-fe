@@ -1,17 +1,16 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useGetCurrentPosition } from '../../hook'
 import './map.css'
 
-interface IMarkerAndInfo {
-	marker: kakao.maps.Marker
-	infoWindow: kakao.maps.InfoWindow
+interface IKakaoMapProps {
+	markerAndInfoList: IMarkerAndInfo[]
+	setMarkerAndInfoList: React.Dispatch<React.SetStateAction<IMarkerAndInfo[]>>
 }
 
-const KakaoMap = () => {
+const KakaoMap = ({ markerAndInfoList, setMarkerAndInfoList }: IKakaoMapProps) => {
 	const mapContainerRef = useRef<HTMLDivElement>(null)
 	const mapInstanceRef = useRef<kakao.maps.Map | null>(null)
 	const { longitude, latitude } = useGetCurrentPosition()
-	const [markerAndInfoList, setMarkerAndInfoList] = useState<IMarkerAndInfo[]>([])
 
 	// 지도 클릭 이벤트 핸들러
 	const handleMapClick = (mouseEvent: kakao.maps.MouseEvent) => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import Ggumtle from '../../../../component/Ggumtle'
 
-import { useBucketStore } from '../../../../stores/bucketStore'
+import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
 import { categoryData } from '../../../../utilities/utils/category'
 import { isCategoryType, isColorType } from '../../../../utilities/utils/typeFilter'
 import { CategoryType } from '../../../../interfaces'

@@ -1,7 +1,7 @@
 import { create, SlicePattern, StateCreator } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { ColorType, IBucketInfo, PeriodType } from '../interfaces'
-import { defaultCategories } from '../utilities/utils/category'
+import { ColorType, IBucketInfo, PeriodType } from '../../interfaces'
+import { defaultCategories } from '../../utilities/utils/category'
 import { immer } from 'zustand/middleware/immer'
 import { startOfToday } from 'date-fns'
 import {
@@ -16,7 +16,7 @@ import {
 	IResetStateSlice,
 	IAddStateSlice,
 	ImageUrlType,
-} from '../types/bucket'
+} from '../../types/bucket'
 
 declare module 'zustand' {
 	type SlicePattern<T, S = T> = StateCreator<

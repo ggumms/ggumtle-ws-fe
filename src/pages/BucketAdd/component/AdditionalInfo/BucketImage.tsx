@@ -3,7 +3,7 @@ import { isValidImageFile } from '../../../../utilities/utils/image'
 import { Picture } from '../../../../assets/svgs'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { IoCloseSharp } from 'react-icons/io5'
-import { useBucketStore } from '../../../../stores/bucketStore'
+import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
 
 // image는 나중에 submit할 때 Post하기
 const BucketImage = () => {

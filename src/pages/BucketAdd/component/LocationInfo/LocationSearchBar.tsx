@@ -2,7 +2,12 @@ import colorPalette from '../../../../utilities/constants/colorPallet'
 import { bgColorClass } from '../../../../utilities/constants/dynamicClass'
 import { IoLocationSharp } from 'react-icons/io5'
 
-const LocationSearchBar = () => {
+interface ILocationSearchBarProps {
+	setMarkerAndInfoList: React.Dispatch<React.SetStateAction<IMarkerAndInfo[]>>
+}
+
+const LocationSearchBar = ({ setMarkerAndInfoList }: ILocationSearchBarProps) => {
+	console.log(setMarkerAndInfoList)
 	const handleSearchLocation = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const formData = new FormData(e.currentTarget)

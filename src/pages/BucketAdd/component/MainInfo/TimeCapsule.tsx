@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react'
-import { useBucketStore } from '../../../../stores/bucketStore'
+import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
 
 const TimeCapsule = () => {
 	const { timeCapsule, changeTimeCapsule } = useBucketStore()

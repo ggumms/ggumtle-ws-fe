@@ -1,4 +1,4 @@
-import { useBucketStore } from '../../../../stores/bucketStore'
+import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
 import NavigateButton from '../../../../component/NavigateButton'
 
 const MainNextButton = () => {
