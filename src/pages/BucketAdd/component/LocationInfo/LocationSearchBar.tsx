@@ -1,4 +1,4 @@
-// import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import colorPalette from '../../../../utilities/constants/colorPallet'
 import { bgColorClass } from '../../../../utilities/constants/dynamicClass'
 import { IoLocationSharp } from 'react-icons/io5'
@@ -8,47 +8,38 @@ interface ILocationSearchBarProps {
 }
 
 const LocationSearchBar = ({ setMarkerAndWindowInfoList }: ILocationSearchBarProps) => {
-	// const placeSearch = useRef<kakao.maps.services.Places | null>(null)
-	console.log(setMarkerAndWindowInfoList)
+	const placeSearch = useRef<kakao.maps.services.Places | null>(null)
 
-	// useEffect(() => {
-	// 	placeSearch.current = new kakao.maps.services.Places()
-	// }, [])
+	useEffect(() => {
+		placeSearch.current = new kakao.maps.services.Places()
+	}, [])
 
 	const handleSearchLocation = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const formData = new FormData(e.currentTarget)
 		const searchWord = formData.get('searchWord') as string
 		console.log(searchWord)
-		// if (placeSearch.current) {
-		// 	placeSearch.current.keywordSearch(searchWord, (result, status) => {
-		// 		if (status === kakao.maps.services.Status.OK) {
-		// 			result.forEach((place) => {
-		// 				setMarkerAndInfoList((prev) => {
-		// 					prev.forEach(({ marker, infoWindow }) => {
-		// 						marker.setMap(null)
-		// 						infoWindow.close()
-		// 					})
 
-		// 					const searchedMarker = new kakao.maps.Marker({})
-
-		// 					return [{ marker: clickedMarker, infoWindow: clickedInfoWindow }]
-		// 				})
-		// 			})
-		// 			// // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-		// 			// // LatLngBounds 객체에 좌표를 추가합니다
-		// 			// const bounds = new kakao.maps.LatLngBounds()
-
-		// 			// for (let i = 0; i < result.length; i++) {
-		// 			// 	displayMarker(result[i])
-		// 			// 	bounds.extend(new kakao.maps.LatLng(result[i].y, result[i].x))
-		// 			// }
-
-		// 			// // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-		// 			// map.setBounds(bounds)
-		// 		}
-		// 	})
-		// }
+		if (placeSearch.current) {
+			placeSearch.current.keywordSearch(searchWord, (result, status) => {
+				const searchResultList = [] as IMarkerAndWindowInfo[]
+				if (status === kakao.maps.services.Status.OK) {
+					// 검색 결과를 결과 저장 리스트에 추가
+					// Todo: 여러 개의 마커를 표시할 경우에 대한 처리 필요
+					// 1. 지도에서 마커를 표시할 때 마커에 클릭 이벤트 핸들러를 통해 인포 윈도우 토글 기능을 추가해줘야함
+					// 2. 모든 마커가 표시될 수 있도록 지도의 bounds를 재설정해줘야함
+					result.forEach((place) => {
+						searchResultList.push({
+							markerPosition: new kakao.maps.LatLng(Number(place.y), Number(place.x)),
+							windowContent:
+								'<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>',
+							isWindowOpen: false,
+						})
+					})
+				}
+				setMarkerAndWindowInfoList(searchResultList)
+			})
+		}
 	}
 
 	return (

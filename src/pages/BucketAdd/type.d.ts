@@ -67,8 +67,29 @@ declare namespace kakao.maps {
 		class Places {
 			keywordSearch(
 				keyword: string,
-				callback: (result: PlaceResult[], status: Status) => void
+				callback: (result: PlacesSearchResult[], status: Status) => void
 			): void
+		}
+
+		enum Status {
+			OK = 'OK',
+			ZERO_RESULT = 'ZERO_RESULT',
+			ERROR = 'ERROR',
+		}
+
+		interface PlacesSearchResult {
+			id: string
+			place_name: string
+			category_name: string
+			category_group_code: string
+			category_group_name: string
+			phone: string
+			address_name: string
+			road_address_name: string
+			x: string
+			y: string
+			place_url: string
+			distance: string
 		}
 
 		interface AddressResult {
