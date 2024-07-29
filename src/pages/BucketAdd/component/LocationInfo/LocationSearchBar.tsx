@@ -25,9 +25,6 @@ const LocationSearchBar = ({ setMarkerAndWindowInfoList }: ILocationSearchBarPro
 				const searchResultList = [] as IMarkerAndWindowInfo[]
 				if (status === kakao.maps.services.Status.OK) {
 					// 검색 결과를 결과 저장 리스트에 추가
-					// Todo: 여러 개의 마커를 표시할 경우에 대한 처리 필요
-					// 1. 지도에서 마커를 표시할 때 마커에 클릭 이벤트 핸들러를 통해 인포 윈도우 토글 기능을 추가해줘야함
-					// 2. 모든 마커가 표시될 수 있도록 지도의 bounds를 재설정해줘야함
 					result.forEach((place) => {
 						searchResultList.push({
 							markerPosition: new kakao.maps.LatLng(Number(place.y), Number(place.x)),

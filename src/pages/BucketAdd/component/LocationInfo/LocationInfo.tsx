@@ -6,7 +6,7 @@ import LocationSearchBar from './LocationSearchBar'
 import { useGetCurrentPosition } from '../../hook'
 
 const LocationInfo = () => {
-	const { longitude, latitude } = useGetCurrentPosition()
+	const currentCoordinate = useGetCurrentPosition()
 
 	const [initialPosition, setInitialPosition] = useState<{
 		latitude: number
@@ -14,16 +14,23 @@ const LocationInfo = () => {
 	} | null>(null)
 	const [markerAndWindowInfoList, setMarkerAndWindowInfoList] = useState<IMarkerAndWindowInfo[]>([])
 
+	useEffect(() => {
+		console.log(markerAndWindowInfoList)
+	}, [markerAndWindowInfoList])
+
 	// 좌표를 받아오면 "초기 위치" 설정 & "마커와 인포윈도우 초기 리스트" 생성
 	useEffect(() => {
-		if (longitude && latitude) {
-			const currentPosition = new kakao.maps.LatLng(latitude, longitude)
+		if (currentCoordinate && initialPosition === null) {
+			const currentPosition = new kakao.maps.LatLng(
+				currentCoordinate.latitude,
+				currentCoordinate.longitude
+			)
 			setMarkerAndWindowInfoList([
 				{ markerPosition: currentPosition, windowContent: '현재 위치', isWindowOpen: true },
 			])
-			setInitialPosition({ latitude, longitude })
+			setInitialPosition(currentCoordinate)
 		}
-	}, [longitude, latitude])
+	}, [currentCoordinate])
 
 	return (
 		<section className="pb-12 flex flex-col grow">
@@ -32,11 +39,16 @@ const LocationInfo = () => {
 			</section>
 			<section className="flex flex-col grow">
 				<LocationSearchBar setMarkerAndWindowInfoList={setMarkerAndWindowInfoList} />
-				<KakaoMap
-					initialPosition={initialPosition}
-					markerAndWindowInfoList={markerAndWindowInfoList}
-					setMarkerAndWindowInfoList={setMarkerAndWindowInfoList}
-				/>
+
+				{initialPosition ? (
+					<KakaoMap
+						initialPosition={initialPosition}
+						markerAndWindowInfoList={markerAndWindowInfoList}
+						setMarkerAndWindowInfoList={setMarkerAndWindowInfoList}
+					/>
+				) : (
+					<p>지도 로딩 중...</p>
+				)}
 			</section>
 			<LocationNextButton />
 		</section>

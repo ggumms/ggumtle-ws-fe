@@ -37,17 +37,23 @@ declare namespace kakao.maps {
 		constructor(options?: MarkerOptions)
 		setMap(map: Map | null): void
 		setPosition(position: LatLng): void
+		getPosition(): LatLng
 	}
 
 	class InfoWindow {
 		constructor(options?: InfoWindowOptions)
 		open(map: Map, marker: Marker): void
 		setContent(content: string): void
+		getContent(): string
 		close(): void
 	}
 
 	namespace event {
-		function addListener(target: Map, type: string, handler: (mouseEvent: MouseEvent) => void): void
+		function addListener(
+			target: Map | Marker,
+			type: string,
+			handler: (mouseEvent: MouseEvent) => void
+		): void
 		function removeListener(
 			target: Map,
 			type: string,

@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './map.css'
 
 interface IKakaoMapProps {
-	initialPosition: { latitude: number; longitude: number } | null
+	initialPosition: { latitude: number; longitude: number }
 	markerAndWindowInfoList: IMarkerAndWindowInfo[]
 	setMarkerAndWindowInfoList: React.Dispatch<React.SetStateAction<IMarkerAndWindowInfo[]>>
 }
@@ -20,48 +20,12 @@ const KakaoMap = ({
 }: IKakaoMapProps) => {
 	// 지도 관련 ref들
 	const mapContainerRef = useRef<HTMLDivElement>(null) // 지도를 표시할 div를 저장하는 ref
-	// const mapInstanceRef = useRef<kakao.maps.Map | null>(null) // 지도 인스턴스를 관리하는 ref
 	const [mapInstance, setMapInstance] = useState<kakao.maps.Map | null>(null) // 지도 인스턴스를 관리하는 state
-
-	// 지도에 표시될 마커와 인포윈도우 리스트
-	const [markersAndInfoWindows, setMarkersAndInfoWindows] = useState<IMarkerAndInfoWindowItem[]>([])
-	useEffect(() => {
-		if (!mapInstance || !markerAndWindowInfoList.length) return
-
-		// 새로운 마커와 인포윈도우 리스트 생성
-		const resultList = [] as IMarkerAndInfoWindowItem[]
-
-		markerAndWindowInfoList.forEach(({ markerPosition, windowContent, isWindowOpen }) => {
-			const marker = new kakao.maps.Marker({ position: markerPosition })
-			const infoWindow = new kakao.maps.InfoWindow({ content: windowContent })
-
-			resultList.push({ marker, infoWindow, isWindowOpen })
-		})
-
-		// 기존 마커는 제거하고, 새롭운 마커와 인포윈도우 리스트로 갱신
-		setMarkersAndInfoWindows((prev) => {
-			prev.forEach(({ marker, infoWindow, isWindowOpen }) => {
-				marker.setMap(null)
-				isWindowOpen && infoWindow.close()
-			})
-
-			return resultList
-		})
-	}, [markerAndWindowInfoList, mapInstance])
-
-	// 마커와 인포윈도우 리스트가 갱신되면, 지도에 마커와 인포윈도우를 표시
-	useEffect(() => {
-		if (!mapInstance || !markersAndInfoWindows.length) return
-
-		markersAndInfoWindows.forEach(({ marker, infoWindow, isWindowOpen }) => {
-			// marker.setMap(mapInstanceRef.current)
-			marker.setMap(mapInstance)
-			isWindowOpen && infoWindow.open(mapInstance, marker)
-		})
-	}, [markersAndInfoWindows, mapInstance])
+	// 지도 관련 state들
+	const [markersAndInfoWindows, setMarkersAndInfoWindows] = useState<IMarkerAndInfoWindowItem[]>([]) // 지도에 표시될 마커와 인포윈도우 리스트
 
 	// 지도 클릭 이벤트 핸들러
-	const handleMapClick = (mouseEvent: kakao.maps.MouseEvent) => {
+	const handleMapClick = useCallback((mouseEvent: kakao.maps.MouseEvent) => {
 		// 좌표를 주소로 변환
 		const geocoder = new kakao.maps.services.Geocoder()
 		geocoder.coord2Address(
@@ -88,11 +52,11 @@ const KakaoMap = ({
 				}
 			}
 		)
-	}
+	}, [])
 
 	// Note: 카카오맵 초기 설정
 	useEffect(() => {
-		if (!window.kakao || !mapContainerRef.current || initialPosition === null) {
+		if (!window.kakao || !mapContainerRef.current) {
 			return
 		}
 
@@ -112,13 +76,71 @@ const KakaoMap = ({
 		const zoomControl = new kakao.maps.ZoomControl()
 		mapInstance.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
 
-		// 맵 인스턴스 저장
-		// mapInstanceRef.current = mapInstance
-		setMapInstance(mapInstance)
-
 		// 지도에 클릭 이벤트 리스너 추가
 		kakao.maps.event.addListener(mapInstance, 'click', handleMapClick)
+
+		// 맵 인스턴스 저장
+		setMapInstance(mapInstance)
 	}, [initialPosition])
+
+	// Note: state 기반으로 지도에 마커와 인포윈도우 객체를 만들어서 배열에 저장
+	useEffect(() => {
+		if (!mapInstance || markerAndWindowInfoList.length === 0) return
+
+		// 기존 마커는 제거
+		markersAndInfoWindows.forEach(({ marker, infoWindow, isWindowOpen }) => {
+			marker.setMap(null)
+			isWindowOpen && infoWindow.close()
+		})
+
+		// 새로운 마커와 인포윈도우 리스트로 갱신
+		const resultList = [] as IMarkerAndInfoWindowItem[]
+
+		markerAndWindowInfoList.forEach(({ markerPosition, windowContent, isWindowOpen }) => {
+			const newMarker = new kakao.maps.Marker({ position: markerPosition })
+			const newInfoWindow = new kakao.maps.InfoWindow({ content: windowContent })
+
+			resultList.push({ marker: newMarker, infoWindow: newInfoWindow, isWindowOpen })
+		})
+
+		setMarkersAndInfoWindows(resultList)
+	}, [markerAndWindowInfoList, mapInstance])
+
+	// Note: 마커 및 인포윈도우 리스트가 갱신되면 지도에 마커와 인포윈도우를 표시 + bounds 재설정 작업 진행
+	// Note: 마커를 여러개 표시해야한다면 마커 클릭 이벤트 핸들러 등록 작업을 추가적으로 진행
+	useEffect(() => {
+		if (!mapInstance || markersAndInfoWindows.length === 0) return
+
+		// const bounds = new kakao.maps.LatLngBounds()
+
+		markersAndInfoWindows.forEach(({ marker, infoWindow, isWindowOpen }) => {
+			marker.setMap(mapInstance)
+			isWindowOpen && infoWindow.open(mapInstance, marker)
+
+			// bounds.extend(marker.getPosition())
+
+			// if (markersAndInfoWindows.length > 0) {
+			// 	kakao.maps.event.addListener(marker, 'click', function () {
+			// 		// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+			// 		if (isWindowOpen === false) {
+			// 			setMarkerAndWindowInfoList(
+			// 				markerAndWindowInfoList.map((item) => {
+			// 					if (item.markerPosition !== marker.getPosition()) return item
+
+			// 					return {
+			// 						markerPosition: item.markerPosition,
+			// 						windowContent: item.windowContent,
+			// 						isWindowOpen: true,
+			// 					}
+			// 				})
+			// 			)
+			// 		}
+			// 	})
+			// }
+		})
+
+		// mapInstance.setBounds(bounds)
+	}, [markersAndInfoWindows, mapInstance])
 
 	// Note: 클리어 함수 작성
 	useEffect(() => {
@@ -133,15 +155,7 @@ const KakaoMap = ({
 		}
 	}, [])
 
-	return (
-		<>
-			{initialPosition ? (
-				<div id="map" ref={mapContainerRef} className="w-full h-full grow mb-10" />
-			) : (
-				<p>지도 로딩 중...</p>
-			)}
-		</>
-	)
+	return <div id="map" ref={mapContainerRef} className="w-full h-full grow mb-10" />
 }
 
 export default KakaoMap
