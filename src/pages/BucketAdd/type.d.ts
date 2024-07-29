@@ -148,3 +148,5 @@ interface IMarkerAndWindowInfo {
 	windowContent: string
 	isWindowOpen: boolean
 }
+
+type TMarkerAndWindowReference = 'searched' | 'initial' | 'clicked'

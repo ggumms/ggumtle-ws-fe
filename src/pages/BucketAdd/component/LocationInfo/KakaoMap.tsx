@@ -5,6 +5,8 @@ interface IKakaoMapProps {
 	initialPosition: { latitude: number; longitude: number }
 	markerAndWindowInfoList: IMarkerAndWindowInfo[]
 	setMarkerAndWindowInfoList: React.Dispatch<React.SetStateAction<IMarkerAndWindowInfo[]>>
+	dataReference: TMarkerAndWindowReference
+	setDataReference: React.Dispatch<React.SetStateAction<TMarkerAndWindowReference>>
 }
 
 interface IMarkerAndInfoWindowItem {
@@ -17,6 +19,8 @@ const KakaoMap = ({
 	initialPosition,
 	markerAndWindowInfoList,
 	setMarkerAndWindowInfoList,
+	dataReference,
+	setDataReference,
 }: IKakaoMapProps) => {
 	// 지도 관련 ref들
 	const mapContainerRef = useRef<HTMLDivElement>(null) // 지도를 표시할 div를 저장하는 ref
@@ -25,34 +29,42 @@ const KakaoMap = ({
 	const [markersAndInfoWindows, setMarkersAndInfoWindows] = useState<IMarkerAndInfoWindowItem[]>([]) // 지도에 표시될 마커와 인포윈도우 리스트
 
 	// 지도 클릭 이벤트 핸들러
-	const handleMapClick = useCallback((mouseEvent: kakao.maps.MouseEvent) => {
-		// 좌표를 주소로 변환
-		const geocoder = new kakao.maps.services.Geocoder()
-		geocoder.coord2Address(
-			mouseEvent.latLng.getLng(),
-			mouseEvent.latLng.getLat(),
-			// 주소로 변환 성공 시 마커를 추가하고 인포윈도우를 표시
-			(result, status) => {
-				if (status === kakao.maps.services.Status.OK) {
-					// infoWindow에 표시할 content 생성
-					const detailAddr = result[0].road_address
-						? `<div>도로명주소 : ${result[0].road_address.address_name}</div>`
-						: ''
-					const addressName = `<div>지번 주소 : ${result[0].address.address_name}</div>`
-					const content = `
+	const handleMapClick = useCallback(
+		(mouseEvent: kakao.maps.MouseEvent) => {
+			// 좌표를 주소로 변환
+			const geocoder = new kakao.maps.services.Geocoder()
+			geocoder.coord2Address(
+				mouseEvent.latLng.getLng(),
+				mouseEvent.latLng.getLat(),
+				// 주소로 변환 성공 시 마커를 추가하고 인포윈도우를 표시
+				(result, status) => {
+					if (status === kakao.maps.services.Status.OK) {
+						// infoWindow에 표시할 content 생성
+						const detailAddr = result[0].road_address
+							? `<div>도로명주소 : ${result[0].road_address.address_name}</div>`
+							: ''
+						const addressName = `<div>지번 주소 : ${result[0].address.address_name}</div>`
+						const content = `
 					<div class="bAddr">
 						<span class="title">법정동 주소정보</span>
 						${detailAddr}
 						${addressName}
 					</div>
 				`
-					setMarkerAndWindowInfoList([
-						{ markerPosition: mouseEvent.latLng, windowContent: content, isWindowOpen: true },
-					])
+						setMarkerAndWindowInfoList([
+							{
+								markerPosition: mouseEvent.latLng,
+								windowContent: content,
+								isWindowOpen: true,
+							},
+						])
+						setDataReference('clicked')
+					}
 				}
-			}
-		)
-	}, [])
+			)
+		},
+		[setMarkerAndWindowInfoList]
+	)
 
 	// Note: 카카오맵 초기 설정
 	useEffect(() => {
@@ -111,35 +123,45 @@ const KakaoMap = ({
 	useEffect(() => {
 		if (!mapInstance || markersAndInfoWindows.length === 0) return
 
-		// const bounds = new kakao.maps.LatLngBounds()
+		// 1. 초기 셋팅 및 클릭으로 인한 변경
+		switch (dataReference) {
+			case 'initial':
+			case 'clicked':
+				markersAndInfoWindows.forEach(({ marker, infoWindow, isWindowOpen }) => {
+					marker.setMap(mapInstance)
+					isWindowOpen && infoWindow.open(mapInstance, marker)
+				})
+				break
+			case 'searched': {
+				const bounds = new kakao.maps.LatLngBounds()
+				markersAndInfoWindows.forEach(({ marker, infoWindow, isWindowOpen }) => {
+					marker.setMap(mapInstance)
+					isWindowOpen && infoWindow.open(mapInstance, marker)
 
-		markersAndInfoWindows.forEach(({ marker, infoWindow, isWindowOpen }) => {
-			marker.setMap(mapInstance)
-			isWindowOpen && infoWindow.open(mapInstance, marker)
+					bounds.extend(marker.getPosition())
 
-			// bounds.extend(marker.getPosition())
-
-			// if (markersAndInfoWindows.length > 0) {
-			// 	kakao.maps.event.addListener(marker, 'click', function () {
-			// 		// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-			// 		if (isWindowOpen === false) {
-			// 			setMarkerAndWindowInfoList(
-			// 				markerAndWindowInfoList.map((item) => {
-			// 					if (item.markerPosition !== marker.getPosition()) return item
-
-			// 					return {
-			// 						markerPosition: item.markerPosition,
-			// 						windowContent: item.windowContent,
-			// 						isWindowOpen: true,
-			// 					}
-			// 				})
-			// 			)
-			// 		}
-			// 	})
-			// }
-		})
-
-		// mapInstance.setBounds(bounds)
+					// kakao.maps.event.addListener(marker, 'click', function () {
+					// 	// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+					// 	if (isWindowOpen === false) {
+					// 		setMarkerAndWindowInfoList(
+					// 			markerAndWindowInfoList.map((item) => {
+					// 				if (item.markerPosition !== marker.getPosition()) return item
+					// 				return {
+					// 					markerPosition: item.markerPosition,
+					// 					windowContent: item.windowContent,
+					// 					isWindowOpen: true,
+					// 				}
+					// 			})
+					// 		)
+					// 	}
+					// })
+				})
+				mapInstance.setBounds(bounds)
+				break
+			}
+			default:
+				break
+		}
 	}, [markersAndInfoWindows, mapInstance])
 
 	// Note: 클리어 함수 작성

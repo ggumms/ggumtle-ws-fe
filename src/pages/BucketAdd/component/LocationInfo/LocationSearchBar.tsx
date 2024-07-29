@@ -5,9 +5,13 @@ import { IoLocationSharp } from 'react-icons/io5'
 
 interface ILocationSearchBarProps {
 	setMarkerAndWindowInfoList: React.Dispatch<React.SetStateAction<IMarkerAndWindowInfo[]>>
+	setDataReference: React.Dispatch<React.SetStateAction<TMarkerAndWindowReference>>
 }
 
-const LocationSearchBar = ({ setMarkerAndWindowInfoList }: ILocationSearchBarProps) => {
+const LocationSearchBar = ({
+	setMarkerAndWindowInfoList,
+	setDataReference,
+}: ILocationSearchBarProps) => {
 	const placeSearch = useRef<kakao.maps.services.Places | null>(null)
 
 	useEffect(() => {
@@ -35,6 +39,7 @@ const LocationSearchBar = ({ setMarkerAndWindowInfoList }: ILocationSearchBarPro
 					})
 				}
 				setMarkerAndWindowInfoList(searchResultList)
+				setDataReference('searched')
 			})
 		}
 	}

@@ -13,10 +13,7 @@ const LocationInfo = () => {
 		longitude: number
 	} | null>(null)
 	const [markerAndWindowInfoList, setMarkerAndWindowInfoList] = useState<IMarkerAndWindowInfo[]>([])
-
-	useEffect(() => {
-		console.log(markerAndWindowInfoList)
-	}, [markerAndWindowInfoList])
+	const [dataReference, setDataReference] = useState<TMarkerAndWindowReference>('initial')
 
 	// 좌표를 받아오면 "초기 위치" 설정 & "마커와 인포윈도우 초기 리스트" 생성
 	useEffect(() => {
@@ -26,7 +23,11 @@ const LocationInfo = () => {
 				currentCoordinate.longitude
 			)
 			setMarkerAndWindowInfoList([
-				{ markerPosition: currentPosition, windowContent: '현재 위치', isWindowOpen: true },
+				{
+					markerPosition: currentPosition,
+					windowContent: '현재 위치',
+					isWindowOpen: true,
+				},
 			])
 			setInitialPosition(currentCoordinate)
 		}
@@ -38,11 +39,16 @@ const LocationInfo = () => {
 				<PageDescription type={'locationWrite'} />
 			</section>
 			<section className="flex flex-col grow">
-				<LocationSearchBar setMarkerAndWindowInfoList={setMarkerAndWindowInfoList} />
+				<LocationSearchBar
+					setDataReference={setDataReference}
+					setMarkerAndWindowInfoList={setMarkerAndWindowInfoList}
+				/>
 
 				{initialPosition ? (
 					<KakaoMap
 						initialPosition={initialPosition}
+						dataReference={dataReference}
+						setDataReference={setDataReference}
 						markerAndWindowInfoList={markerAndWindowInfoList}
 						setMarkerAndWindowInfoList={setMarkerAndWindowInfoList}
 					/>
