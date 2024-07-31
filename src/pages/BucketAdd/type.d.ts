@@ -36,6 +36,8 @@ declare namespace kakao.maps {
 	class Marker {
 		constructor(options?: MarkerOptions)
 		setMap(map: Map | null): void
+		setTitle(title: string): void
+		getTitle(): string
 		setPosition(position: LatLng): void
 		getPosition(): LatLng
 	}
@@ -129,7 +131,9 @@ declare namespace kakao.maps {
 	}
 
 	interface MarkerOptions {
+		title?: string
 		position?: LatLng
+		clickable?: boolean
 	}
 
 	interface InfoWindowOptions {
@@ -143,10 +147,11 @@ declare namespace kakao.maps {
 	}
 }
 
-interface IMarkerAndWindowInfo {
+interface IMarkerInfo {
+	title?: string
 	markerPosition: LatLng
-	windowContent: string
-	isWindowOpen: boolean
 }
+
+type IInfoWindow = Record<string, InfoWindow>
 
 type TMarkerAndWindowReference = 'searched' | 'initial' | 'clicked'

@@ -4,14 +4,11 @@ import { bgColorClass } from '../../../../utilities/constants/dynamicClass'
 import { IoLocationSharp } from 'react-icons/io5'
 
 interface ILocationSearchBarProps {
-	setMarkerAndWindowInfoList: React.Dispatch<React.SetStateAction<IMarkerAndWindowInfo[]>>
-	setDataReference: React.Dispatch<React.SetStateAction<TMarkerAndWindowReference>>
+	setMarkerInfoList: React.Dispatch<React.SetStateAction<IMarkerInfo[]>>
+	setDataReference: React.Dispatch<React.SetStateAction<TMarkerAndWindowReference | null>>
 }
 
-const LocationSearchBar = ({
-	setMarkerAndWindowInfoList,
-	setDataReference,
-}: ILocationSearchBarProps) => {
+const LocationSearchBar = ({ setMarkerInfoList, setDataReference }: ILocationSearchBarProps) => {
 	const placeSearch = useRef<kakao.maps.services.Places | null>(null)
 
 	useEffect(() => {
@@ -26,19 +23,19 @@ const LocationSearchBar = ({
 
 		if (placeSearch.current) {
 			placeSearch.current.keywordSearch(searchWord, (result, status) => {
-				const searchResultList = [] as IMarkerAndWindowInfo[]
+				const searchResultList = [] as IMarkerInfo[]
+
+				// 검색 결과가 있다면
 				if (status === kakao.maps.services.Status.OK) {
 					// 검색 결과를 결과 저장 리스트에 추가
 					result.forEach((place) => {
 						searchResultList.push({
 							markerPosition: new kakao.maps.LatLng(Number(place.y), Number(place.x)),
-							windowContent:
-								'<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>',
-							isWindowOpen: false,
+							title: place.place_name,
 						})
 					})
 				}
-				setMarkerAndWindowInfoList(searchResultList)
+				setMarkerInfoList(searchResultList)
 				setDataReference('searched')
 			})
 		}

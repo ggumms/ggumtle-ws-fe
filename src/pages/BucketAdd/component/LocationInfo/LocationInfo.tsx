@@ -5,6 +5,8 @@ import LocationNextButton from './LocationNextButton'
 import LocationSearchBar from './LocationSearchBar'
 import { useGetCurrentPosition } from '../../hook'
 
+const INITIAL_MARKER_TITLE = '현재 위치'
+
 const LocationInfo = () => {
 	const currentCoordinate = useGetCurrentPosition()
 
@@ -12,8 +14,9 @@ const LocationInfo = () => {
 		latitude: number
 		longitude: number
 	} | null>(null)
-	const [markerAndWindowInfoList, setMarkerAndWindowInfoList] = useState<IMarkerAndWindowInfo[]>([])
-	const [dataReference, setDataReference] = useState<TMarkerAndWindowReference>('initial')
+	const [markerInfoList, setMarkerInfoList] = useState<IMarkerInfo[]>([])
+	const [activeMarkerTitle, setActiveMarkerTitle] = useState<string>('')
+	const [dataReference, setDataReference] = useState<TMarkerAndWindowReference | null>(null)
 
 	// 좌표를 받아오면 "초기 위치" 설정 & "마커와 인포윈도우 초기 리스트" 생성
 	useEffect(() => {
@@ -22,13 +25,14 @@ const LocationInfo = () => {
 				currentCoordinate.latitude,
 				currentCoordinate.longitude
 			)
-			setMarkerAndWindowInfoList([
+			setMarkerInfoList([
 				{
+					title: INITIAL_MARKER_TITLE,
 					markerPosition: currentPosition,
-					windowContent: '현재 위치',
-					isWindowOpen: true,
 				},
 			])
+			setDataReference('initial')
+
 			setInitialPosition(currentCoordinate)
 		}
 	}, [currentCoordinate])
@@ -41,7 +45,7 @@ const LocationInfo = () => {
 			<section className="flex flex-col grow">
 				<LocationSearchBar
 					setDataReference={setDataReference}
-					setMarkerAndWindowInfoList={setMarkerAndWindowInfoList}
+					setMarkerInfoList={setMarkerInfoList}
 				/>
 
 				{initialPosition ? (
@@ -49,8 +53,10 @@ const LocationInfo = () => {
 						initialPosition={initialPosition}
 						dataReference={dataReference}
 						setDataReference={setDataReference}
-						markerAndWindowInfoList={markerAndWindowInfoList}
-						setMarkerAndWindowInfoList={setMarkerAndWindowInfoList}
+						activeMarkerTitle={activeMarkerTitle}
+						setActiveMarkerTitle={setActiveMarkerTitle}
+						markerInfoList={markerInfoList}
+						setMarkerInfoList={setMarkerInfoList}
 					/>
 				) : (
 					<p>지도 로딩 중...</p>
