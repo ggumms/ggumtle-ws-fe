@@ -5,7 +5,7 @@ import LocationNextButton from './LocationNextButton'
 import LocationSearchBar from './LocationSearchBar'
 import { useGetCurrentPosition } from '../../hook'
 
-const INITIAL_MARKER_TITLE = '현재 위치'
+const INITIAL_MARKER_TITLE = '버킷 플레이스'
 
 const LocationInfo = () => {
 	const currentCoordinate = useGetCurrentPosition()
@@ -25,6 +25,7 @@ const LocationInfo = () => {
 				currentCoordinate.latitude,
 				currentCoordinate.longitude
 			)
+
 			setMarkerInfoList([
 				{
 					title: INITIAL_MARKER_TITLE,
@@ -32,7 +33,6 @@ const LocationInfo = () => {
 				},
 			])
 			setDataReference('initial')
-
 			setInitialPosition(currentCoordinate)
 		}
 	}, [currentCoordinate])

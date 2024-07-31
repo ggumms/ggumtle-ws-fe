@@ -2,12 +2,12 @@ import NavigateButton from '../../../../component/NavigateButton'
 import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
 
 const LocationNextButton = () => {
-	const { selectedInfo } = useBucketStore()
-	const isDisable = !Object.values(selectedInfo).find((isSelected) => isSelected === true)
+	const { latitude, longitude } = useBucketStore()
+	const isDisable = latitude === null || longitude === null
 
 	return (
 		<>
-			<NavigateButton path="/bucket/write/main" isDisable={isDisable}>
+			<NavigateButton path="/bucket/write/additional" isDisable={isDisable}>
 				다음
 			</NavigateButton>
 		</>

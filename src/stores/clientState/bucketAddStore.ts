@@ -16,6 +16,7 @@ import {
 	IResetStateSlice,
 	IAddStateSlice,
 	ImageUrlType,
+	ILocationSLice,
 } from '../../types/bucket'
 
 declare module 'zustand' {
@@ -128,6 +129,19 @@ const createIsPrivateSlice: SlicePattern<IIsPrivateSlice> = (set) => ({
 		}),
 })
 
+const createLocationSlice: SlicePattern<ILocationSLice> = (set) => ({
+	latitude: null,
+	longitude: null,
+	changeCoordinate: (latitude: number | null, longitude: number | null) =>
+		set(() => {
+			return { latitude, longitude }
+		}),
+	resetCoordinate: () =>
+		set(() => {
+			return { latitude: null, longitude: null }
+		}),
+})
+
 const addBucketInfoSlices: StateCreator<
 	ICategorySlice &
 		IBucketColorSlice &
@@ -137,7 +151,8 @@ const addBucketInfoSlices: StateCreator<
 		IStartDateSlice &
 		IPeriodSlice &
 		IIsPrivateSlice &
-		IAddStateSlice,
+		IAddStateSlice &
+		ILocationSLice,
 	[['zustand/immer', never], ['zustand/devtools', never]],
 	[],
 	IAddStateSlice
@@ -153,6 +168,7 @@ const addBucketInfoSlices: StateCreator<
 		get().changeCreatedDate(bucketInfo.createdDate)
 		get().changePeriod(bucketInfo.reminderDate)
 		get().changeIsPrivate(bucketInfo.isPrivate)
+		get().changeCoordinate(bucketInfo.latitude, bucketInfo.longitude)
 	},
 })
 
@@ -165,7 +181,8 @@ const resetAllSlices: StateCreator<
 		IStartDateSlice &
 		IPeriodSlice &
 		IIsPrivateSlice &
-		IResetStateSlice,
+		IResetStateSlice &
+		ILocationSLice,
 	[['zustand/immer', never], ['zustand/devtools', never]],
 	[],
 	IResetStateSlice
@@ -179,6 +196,7 @@ const resetAllSlices: StateCreator<
 		get().resetCreatedDate()
 		get().resetPeriod()
 		get().resetIsPrivate()
+		get().resetCoordinate()
 	},
 })
 
@@ -195,7 +213,8 @@ export const useBucketStore = create<
 		IPeriodSlice &
 		IIsPrivateSlice &
 		IResetStateSlice &
-		IAddStateSlice
+		IAddStateSlice &
+		ILocationSLice
 >()(
 	devtools(
 		immer((...a) => ({
@@ -209,6 +228,7 @@ export const useBucketStore = create<
 			...createIsPrivateSlice(...a),
 			...resetAllSlices(...a),
 			...addBucketInfoSlices(...a),
+			...createLocationSlice(...a),
 		}))
 	)
 )

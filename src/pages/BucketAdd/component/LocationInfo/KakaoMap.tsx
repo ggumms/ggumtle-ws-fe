@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import './map.css'
+import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
 
 const CLICKED_MARKER_TITLE = '클릭한 위치'
-const INITIAL_MARKER_TITLE = '현재 위치'
+const INITIAL_MARKER_TITLE = '버킷 플레이스'
 
 interface IKakaoMapProps {
 	initialPosition: { latitude: number; longitude: number }
@@ -29,6 +30,8 @@ const KakaoMap = ({
 	// 지도 관련 state들
 	const [markerInterfaces, setMarkerInterfaces] = useState<kakao.maps.Marker[]>([]) // 지도에 표시될 마커와 인포윈도우 리스트
 	const [infoWindowInterfaces, setInfoWindowInterfaces] = useState<IInfoWindow>({})
+
+	const { changeCoordinate } = useBucketStore()
 
 	// 지도 클릭 이벤트 핸들러
 	// -> dataReference와 MarkerInfoList state를 변경
@@ -213,6 +216,10 @@ const KakaoMap = ({
 					return INITIAL_MARKER_TITLE
 				})
 				infoWindowInterfaces[INITIAL_MARKER_TITLE]?.open(mapInstance, markerInterfaces[0])
+				changeCoordinate(
+					infoWindowInterfaces[INITIAL_MARKER_TITLE].getPosition().getLat(),
+					infoWindowInterfaces[INITIAL_MARKER_TITLE].getPosition().getLng()
+				)
 				break
 			case 'clicked':
 				setActiveMarkerTitle((prev) => {
@@ -220,6 +227,10 @@ const KakaoMap = ({
 					return CLICKED_MARKER_TITLE
 				})
 				infoWindowInterfaces[CLICKED_MARKER_TITLE]?.open(mapInstance, markerInterfaces[0])
+				changeCoordinate(
+					infoWindowInterfaces[CLICKED_MARKER_TITLE].getPosition().getLat(),
+					infoWindowInterfaces[CLICKED_MARKER_TITLE].getPosition().getLng()
+				)
 				break
 			case 'searched': {
 				markerInterfaces.forEach((marker) => {
@@ -233,6 +244,7 @@ const KakaoMap = ({
 							return clickedMarkerTitle
 						})
 						infoWindowInterfaces[clickedMarkerTitle]?.open(mapInstance, marker)
+						changeCoordinate(marker.getPosition().getLat(), marker.getPosition().getLng())
 					})
 				})
 
