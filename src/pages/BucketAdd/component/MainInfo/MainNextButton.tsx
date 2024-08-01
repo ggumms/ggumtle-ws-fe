@@ -7,7 +7,7 @@ const MainNextButton = () => {
 
 	return (
 		<>
-			<NavigateButton path="/bucket/write/additional" isDisable={isDisable}>
+			<NavigateButton path="/bucket/write/location" isDisable={isDisable}>
 				다음
 			</NavigateButton>
 		</>

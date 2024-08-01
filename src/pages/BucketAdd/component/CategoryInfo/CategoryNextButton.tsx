@@ -7,7 +7,7 @@ const CategoryNextButton = () => {
 
 	return (
 		<>
-			<NavigateButton path="/bucket/write/location" isDisable={isDisable}>
+			<NavigateButton path="/bucket/write/main" isDisable={isDisable}>
 				다음
 			</NavigateButton>
 		</>
