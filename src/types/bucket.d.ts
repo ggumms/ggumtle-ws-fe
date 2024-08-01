@@ -39,6 +39,9 @@ export interface ILocationSLice {
 	longitude: number | null
 	changeCoordinate: (latitude: number | null, longitude: number | null) => void
 	resetCoordinate: () => void
+	infoWindowContent: string
+	changeInfoWindowContent: (content: string) => void
+	resetInfoWindowContent: () => void
 }
 
 type ImageUrlType = string

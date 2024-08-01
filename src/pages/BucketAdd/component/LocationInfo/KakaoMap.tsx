@@ -3,7 +3,7 @@ import './map.css'
 import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 
 const CLICKED_MARKER_TITLE = '클릭한 위치'
-const INITIAL_MARKER_TITLE = '버킷 플레이스'
+const INITIAL_MARKER_TITLE = '현재 위치'
 
 interface IKakaoMapProps {
 	initialPosition: { latitude: number; longitude: number }
@@ -31,7 +31,8 @@ const KakaoMap = ({
 	const [markerInterfaces, setMarkerInterfaces] = useState<kakao.maps.Marker[]>([]) // 지도에 표시될 마커와 인포윈도우 리스트
 	const [infoWindowInterfaces, setInfoWindowInterfaces] = useState<IInfoWindow>({})
 
-	const { changeCoordinate } = useBucketAddStore()
+	const { latitude, longitude, infoWindowContent, changeCoordinate, changeInfoWindowContent } =
+		useBucketAddStore()
 
 	// 지도 클릭 이벤트 핸들러
 	// -> dataReference와 MarkerInfoList state를 변경
@@ -121,11 +122,15 @@ const KakaoMap = ({
 
 				infoWindowResultObject[contentText] = new kakao.maps.InfoWindow({
 					position: markerInterfaces[0].getPosition(),
-					content: '<div style="padding:5px;font-size:12px;">' + INITIAL_MARKER_TITLE + '</div>',
+					content:
+						latitude && longitude
+							? infoWindowContent
+							: '<div style="padding:5px;font-size:12px;">' + INITIAL_MARKER_TITLE + '</div>',
 					zIndex: 1,
 				})
 
 				setInfoWindowInterfaces(infoWindowResultObject)
+
 				break
 			}
 			case 'clicked': {
@@ -150,7 +155,7 @@ const KakaoMap = ({
 
 							infoWindowResultObject[contentText] = new kakao.maps.InfoWindow({
 								position: markerInterfaces[0].getPosition(),
-								content: '<div style="padding:5px;font-size:12px;">' + content + '</div>',
+								content: content,
 								zIndex: 1,
 							})
 
@@ -220,6 +225,7 @@ const KakaoMap = ({
 					infoWindowInterfaces[INITIAL_MARKER_TITLE].getPosition().getLat(),
 					infoWindowInterfaces[INITIAL_MARKER_TITLE].getPosition().getLng()
 				)
+				changeInfoWindowContent(infoWindowInterfaces[INITIAL_MARKER_TITLE].getContent())
 				break
 			case 'clicked':
 				setActiveMarkerTitle((prev) => {
@@ -231,6 +237,7 @@ const KakaoMap = ({
 					infoWindowInterfaces[CLICKED_MARKER_TITLE].getPosition().getLat(),
 					infoWindowInterfaces[CLICKED_MARKER_TITLE].getPosition().getLng()
 				)
+				changeInfoWindowContent(infoWindowInterfaces[CLICKED_MARKER_TITLE].getContent())
 				break
 			case 'searched': {
 				markerInterfaces.forEach((marker) => {
@@ -245,6 +252,7 @@ const KakaoMap = ({
 						})
 						infoWindowInterfaces[clickedMarkerTitle]?.open(mapInstance, marker)
 						changeCoordinate(marker.getPosition().getLat(), marker.getPosition().getLng())
+						changeInfoWindowContent(infoWindowInterfaces[clickedMarkerTitle].getContent())
 					})
 				})
 

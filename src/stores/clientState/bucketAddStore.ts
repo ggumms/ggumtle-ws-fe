@@ -140,6 +140,15 @@ const createLocationSlice: SlicePattern<ILocationSLice> = (set) => ({
 		set(() => {
 			return { latitude: null, longitude: null }
 		}),
+	infoWindowContent: '',
+	changeInfoWindowContent: (content: string) =>
+		set(() => {
+			return { infoWindowContent: content }
+		}),
+	resetInfoWindowContent: () =>
+		set(() => {
+			return { infoWindowContent: '' }
+		}),
 })
 
 const addBucketInfoSlices: StateCreator<

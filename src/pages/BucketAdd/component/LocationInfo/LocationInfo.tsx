@@ -4,6 +4,7 @@ import KakaoMap from './KakaoMap'
 import LocationNextButton from './LocationNextButton'
 import LocationSearchBar from './LocationSearchBar'
 import { useGetCurrentPosition } from '../../hook'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 
 const INITIAL_MARKER_TITLE = '버킷 플레이스'
 
@@ -17,14 +18,15 @@ const LocationInfo = () => {
 	const [markerInfoList, setMarkerInfoList] = useState<IMarkerInfo[]>([])
 	const [activeMarkerTitle, setActiveMarkerTitle] = useState<string>('')
 	const [dataReference, setDataReference] = useState<TMarkerAndWindowReference | null>(null)
+	const { latitude, longitude } = useBucketAddStore()
 
 	// 좌표를 받아오면 "초기 위치" 설정 & "마커와 인포윈도우 초기 리스트" 생성
 	useEffect(() => {
 		if (currentCoordinate && initialPosition === null) {
-			const currentPosition = new kakao.maps.LatLng(
-				currentCoordinate.latitude,
-				currentCoordinate.longitude
-			)
+			const currentPosition =
+				latitude && longitude
+					? new kakao.maps.LatLng(latitude, longitude)
+					: new kakao.maps.LatLng(currentCoordinate.latitude, currentCoordinate.longitude)
 
 			setMarkerInfoList([
 				{

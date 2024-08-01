@@ -8,7 +8,8 @@ import { useRouter } from '../../hooks/useRouter'
 import WithHeaderLayout from '../../component/layout/WithHeaderLayout'
 
 const AddBucket = () => {
-	const { resetCategory, resetBucketColor } = useBucketAddStore()
+	const { resetCategory, resetBucketColor, resetCoordinate, resetInfoWindowContent } =
+		useBucketAddStore()
 	const { goBack } = useRouter()
 
 	// :: Header
@@ -26,6 +27,8 @@ const AddBucket = () => {
 		return () => {
 			resetCategory()
 			resetBucketColor()
+			resetCoordinate()
+			resetInfoWindowContent()
 		}
 	}, [resetCategory])
 
