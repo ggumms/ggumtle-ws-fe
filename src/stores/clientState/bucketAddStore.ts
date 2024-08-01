@@ -203,7 +203,7 @@ const resetAllSlices: StateCreator<
 // 버킷 정보를 관리하는 전역 State
 // - 버킷 생성
 // - 상세 버킷 조회
-export const useBucketStore = create<
+export const useBucketAddStore = create<
 	ICategorySlice &
 		IBucketColorSlice &
 		IBucketTitleSlice &

@@ -1,8 +1,8 @@
-import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 import NavigateButton from '../../../../component/NavigateButton'
 
 const MainNextButton = () => {
-	const { bucketColor, bucketTitle, timeCapsule } = useBucketStore()
+	const { bucketColor, bucketTitle, timeCapsule } = useBucketAddStore()
 	const isDisable = !(bucketColor && bucketTitle && timeCapsule)
 
 	return (

@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 import { isValidatePeriod } from '../../../../utilities/utils/typeFilter'
 import { MouseEvent } from 'react'
 import { PeriodType } from '../../../../interfaces'
@@ -14,7 +14,7 @@ const periodData = {
 }
 
 const RemindPeriod = () => {
-	const { period, changePeriod } = useBucketStore()
+	const { period, changePeriod } = useBucketAddStore()
 
 	const handleChangePeriod = (event: MouseEvent<HTMLButtonElement>) => {
 		const { period } = event.currentTarget.dataset

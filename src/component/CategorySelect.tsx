@@ -1,4 +1,4 @@
-// import { useBucketStore } from '../stores/bucketStore'
+// import { useBucketAddStore } from '../stores/bucketStore'
 import { isCategoryType } from '../utilities/utils/typeFilter'
 import { CategoryDataType, CategoryType, selectedInfoType } from '../interfaces'
 

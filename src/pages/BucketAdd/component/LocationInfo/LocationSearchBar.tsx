@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import colorPalette from '../../../../utilities/constants/colorPallet'
 import { bgColorClass } from '../../../../utilities/constants/dynamicClass'
 import { IoLocationSharp } from 'react-icons/io5'
-import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 
 interface ILocationSearchBarProps {
 	setMarkerInfoList: React.Dispatch<React.SetStateAction<IMarkerInfo[]>>
@@ -11,7 +11,7 @@ interface ILocationSearchBarProps {
 
 const LocationSearchBar = ({ setMarkerInfoList, setDataReference }: ILocationSearchBarProps) => {
 	const placeSearch = useRef<kakao.maps.services.Places | null>(null)
-	const { changeCoordinate } = useBucketStore()
+	const { changeCoordinate } = useBucketAddStore()
 
 	useEffect(() => {
 		placeSearch.current = new kakao.maps.services.Places()

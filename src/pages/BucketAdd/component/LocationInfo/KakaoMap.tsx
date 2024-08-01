@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import './map.css'
-import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 
 const CLICKED_MARKER_TITLE = '클릭한 위치'
 const INITIAL_MARKER_TITLE = '버킷 플레이스'
@@ -31,7 +31,7 @@ const KakaoMap = ({
 	const [markerInterfaces, setMarkerInterfaces] = useState<kakao.maps.Marker[]>([]) // 지도에 표시될 마커와 인포윈도우 리스트
 	const [infoWindowInterfaces, setInfoWindowInterfaces] = useState<IInfoWindow>({})
 
-	const { changeCoordinate } = useBucketStore()
+	const { changeCoordinate } = useBucketAddStore()
 
 	// 지도 클릭 이벤트 핸들러
 	// -> dataReference와 MarkerInfoList state를 변경

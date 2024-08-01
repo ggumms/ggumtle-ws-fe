@@ -3,11 +3,11 @@ import { isValidImageFile } from '../../../../utilities/utils/image'
 import { Picture } from '../../../../assets/svgs'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { IoCloseSharp } from 'react-icons/io5'
-import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 
 // image는 나중에 submit할 때 Post하기
 const BucketImage = () => {
-	const { bucketImage, changeBucketImage, resetBucketImage } = useBucketStore() // 서버에 전송하기 위한 state
+	const { bucketImage, changeBucketImage, resetBucketImage } = useBucketAddStore() // 서버에 전송하기 위한 state
 	const [imageSrc, setImageSrc] = useState('') // 화면에 표시하기 위한 state
 	const fileInputRef = useRef<HTMLInputElement>(null) // onChange를 제대로 동작 시키기 위해 사용
 

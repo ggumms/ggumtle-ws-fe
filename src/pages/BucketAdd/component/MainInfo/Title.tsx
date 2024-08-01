@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react'
-import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 
 const Title = () => {
-	const { bucketTitle, changeBucketTitle } = useBucketStore()
+	const { bucketTitle, changeBucketTitle } = useBucketAddStore()
 
 	const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
 		const input = event.currentTarget.value

@@ -1,8 +1,8 @@
 import NavigateButton from '../../../../component/NavigateButton'
-import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 
 const LocationNextButton = () => {
-	const { latitude, longitude } = useBucketStore()
+	const { latitude, longitude } = useBucketAddStore()
 	const isDisable = latitude === null || longitude === null
 
 	return (

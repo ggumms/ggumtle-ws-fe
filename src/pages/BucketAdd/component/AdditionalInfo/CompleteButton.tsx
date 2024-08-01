@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { IBaseBucketInfo } from '../../../../interfaces'
-import { useBucketStore } from '../../../../stores/clientState/bucketAddStore'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 import { postBucket, postBucketImage } from '../../api'
 import { formatDate } from '../../../../utilities/utils/date'
 import { getCurrentCategories } from '../../../../utilities/utils/category'
@@ -18,7 +18,7 @@ const CompleteButton = () => {
 		period,
 		isPrivate,
 		bucketImage,
-	} = useBucketStore()
+	} = useBucketAddStore()
 	const { routeTo } = useRouter()
 
 	let errorMessage = ''
