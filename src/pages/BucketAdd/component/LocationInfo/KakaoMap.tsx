@@ -11,7 +11,6 @@ interface IKakaoMapProps {
 	setMarkerInfoList: React.Dispatch<React.SetStateAction<IMarkerInfo[]>>
 	dataReference: TMarkerAndWindowReference | null
 	setDataReference: React.Dispatch<React.SetStateAction<TMarkerAndWindowReference | null>>
-	activeMarkerTitle: string
 	setActiveMarkerTitle: React.Dispatch<React.SetStateAction<string>>
 }
 
@@ -21,7 +20,6 @@ const KakaoMap = ({
 	setMarkerInfoList,
 	dataReference,
 	setDataReference,
-	// activeMarkerTitle,
 	setActiveMarkerTitle,
 }: IKakaoMapProps) => {
 	// 지도 관련 ref들

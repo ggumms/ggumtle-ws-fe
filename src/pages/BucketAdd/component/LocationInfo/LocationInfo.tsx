@@ -16,7 +16,7 @@ const LocationInfo = () => {
 		longitude: number
 	} | null>(null)
 	const [markerInfoList, setMarkerInfoList] = useState<IMarkerInfo[]>([])
-	const [activeMarkerTitle, setActiveMarkerTitle] = useState<string>('')
+	const [, setActiveMarkerTitle] = useState<string>('')
 	const [dataReference, setDataReference] = useState<TMarkerAndWindowReference | null>(null)
 	const { latitude, longitude } = useBucketAddStore()
 
@@ -55,7 +55,6 @@ const LocationInfo = () => {
 						initialPosition={initialPosition}
 						dataReference={dataReference}
 						setDataReference={setDataReference}
-						activeMarkerTitle={activeMarkerTitle}
 						setActiveMarkerTitle={setActiveMarkerTitle}
 						markerInfoList={markerInfoList}
 						setMarkerInfoList={setMarkerInfoList}
