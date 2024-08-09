@@ -18,6 +18,7 @@ const CompleteButton = () => {
 		period,
 		isPrivate,
 		bucketImage,
+		locationInfo: { latitude, longitude },
 	} = useBucketAddStore()
 	const { routeTo } = useRouter()
 
@@ -43,8 +44,8 @@ const CompleteButton = () => {
 			reminderDate: period,
 			category: getCurrentCategories(selectedInfo),
 			isPrivate,
-			longitude: null,
-			latitude: null,
+			longitude,
+			latitude,
 			address: null,
 		}
 	}, [bucketTitle, timeCapsule, bucketColor, createdDate, period, isPrivate, bucketImage])

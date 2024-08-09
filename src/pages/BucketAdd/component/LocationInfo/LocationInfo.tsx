@@ -18,7 +18,9 @@ const LocationInfo = () => {
 	const [markerInfoList, setMarkerInfoList] = useState<IMarkerInfo[]>([])
 	const [, setActiveMarkerTitle] = useState<string>('')
 	const [dataReference, setDataReference] = useState<TMarkerAndWindowReference | null>(null)
-	const { latitude, longitude } = useBucketAddStore()
+	const {
+		locationInfo: { latitude, longitude },
+	} = useBucketAddStore()
 
 	// 좌표를 받아오면 "초기 위치" 설정 & "마커와 인포윈도우 초기 리스트" 생성
 	useEffect(() => {

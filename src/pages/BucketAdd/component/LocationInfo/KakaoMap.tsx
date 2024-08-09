@@ -29,8 +29,11 @@ const KakaoMap = ({
 	const [markerInterfaces, setMarkerInterfaces] = useState<kakao.maps.Marker[]>([]) // 지도에 표시될 마커와 인포윈도우 리스트
 	const [infoWindowInterfaces, setInfoWindowInterfaces] = useState<IInfoWindow>({})
 
-	const { latitude, longitude, infoWindowContent, changeCoordinate, changeInfoWindowContent } =
-		useBucketAddStore()
+	// Todo: locationInf로 묶는게 좋을 것 같은데
+	const {
+		locationInfo: { latitude, longitude, infoWindowContent },
+		changeLocationInfo,
+	} = useBucketAddStore()
 
 	// 지도 클릭 이벤트 핸들러
 	// -> dataReference와 MarkerInfoList state를 변경
@@ -48,6 +51,7 @@ const KakaoMap = ({
 	)
 
 	// Note: 카카오맵 초기 설정
+	// Todo: 컴포넌트가 처음 마운트될 때, 초기 마커의 위치를 중심으로 지도를 이동시켜야 한다.
 	// - position을 받아올 때 한번만 생성하면된다.
 	useEffect(() => {
 		if (!window.kakao || !mapContainerRef.current) {
@@ -180,7 +184,6 @@ const KakaoMap = ({
 	}, [markerInterfaces, mapInstance])
 
 	// Note: 마커 정보가 갱신 되면 지도에 마커를 표시
-	// Todo: 마커를 여러개 표시해야한다면 마커 클릭 이벤트 핸들러 등록 작업을 추가적으로 진행
 	useEffect(() => {
 		if (!mapInstance || markerInterfaces.length === 0) return
 
@@ -219,11 +222,12 @@ const KakaoMap = ({
 					return INITIAL_MARKER_TITLE
 				})
 				infoWindowInterfaces[INITIAL_MARKER_TITLE]?.open(mapInstance, markerInterfaces[0])
-				changeCoordinate(
-					infoWindowInterfaces[INITIAL_MARKER_TITLE].getPosition().getLat(),
-					infoWindowInterfaces[INITIAL_MARKER_TITLE].getPosition().getLng()
-				)
-				changeInfoWindowContent(infoWindowInterfaces[INITIAL_MARKER_TITLE].getContent())
+				changeLocationInfo({
+					latitude: infoWindowInterfaces[INITIAL_MARKER_TITLE].getPosition().getLat(),
+					longitude: infoWindowInterfaces[INITIAL_MARKER_TITLE].getPosition().getLng(),
+					infoWindowContent: infoWindowInterfaces[INITIAL_MARKER_TITLE].getContent(),
+				})
+
 				break
 			case 'clicked':
 				setActiveMarkerTitle((prev) => {
@@ -231,11 +235,11 @@ const KakaoMap = ({
 					return CLICKED_MARKER_TITLE
 				})
 				infoWindowInterfaces[CLICKED_MARKER_TITLE]?.open(mapInstance, markerInterfaces[0])
-				changeCoordinate(
-					infoWindowInterfaces[CLICKED_MARKER_TITLE].getPosition().getLat(),
-					infoWindowInterfaces[CLICKED_MARKER_TITLE].getPosition().getLng()
-				)
-				changeInfoWindowContent(infoWindowInterfaces[CLICKED_MARKER_TITLE].getContent())
+				changeLocationInfo({
+					latitude: infoWindowInterfaces[CLICKED_MARKER_TITLE].getPosition().getLat(),
+					longitude: infoWindowInterfaces[CLICKED_MARKER_TITLE].getPosition().getLng(),
+					infoWindowContent: infoWindowInterfaces[CLICKED_MARKER_TITLE].getContent(),
+				})
 				break
 			case 'searched': {
 				markerInterfaces.forEach((marker) => {
@@ -249,8 +253,11 @@ const KakaoMap = ({
 							return clickedMarkerTitle
 						})
 						infoWindowInterfaces[clickedMarkerTitle]?.open(mapInstance, marker)
-						changeCoordinate(marker.getPosition().getLat(), marker.getPosition().getLng())
-						changeInfoWindowContent(infoWindowInterfaces[clickedMarkerTitle].getContent())
+						changeLocationInfo({
+							latitude: marker.getPosition().getLat(),
+							longitude: marker.getPosition().getLng(),
+							infoWindowContent: infoWindowInterfaces[clickedMarkerTitle].getContent(),
+						})
 					})
 				})
 

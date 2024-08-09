@@ -1,4 +1,4 @@
-import { create, SlicePattern, StateCreator } from 'zustand'
+import { create, StateCreator } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { ColorType, IBucketInfo, PeriodType } from '../../interfaces'
 import { defaultCategories } from '../../utilities/utils/category'
@@ -16,17 +16,16 @@ import {
 	IResetStateSlice,
 	IAddStateSlice,
 	ImageUrlType,
-	ILocationSLice,
+	ILocationSlice,
+	ILocationInfo,
 } from '../../types/bucket'
 
-declare module 'zustand' {
-	type SlicePattern<T, S = T> = StateCreator<
-		S & T,
-		[['zustand/immer', never], ['zustand/devtools', never]],
-		[],
-		T
-	>
-}
+type SlicePattern<T> = StateCreator<
+	T,
+	[['zustand/immer', never], ['zustand/devtools', never]],
+	[],
+	T
+>
 
 // immer 사용으로 인한 return문 제거
 const createSelectedCategorySlice: SlicePattern<ICategorySlice> = (set) => ({
@@ -129,26 +128,50 @@ const createIsPrivateSlice: SlicePattern<IIsPrivateSlice> = (set) => ({
 		}),
 })
 
-const createLocationSlice: SlicePattern<ILocationSLice> = (set) => ({
-	latitude: null,
-	longitude: null,
-	changeCoordinate: (latitude: number | null, longitude: number | null) =>
-		set(() => {
-			return { latitude, longitude }
+const createLocationSlice: SlicePattern<ILocationSlice> = (set) => ({
+	locationInfo: {
+		latitude: null,
+		longitude: null,
+		infoWindowContent: '',
+		address: '',
+		locationName: '',
+	},
+
+	changeLocationInfo: (newLocationInfo: Partial<ILocationInfo>) =>
+		set((state) => {
+			Object.keys(newLocationInfo).forEach((key) => {
+				const typedKey = key as keyof ILocationInfo
+				const newValue = newLocationInfo[typedKey]
+				if (key in state.locationInfo) {
+					if (newValue !== undefined) {
+						switch (typedKey) {
+							case 'latitude':
+							case 'longitude':
+								typeof newValue === 'number' && (state.locationInfo[typedKey] = newValue)
+								break
+							case 'infoWindowContent':
+							case 'address':
+							case 'locationName':
+								typeof newValue === 'string' && (state.locationInfo[typedKey] = newValue)
+								break
+						}
+					}
+				}
+			})
 		}),
-	resetCoordinate: () =>
+	resetLocationInfo: () => {
 		set(() => {
-			return { latitude: null, longitude: null }
-		}),
-	infoWindowContent: '',
-	changeInfoWindowContent: (content: string) =>
-		set(() => {
-			return { infoWindowContent: content }
-		}),
-	resetInfoWindowContent: () =>
-		set(() => {
-			return { infoWindowContent: '' }
-		}),
+			return {
+				locationInfo: {
+					latitude: null,
+					longitude: null,
+					infoWindowContent: '',
+					address: '',
+					locationName: '',
+				},
+			}
+		})
+	},
 })
 
 const addBucketInfoSlices: StateCreator<
@@ -161,7 +184,7 @@ const addBucketInfoSlices: StateCreator<
 		IPeriodSlice &
 		IIsPrivateSlice &
 		IAddStateSlice &
-		ILocationSLice,
+		ILocationSlice,
 	[['zustand/immer', never], ['zustand/devtools', never]],
 	[],
 	IAddStateSlice
@@ -177,7 +200,12 @@ const addBucketInfoSlices: StateCreator<
 		get().changeCreatedDate(bucketInfo.createdDate)
 		get().changePeriod(bucketInfo.reminderDate)
 		get().changeIsPrivate(bucketInfo.isPrivate)
-		get().changeCoordinate(bucketInfo.latitude, bucketInfo.longitude)
+		get().changeLocationInfo({
+			longitude: bucketInfo.longitude,
+			latitude: bucketInfo.latitude,
+			address: bucketInfo.address ? bucketInfo.address : '',
+			locationName: '',
+		})
 	},
 })
 
@@ -191,7 +219,7 @@ const resetAllSlices: StateCreator<
 		IPeriodSlice &
 		IIsPrivateSlice &
 		IResetStateSlice &
-		ILocationSLice,
+		ILocationSlice,
 	[['zustand/immer', never], ['zustand/devtools', never]],
 	[],
 	IResetStateSlice
@@ -205,7 +233,7 @@ const resetAllSlices: StateCreator<
 		get().resetCreatedDate()
 		get().resetPeriod()
 		get().resetIsPrivate()
-		get().resetCoordinate()
+		get().resetLocationInfo()
 	},
 })
 
@@ -223,7 +251,7 @@ export const useBucketAddStore = create<
 		IIsPrivateSlice &
 		IResetStateSlice &
 		IAddStateSlice &
-		ILocationSLice
+		ILocationSlice
 >()(
 	devtools(
 		immer((...a) => ({

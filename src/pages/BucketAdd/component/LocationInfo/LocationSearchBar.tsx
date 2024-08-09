@@ -11,7 +11,7 @@ interface ILocationSearchBarProps {
 
 const LocationSearchBar = ({ setMarkerInfoList, setDataReference }: ILocationSearchBarProps) => {
 	const placeSearch = useRef<kakao.maps.services.Places | null>(null)
-	const { changeCoordinate, changeInfoWindowContent } = useBucketAddStore()
+	const { changeLocationInfo } = useBucketAddStore()
 
 	useEffect(() => {
 		placeSearch.current = new kakao.maps.services.Places()
@@ -39,8 +39,11 @@ const LocationSearchBar = ({ setMarkerInfoList, setDataReference }: ILocationSea
 				}
 				setMarkerInfoList(searchResultList)
 				setDataReference('searched')
-				changeCoordinate(null, null)
-				changeInfoWindowContent('')
+				changeLocationInfo({
+					latitude: null,
+					longitude: null,
+					infoWindowContent: '',
+				})
 			})
 		}
 	}
