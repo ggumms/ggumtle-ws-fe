@@ -28,3 +28,22 @@ export const useGetCurrentPosition = (): ICoordinate | null => {
 
 	return coordinate
 }
+
+export const useGetCurrentAddress = (latitude: number | null, longitude: number | null) => {
+	const [defaultAddress, setDefaultAddress] = useState<string | null>(null)
+	const [loadAddress, setLoadAddress] = useState<string | null>(null)
+
+	useEffect(() => {
+		if (latitude && longitude) {
+			const geocoder = new kakao.maps.services.Geocoder()
+			geocoder.coord2Address(longitude, latitude, (result, status) => {
+				if (status === kakao.maps.services.Status.OK) {
+					setDefaultAddress(result[0].address.address_name)
+					result[0].road_address && setLoadAddress(result[0].road_address.address_name)
+				}
+			})
+		}
+	}, [latitude, longitude])
+
+	return { defaultAddress, loadAddress }
+}
