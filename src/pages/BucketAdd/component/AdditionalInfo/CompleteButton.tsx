@@ -18,13 +18,14 @@ const CompleteButton = () => {
 		period,
 		isPrivate,
 		bucketImage,
-		locationInfo: { latitude, longitude },
+		locationInfo: { latitude, longitude, address, locationName },
 	} = useBucketAddStore()
 	const { routeTo } = useRouter()
 
+	// Todo: useRef로 변경하기
 	let errorMessage = ''
 
-	const bucketData: IBaseBucketInfo | null = useMemo(() => {
+	const bucketDataWithoutImage: IBaseBucketInfo | null = useMemo(() => {
 		if (getCurrentCategories(selectedInfo).length === 0) {
 			errorMessage = '카테고리를 선택해주세요!'
 			return null
@@ -46,18 +47,19 @@ const CompleteButton = () => {
 			isPrivate,
 			longitude,
 			latitude,
-			address: null,
+			address,
+			locationName,
 		}
-	}, [bucketTitle, timeCapsule, bucketColor, createdDate, period, isPrivate, bucketImage])
+	}, [bucketTitle, timeCapsule, bucketColor, createdDate, period, isPrivate])
 
 	const handleSubmitBucket = async () => {
-		if (bucketData === null) {
+		if (bucketDataWithoutImage === null) {
 			alert(errorMessage)
 			return
 		}
 
 		// 1. 버킷 정보 먼저 전송
-		const bucketId = await postBucket(bucketData)
+		const bucketId = await postBucket(bucketDataWithoutImage)
 		// 2. 전송 성공 시 이미지 정보가 있다면 정보 전송
 		if (bucketId && bucketImage instanceof File) {
 			const imageFormData = new FormData()

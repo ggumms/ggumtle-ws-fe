@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import './map.css'
 import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
+import { useGetCurrentAddress } from '../../hook'
 
 const CLICKED_MARKER_TITLE = '클릭한 위치'
 const INITIAL_MARKER_TITLE = '현재 위치'
@@ -34,6 +35,12 @@ const KakaoMap = ({
 		locationInfo: { latitude, longitude, infoWindowContent },
 		changeLocationInfo,
 	} = useBucketAddStore()
+
+	const { defaultAddress, loadAddress } = useGetCurrentAddress(latitude, longitude)
+
+	useEffect(() => {
+		changeLocationInfo({ address: loadAddress ?? defaultAddress ?? '' })
+	}, [defaultAddress, loadAddress])
 
 	// 지도 클릭 이벤트 핸들러
 	// -> dataReference와 MarkerInfoList state를 변경
@@ -226,6 +233,7 @@ const KakaoMap = ({
 					latitude: infoWindowInterfaces[INITIAL_MARKER_TITLE].getPosition().getLat(),
 					longitude: infoWindowInterfaces[INITIAL_MARKER_TITLE].getPosition().getLng(),
 					infoWindowContent: infoWindowInterfaces[INITIAL_MARKER_TITLE].getContent(),
+					locationName: '',
 				})
 
 				break
@@ -239,6 +247,7 @@ const KakaoMap = ({
 					latitude: infoWindowInterfaces[CLICKED_MARKER_TITLE].getPosition().getLat(),
 					longitude: infoWindowInterfaces[CLICKED_MARKER_TITLE].getPosition().getLng(),
 					infoWindowContent: infoWindowInterfaces[CLICKED_MARKER_TITLE].getContent(),
+					locationName: '',
 				})
 				break
 			case 'searched': {
@@ -257,6 +266,7 @@ const KakaoMap = ({
 							latitude: marker.getPosition().getLat(),
 							longitude: marker.getPosition().getLng(),
 							infoWindowContent: infoWindowInterfaces[clickedMarkerTitle].getContent(),
+							locationName: marker.getTitle(),
 						})
 					})
 				})
