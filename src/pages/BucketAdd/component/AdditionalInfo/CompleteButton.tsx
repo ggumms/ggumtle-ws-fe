@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 import { IBaseBucketInfo } from '../../../../interfaces'
 import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 import { postBucket, postBucketImage } from '../../api'
@@ -22,18 +22,17 @@ const CompleteButton = () => {
 	} = useBucketAddStore()
 	const { routeTo } = useRouter()
 
-	// Todo: useRef로 변경하기
-	let errorMessage = ''
+	const errorMessageRef = useRef<string>('')
 
 	const bucketDataWithoutImage: IBaseBucketInfo | null = useMemo(() => {
 		if (getCurrentCategories(selectedInfo).length === 0) {
-			errorMessage = '카테고리를 선택해주세요!'
+			errorMessageRef.current = '카테고리를 선택해주세요!'
 			return null
 		} else if (bucketColor === null) {
-			errorMessage = '색상을 선택해주세요!'
+			errorMessageRef.current = '색상을 선택해주세요!'
 			return null
 		} else if (bucketTitle.length === 0) {
-			errorMessage = '제목을 입력해주세요!'
+			errorMessageRef.current = '제목을 입력해주세요!'
 			return null
 		}
 
@@ -54,7 +53,7 @@ const CompleteButton = () => {
 
 	const handleSubmitBucket = async () => {
 		if (bucketDataWithoutImage === null) {
-			alert(errorMessage)
+			alert(errorMessageRef.current)
 			return
 		}
 
