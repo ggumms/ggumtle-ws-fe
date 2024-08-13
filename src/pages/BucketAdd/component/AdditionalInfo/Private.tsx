@@ -1,9 +1,9 @@
 import { GoCheckCircleFill } from 'react-icons/go'
 import { GoCheckCircle } from 'react-icons/go'
-import { useBucketStore } from '../../../../../stores/bucketStore'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 
 const Private = () => {
-	const { isPrivate, changeIsPrivate } = useBucketStore()
+	const { isPrivate, changeIsPrivate } = useBucketAddStore()
 
 	const handleClickRadio = () => {
 		changeIsPrivate(!isPrivate)

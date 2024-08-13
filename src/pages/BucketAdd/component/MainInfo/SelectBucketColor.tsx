@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo } from 'react'
-import Ggumtle from '../../../../../component/Ggumtle'
+import Ggumtle from '../../../../component/Ggumtle'
 
-import { useBucketStore } from '../../../../../stores/bucketStore'
-import { categoryData } from '../../../../../utilities/utils/category'
-import { isCategoryType, isColorType } from '../../../../../utilities/utils/typeFilter'
-import { CategoryType } from '../../../../../interfaces'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
+import { categoryData } from '../../../../utilities/utils/category'
+import { isCategoryType, isColorType } from '../../../../utilities/utils/typeFilter'
+import { CategoryType } from '../../../../interfaces'
 
 const SelectBucketColor = () => {
-	const { selectedInfo, bucketColor, changeBucketColor } = useBucketStore()
+	const { selectedInfo, bucketColor, changeBucketColor } = useBucketAddStore()
 
 	const selectedColorList = useMemo(
 		() =>

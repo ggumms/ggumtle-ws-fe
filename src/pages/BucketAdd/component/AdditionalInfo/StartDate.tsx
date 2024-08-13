@@ -1,13 +1,13 @@
 import { Fragment, useState } from 'react'
 import DatePicker from './DatePicker'
 import { Dialog, Transition } from '@headlessui/react'
-import { useBucketStore } from '../../../../../stores/bucketStore'
-import { formatDate } from '../../../../../utilities/utils/date'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
+import { formatDate } from '../../../../utilities/utils/date'
 
 // createdDate로 이름 변경 필요
 const StartDate = () => {
 	const [isOpen, setIsOpen] = useState(false)
-	const { createdDate, changeCreatedDate } = useBucketStore()
+	const { createdDate, changeCreatedDate } = useBucketAddStore()
 
 	const handleCloseDatePicker = () => {
 		setIsOpen(false)

@@ -3,7 +3,7 @@ interface IPageDescription {
 	desc1?: string
 	desc2?: string
 }
-type PageType = 'categoryWrite' | 'categoryJoin' | 'placeWrite' | 'additionalWrite'
+type PageType = 'categoryWrite' | 'categoryJoin' | 'locationWrite' | 'additionalWrite'
 type PageDescriptionDataType = Record<PageType, IPageDescription>
 
 const pageDescriptionData: PageDescriptionDataType = {
@@ -13,7 +13,7 @@ const pageDescriptionData: PageDescriptionDataType = {
 		desc2: '경험해보고 싶었던, 경험해보고 싶은 분야의 버킷리스트들을 받아보세요!',
 	},
 	categoryWrite: { title: '카테고리 선택', desc1: '어떤 종류의 꿈을 꾸고 계신가요?' },
-	placeWrite: {
+	locationWrite: {
 		title: '이루고 싶은 꿈의 위치를 지정해 주세요',
 		desc1: '주소를 검색하고 지도로 상세 위치를 지정해 주세요',
 	},

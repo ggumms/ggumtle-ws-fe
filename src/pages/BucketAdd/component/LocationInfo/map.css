@@ -1,0 +1,41 @@
+.infowindow {
+	width: 200px;
+	height: 100px;
+}
+
+.customoverlay {
+	position: relative;
+	bottom: 80px;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+	border-bottom: 2px solid #ddd;
+	float: left;
+}
+
+.customoverlay a {
+	display: block;
+	text-decoration: none;
+	color: #000;
+	text-align: center;
+	border-radius: 6px;
+	font-size: 14px;
+	font-weight: bold;
+	overflow: hidden;
+	background: #fff;
+	background: linear-gradient(
+		to bottom,
+		rgba(255, 255, 255, 0.9) 0%,
+		rgba(255, 255, 255, 0.9) 100%
+	);
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.customoverlay .title {
+	display: block;
+	text-align: center;
+	background: #fff;
+	margin-right: 35px;
+	padding: 10px 15px;
+	font-size: 14px;
+	font-weight: bold;
+}

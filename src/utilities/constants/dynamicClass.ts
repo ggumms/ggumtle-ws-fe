@@ -1,6 +1,7 @@
 import { ClassType } from '../../interfaces'
 
 export const bgColorClass: ClassType = {
+	inputBg: 'bg-inputBg',
 	unActive: 'bg-unActive',
 	point1: 'bg-point1',
 	green: 'bg-green',

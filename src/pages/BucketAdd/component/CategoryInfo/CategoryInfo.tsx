@@ -1,11 +1,11 @@
-import CategorySelect from '../../../../../component/CategorySelect'
-import { categoryData } from '../../../../../utilities/utils/category'
-import PageDescription from '../../../../../component/PageDescription'
+import CategorySelect from '../../../../component/CategorySelect'
+import { categoryData } from '../../../../utilities/utils/category'
+import PageDescription from '../../../../component/PageDescription'
 import CategoryNextButton from './CategoryNextButton'
-import { useBucketStore } from '../../../../../stores/bucketStore'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 
 const CategoryInfo = () => {
-	const { selectedInfo, addCategory, removeCategory } = useBucketStore()
+	const { selectedInfo, addCategory, removeCategory } = useBucketAddStore()
 
 	return (
 		<section className="flex flex-col h-full pt-12 pb-10 grow">

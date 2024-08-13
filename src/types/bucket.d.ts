@@ -34,6 +34,19 @@ export interface ITimeCapsuleSlice {
 	resetTimeCapsule: () => void
 }
 
+export interface ILocationInfo {
+	latitude: number | null
+	longitude: number | null
+	infoWindowContent: string
+	address: string
+	locationName: string
+}
+export interface ILocationSlice {
+	locationInfo: ILocationInfo
+	changeLocationInfo: (newLocationInfo: Partial<ILocationInfo>) => void
+	resetLocationInfo: () => void
+}
+
 type ImageUrlType = string
 
 export interface IBucketImageSlice {

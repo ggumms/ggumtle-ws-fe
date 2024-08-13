@@ -1,16 +1,34 @@
 import { Router as RemixRouter } from '@remix-run/router/dist/router'
 import { createBrowserRouter } from 'react-router-dom'
 
-import AddBucket from './pages/Bucket/AddBucket'
-import MainInfo from './pages/Bucket/AddBucket/component/MainInfo/MainInfo'
-import CategoryInfo from './pages/Bucket/AddBucket/component/CategoryInfo/CategoryInfo'
-import AdditionalInfo from './pages/Bucket/AddBucket/component/AdditionalInfo'
+// import FollowingTab from './pages/Radar/FollowingTab'
+// import AllTab from './pages/Radar/AllTab'
+// import Radar from './pages/Radar'
+// import AlarmPage from './pages/Alarm'
+// import SearchPage from './pages/Search'
+// import UserSearch from './pages/Search/UserSearch'
+// import BucketSearch from './pages/Search/BucketSearch'
+// import ReviewSearch from './pages/Search/ReviewSearch'
+// import UserPage from './pages/UserPage'
+// import BucketDetail from './pages/BucketDetail'
+import AddBucket from './pages/BucketAdd'
+import MainInfo from './pages/BucketAdd/component/MainInfo/MainInfo'
+import CategoryInfo from './pages/BucketAdd/component/CategoryInfo/CategoryInfo'
+import AdditionalInfo from './pages/BucketAdd/component/AdditionalInfo'
 import { MultiPageHeaderInfo } from './types/router'
 import NotFoundPage from './pages/NotfoundPage'
-
+// import ValidateTokenLayout from './component/layout/ValidateTokenLayout'
+// import WriteReview from './pages/Review/WriteReview'
+// import FollowDetail from './pages/follow'
+// import FollowerDetail from './pages/follow/FollowerDetail'
+// import FollowingDetail from './pages/follow/FollowingDetail'
+// import ReviewDetail from './pages/Review/ReviewDetail'
+// import AchieveBucket from './pages/BucketAchievement'
+// import CongratulateBucket from './pages/BucketCongratulation'
 import LoginPage from './pages/Login'
 import JoinPage from './pages/Join'
 import UserProfileEdit from './pages/UserProfileEdit'
+import LocationInfo from './pages/BucketAdd/component/LocationInfo/LocationInfo'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -64,7 +82,7 @@ const routerData: RouterElement[] = [
 				label: '카테고리',
 			},
 			{ path: 'main', element: <MainInfo />, label: '꿈내용' },
-			// { path: 'place', element: <PlaceInfo />, label: '장소' },
+			{ path: 'location', element: <LocationInfo />, label: '장소' },
 			{ path: 'additional', element: <AdditionalInfo />, label: '추가정보' },
 		],
 	},
@@ -84,7 +102,7 @@ const routerData: RouterElement[] = [
 				label: '카테고리',
 			},
 			{ path: 'main', element: <MainInfo />, label: '꿈내용' },
-			// { path: 'place', element: <PlaceInfo />, label: '장소' },
+			{ path: 'location', element: <LocationInfo />, label: '장소' },
 			{ path: 'additional', element: <AdditionalInfo />, label: '추가정보' },
 		],
 	},
@@ -130,7 +148,6 @@ export const addBucketHeaderList: MultiPageHeaderInfo[] = routerData.reduce((pre
 	}
 	return [...prev]
 }, [] as MultiPageHeaderInfo[])
-// export const addBucketHeaderList: MultiPageHeaderInfo[] = routerData
 
 export const mainHeaderList: MultiPageHeaderInfo[] = routerData.reduce((prev, router) => {
 	let headerData

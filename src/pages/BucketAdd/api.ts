@@ -1,8 +1,8 @@
 // :: Bucket
 
 // import axios from 'axios'
-import { instance, multipartInstance } from '../../../axios'
-import { IBaseBucketInfo } from '../../../interfaces'
+import { instance, multipartInstance } from '../../axios'
+import { IBaseBucketInfo } from '../../interfaces'
 
 // - Post Request
 interface IPostBucketRes {
