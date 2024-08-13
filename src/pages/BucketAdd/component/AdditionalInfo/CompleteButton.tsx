@@ -1,11 +1,10 @@
-import { useMemo } from 'react'
-import { IBaseBucketInfo } from '../../../../../interfaces'
-import { useBucketStore } from '../../../../../stores/bucketStore'
+import { useMemo, useRef } from 'react'
+import { IBaseBucketInfo } from '../../../../interfaces'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 import { postBucket, postBucketImage } from '../../api'
-import { formatDate } from '../../../../../utilities/utils/date'
-import { getCurrentCategories } from '../../../../../utilities/utils/category'
-import { useRouter } from '../../../../../hooks/useRouter'
-// import { deleteBucket } from '../../../BucketDetail/api'
+import { formatDate } from '../../../../utilities/utils/date'
+import { getCurrentCategories } from '../../../../utilities/utils/category'
+import { useRouter } from '../../../../hooks/useRouter'
 
 // Todo: 추후에는 이전 페이지 기록 기능을 추가해서 이전 페이지로 이동하게 만들기
 const CompleteButton = () => {
@@ -18,20 +17,21 @@ const CompleteButton = () => {
 		period,
 		isPrivate,
 		bucketImage,
-	} = useBucketStore()
+		locationInfo: { latitude, longitude, address, locationName },
+	} = useBucketAddStore()
 	const { routeTo } = useRouter()
 
-	let errorMessage = ''
+	const errorMessageRef = useRef<string>('')
 
-	const bucketData: IBaseBucketInfo | null = useMemo(() => {
+	const bucketDataWithoutImage: IBaseBucketInfo | null = useMemo(() => {
 		if (getCurrentCategories(selectedInfo).length === 0) {
-			errorMessage = '카테고리를 선택해주세요!'
+			errorMessageRef.current = '카테고리를 선택해주세요!'
 			return null
 		} else if (bucketColor === null) {
-			errorMessage = '색상을 선택해주세요!'
+			errorMessageRef.current = '색상을 선택해주세요!'
 			return null
 		} else if (bucketTitle.length === 0) {
-			errorMessage = '제목을 입력해주세요!'
+			errorMessageRef.current = '제목을 입력해주세요!'
 			return null
 		}
 
@@ -43,20 +43,21 @@ const CompleteButton = () => {
 			reminderDate: period,
 			category: getCurrentCategories(selectedInfo),
 			isPrivate,
-			longitude: null,
-			latitude: null,
-			address: null,
+			longitude,
+			latitude,
+			address,
+			locationName,
 		}
-	}, [bucketTitle, timeCapsule, bucketColor, createdDate, period, isPrivate, bucketImage])
+	}, [bucketTitle, timeCapsule, bucketColor, createdDate, period, isPrivate])
 
 	const handleSubmitBucket = async () => {
-		if (bucketData === null) {
-			alert(errorMessage)
+		if (bucketDataWithoutImage === null) {
+			alert(errorMessageRef.current)
 			return
 		}
 
 		// 1. 버킷 정보 먼저 전송
-		const bucketId = await postBucket(bucketData)
+		const bucketId = await postBucket(bucketDataWithoutImage)
 		// 2. 전송 성공 시 이미지 정보가 있다면 정보 전송
 		if (bucketId && bucketImage instanceof File) {
 			const imageFormData = new FormData()

@@ -1,7 +1,7 @@
-import { create, SlicePattern, StateCreator } from 'zustand'
+import { create, StateCreator } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { ColorType, IBucketInfo, PeriodType } from '../interfaces'
-import { defaultCategories } from '../utilities/utils/category'
+import { ColorType, IBucketInfo, PeriodType } from '../../interfaces'
+import { defaultCategories } from '../../utilities/utils/category'
 import { immer } from 'zustand/middleware/immer'
 import { startOfToday } from 'date-fns'
 import {
@@ -16,16 +16,16 @@ import {
 	IResetStateSlice,
 	IAddStateSlice,
 	ImageUrlType,
-} from '../types/bucket'
+	ILocationSlice,
+	ILocationInfo,
+} from '../../types/bucket'
 
-declare module 'zustand' {
-	type SlicePattern<T, S = T> = StateCreator<
-		S & T,
-		[['zustand/immer', never], ['zustand/devtools', never]],
-		[],
-		T
-	>
-}
+type SlicePattern<T> = StateCreator<
+	T,
+	[['zustand/immer', never], ['zustand/devtools', never]],
+	[],
+	T
+>
 
 // immer 사용으로 인한 return문 제거
 const createSelectedCategorySlice: SlicePattern<ICategorySlice> = (set) => ({
@@ -128,6 +128,52 @@ const createIsPrivateSlice: SlicePattern<IIsPrivateSlice> = (set) => ({
 		}),
 })
 
+const createLocationSlice: SlicePattern<ILocationSlice> = (set) => ({
+	locationInfo: {
+		latitude: null,
+		longitude: null,
+		infoWindowContent: '',
+		address: '',
+		locationName: '',
+	},
+
+	changeLocationInfo: (newLocationInfo: Partial<ILocationInfo>) =>
+		set((state) => {
+			Object.keys(newLocationInfo).forEach((key) => {
+				const typedKey = key as keyof ILocationInfo
+				const newValue = newLocationInfo[typedKey]
+				if (key in state.locationInfo) {
+					if (newValue !== undefined) {
+						switch (typedKey) {
+							case 'latitude':
+							case 'longitude':
+								typeof newValue === 'number' && (state.locationInfo[typedKey] = newValue)
+								break
+							case 'infoWindowContent':
+							case 'address':
+							case 'locationName':
+								typeof newValue === 'string' && (state.locationInfo[typedKey] = newValue)
+								break
+						}
+					}
+				}
+			})
+		}),
+	resetLocationInfo: () => {
+		set(() => {
+			return {
+				locationInfo: {
+					latitude: null,
+					longitude: null,
+					infoWindowContent: '',
+					address: '',
+					locationName: '',
+				},
+			}
+		})
+	},
+})
+
 const addBucketInfoSlices: StateCreator<
 	ICategorySlice &
 		IBucketColorSlice &
@@ -137,7 +183,8 @@ const addBucketInfoSlices: StateCreator<
 		IStartDateSlice &
 		IPeriodSlice &
 		IIsPrivateSlice &
-		IAddStateSlice,
+		IAddStateSlice &
+		ILocationSlice,
 	[['zustand/immer', never], ['zustand/devtools', never]],
 	[],
 	IAddStateSlice
@@ -153,6 +200,12 @@ const addBucketInfoSlices: StateCreator<
 		get().changeCreatedDate(bucketInfo.createdDate)
 		get().changePeriod(bucketInfo.reminderDate)
 		get().changeIsPrivate(bucketInfo.isPrivate)
+		get().changeLocationInfo({
+			longitude: bucketInfo.longitude,
+			latitude: bucketInfo.latitude,
+			address: bucketInfo.address ? bucketInfo.address : '',
+			locationName: '',
+		})
 	},
 })
 
@@ -165,7 +218,8 @@ const resetAllSlices: StateCreator<
 		IStartDateSlice &
 		IPeriodSlice &
 		IIsPrivateSlice &
-		IResetStateSlice,
+		IResetStateSlice &
+		ILocationSlice,
 	[['zustand/immer', never], ['zustand/devtools', never]],
 	[],
 	IResetStateSlice
@@ -179,13 +233,14 @@ const resetAllSlices: StateCreator<
 		get().resetCreatedDate()
 		get().resetPeriod()
 		get().resetIsPrivate()
+		get().resetLocationInfo()
 	},
 })
 
 // 버킷 정보를 관리하는 전역 State
 // - 버킷 생성
 // - 상세 버킷 조회
-export const useBucketStore = create<
+export const useBucketAddStore = create<
 	ICategorySlice &
 		IBucketColorSlice &
 		IBucketTitleSlice &
@@ -195,7 +250,8 @@ export const useBucketStore = create<
 		IPeriodSlice &
 		IIsPrivateSlice &
 		IResetStateSlice &
-		IAddStateSlice
+		IAddStateSlice &
+		ILocationSlice
 >()(
 	devtools(
 		immer((...a) => ({
@@ -209,6 +265,7 @@ export const useBucketStore = create<
 			...createIsPrivateSlice(...a),
 			...resetAllSlices(...a),
 			...addBucketInfoSlices(...a),
+			...createLocationSlice(...a),
 		}))
 	)
 )

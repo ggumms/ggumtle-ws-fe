@@ -1,8 +1,8 @@
-import NavigateButton from '../../../../../component/NavigateButton'
-import { useBucketStore } from '../../../../../stores/bucketStore'
+import NavigateButton from '../../../../component/NavigateButton'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 
 const CategoryNextButton = () => {
-	const { selectedInfo } = useBucketStore()
+	const { selectedInfo } = useBucketAddStore()
 	const isDisable = !Object.values(selectedInfo).find((isSelected) => isSelected === true)
 
 	return (

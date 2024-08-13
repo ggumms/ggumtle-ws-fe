@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react'
-import { useBucketStore } from '../../../../../stores/bucketStore'
+import { useBucketAddStore } from '../../../../stores/clientState/bucketAddStore'
 
 const TimeCapsule = () => {
-	const { timeCapsule, changeTimeCapsule } = useBucketStore()
+	const { timeCapsule, changeTimeCapsule } = useBucketAddStore()
 
 	const handleChangeTimeCapsule = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		const input = event.currentTarget.value
